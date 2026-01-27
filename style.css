@@ -157,11 +157,10 @@ nav a {
   padding: 1rem 1.5rem;
   /* Slight reduction for better mobile visual */
 
-  /* Liquid Glass Base 3.0 - Deep & Reflective */
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.01) 50%,
-      rgba(255, 255, 255, 0.05) 100%);
+  /* Dark Glass Capsule Style (Matches Social) */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 
@@ -290,8 +289,8 @@ nav a.feature-card {
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 240px;
-  /* Card Height */
+  height: 160px;
+  /* Reduced specific height */
   padding: 2rem;
   border-radius: 32px;
   /* Smooth Card Radius */
@@ -341,25 +340,12 @@ nav a.feature-card:hover .card-bg {
   gap: 0.5rem;
 }
 
-.card-badge {
-  background: #E91E63;
-  /* Accent Color */
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
-}
-
+/* Card Typography */
 .card-title {
   font-family: var(--font-display);
   font-size: 2rem;
   line-height: 1.1;
   font-weight: 400;
-  /* Italic feel from font */
   font-style: italic;
   margin: 0;
 }
@@ -370,17 +356,7 @@ nav a.feature-card:hover .card-bg {
   color: rgba(255, 255, 255, 0.8);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.card-icon {
-  font-size: 2.5rem;
-  opacity: 0.9;
-  transition: transform 0.3s ease;
-}
-
-nav a.feature-card:hover .card-icon {
-  transform: scale(1.2);
+  margin-top: 0.5rem;
 }
 
 /* Override Spotlight for Card specifically */
