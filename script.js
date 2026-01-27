@@ -1,30 +1,42 @@
 /**
- * Immersive Ecosystem 2.0 (High-End Engineering)
+ * Immersive Ecosystem 3.0 (Physics-Based)
  * Stack: Lenis + GSAP (ScrollTrigger) + SplitType
  */
-import Lenis from 'https://cdn.skypack.dev/@studio-freight/lenis';
-import gsap from 'https://cdn.skypack.dev/gsap';
-import ScrollTrigger from 'https://cdn.skypack.dev/gsap/ScrollTrigger';
-import SplitType from 'https://cdn.skypack.dev/split-type';
+import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * MODULE: Spotlight Interaction
- * Adds a tracking gradient glow to elements (Mouse + Touch).
+ * UTILS: Physics Constants
  */
-class SpotlightButton {
-  constructor(element) {
+const PHYSICS = {
+  EASE_INERTIA: 'power3.out',
+  EASE_EXPO: 'expo.out',
+  EASE_ELASTIC: 'elastic.out(1, 0.4)',
+  DAMPING: 0.08, // Weight/Luxury feel
+  STAGGER: 0.08  // Rhythm
+};
+
+/**
+ * MODULE: Spotlight & Magnetic Interaction
+ * Adds tracking gradient glow AND physical magnetic pull.
+ */
+class MagneticButton {
+  constructor(element, strength = 20) {
     this.element = element;
+    this.strength = strength;
+    this.glowElement = element.querySelector('::before') ? element : null; // Logic handled in CSS mostly
     this.init();
   }
 
   init() {
     this.element.addEventListener('mousemove', (e) => this.handleMove(e, false));
     this.element.addEventListener('touchmove', (e) => this.handleMove(e, true), { passive: true });
-    this.element.addEventListener('touchstart', (e) => this.handleMove(e, true), { passive: true }); // Snap to finger instantly
+    this.element.addEventListener('touchstart', (e) => this.handleMove(e, true), { passive: true });
 
-    // Reset on leave/end
     this.element.addEventListener('mouseleave', () => this.handleLeave());
     this.element.addEventListener('touchend', () => this.handleLeave());
   }
@@ -44,32 +56,43 @@ class SpotlightButton {
     const x = clientX - rect.left;
     const y = clientY - rect.top;
 
-    // Update CSS variables for the glow effect
+    // Spotlight Logic (CSS Vars)
     this.element.style.setProperty('--x', `${x}px`);
     this.element.style.setProperty('--y', `${y}px`);
 
-    // Magnetic Pull (Physical feel)
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const pullX = (x - centerX) * 0.1; // 10% pull force
-    const pullY = (y - centerY) * 0.1;
+    // Magnetic Physics
+    // Only apply magnetic pull on Desktop to prevent scroll jank on mobile
+    if (!isTouch) {
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
-    gsap.to(this.element, {
-      x: pullX,
-      y: pullY,
-      duration: 0.4,
-      ease: 'power2.out'
-    });
+      // Calculate distance from center (-1 to 1)
+      const distX = (x - centerX) / centerX;
+      const distY = (y - centerY) / centerY;
+
+      gsap.to(this.element, {
+        x: distX * this.strength,
+        y: distY * this.strength,
+        rotation: distX * 2, // Slight tilt
+        duration: 0.5,
+        ease: PHYSICS.EASE_INERTIA
+      });
+    }
   }
 
   handleLeave() {
-    gsap.to(this.element, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+    gsap.to(this.element, {
+      x: 0,
+      y: 0,
+      rotation: 0,
+      duration: 0.8,
+      ease: PHYSICS.EASE_ELASTIC
+    });
   }
 }
 
 /**
- * MODULE: Typography Animator
- * Splits text and orchestrates editorial reveals.
+ * MODULE: Typography Reveal
  */
 class TypographyAnimator {
   constructor(selector) {
@@ -79,16 +102,14 @@ class TypographyAnimator {
 
   init() {
     this.elements.forEach(el => {
-      // Split text into chars
       const text = new SplitType(el, { types: 'chars' });
 
-      // Animate Chars
       gsap.from(text.chars, {
-        yPercent: 120, // Comes from below
+        yPercent: 120,
         opacity: 0,
         rotationX: -45,
-        stagger: 0.05, // Editorial timing
-        duration: 1.2,
+        stagger: 0.04,
+        duration: 1.4,
         ease: 'power4.out',
         delay: 0.2
       });
@@ -97,7 +118,7 @@ class TypographyAnimator {
 }
 
 /**
- * CORE: App Orchestrator
+ * CORE: Experience Orchestrator
  */
 const App = (function () {
   const state = {
@@ -107,56 +128,77 @@ const App = (function () {
   };
 
   const setupSmoothScroll = () => {
-    if (state.prefersReducedMotion) return;
+    if (state.prefersReducedMotion || state.isMobile) {
+      // Native scroll mainly for mobile performance or accessibility
+      document.documentElement.style.scrollBehavior = 'smooth';
+      return;
+    }
 
+    // Lenis v1 Setup
     state.lenis = new Lenis({
-      duration: 1.5, // Even smoother (Lux feel)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: true,
-      touchMultiplier: 1.5,
+      lerp: PHYSICS.DAMPING, // The "Weight"
+      smoothWheel: true,
+      wheelMultiplier: 1,
     });
 
-    state.lenis.on('scroll', ScrollTrigger.update);
-
+    // Unified RAF Loop (Crucial for GSAP sync)
     gsap.ticker.add((time) => {
-      state.lenis.raf(time * 1000);
+      state.lenis.raf(time * 1000); // Lenis requires ms
     });
 
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(0); // Prevent GSAP form catching up abruptly
   };
 
   const setupInteractions = () => {
-    // 1. Initialize Spotlights (Enabled for both Mobile and Desktop)
-    document.querySelectorAll('nav a').forEach(el => new SpotlightButton(el));
-
-    // 2. Editorial Text Reveal
+    // 1. Text Reveals
     new TypographyAnimator('.nome');
 
-    // 3. Image Reveal (Scale + Fade)
-    gsap.from('#profile img', {
-      scale: 0.5,
-      opacity: 0,
-      duration: 1.5,
-      ease: 'expo.out',
-      delay: 0.1
-    });
+    // 2. Magnetic Interactive Elements
+    // Standard Links: low strength
+    document.querySelectorAll('nav a:not(.feature-card)').forEach(el => new MagneticButton(el, 15));
+    // Feature Card: high strength (High Gravity)
+    document.querySelectorAll('.feature-card').forEach(el => new MagneticButton(el, 30));
 
-    // 4. Stagger Links (Lag Effect)
-    gsap.from('nav a', {
-      y: 50,
+    // 3. Staggered Entrance (The "Flow")
+    const tl = gsap.timeline({ delay: 0.5 });
+
+    tl.from('#profile', {
+      scale: 0.8,
       opacity: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'power3.out',
-      delay: 0.5
-    });
+      duration: 1.2,
+      ease: PHYSICS.EASE_EXPO
+    })
+      .from('nav li', {
+        y: 40,
+        opacity: 0,
+        stagger: PHYSICS.STAGGER,
+        duration: 1,
+        ease: PHYSICS.EASE_INERTIA
+      }, "-=0.8") // Overlap
+      .from('#social-links', {
+        y: 20,
+        opacity: 0,
+        duration: 1,
+        ease: PHYSICS.EASE_INERTIA
+      }, "-=0.6");
+
+    // 4. Parallax Effect (Desktop Only)
+    if (!state.isMobile && !state.prefersReducedMotion) {
+      // Profile Image Parallax
+      gsap.to('#profile img', {
+        yPercent: 20,
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
   };
 
   const init = () => {
-    console.log('✨ System Upgrade: High-End Motion Active');
+    console.log('💎 Physics Engine: ONLINE');
     setupSmoothScroll();
     setupInteractions();
   };
