@@ -1,98 +1,114 @@
 /**
  * Immersive Ecosystem 3.0 (Physics-Based)
  * Stack: Lenis + GSAP (ScrollTrigger) + SplitType
+ * @module App
  */
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SplitType from 'split-type'
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * UTILS: Physics Constants
+ * Physics Configuration Constants
+ * @constant {Object}
  */
-const PHYSICS = {
+const PHYSICS = Object.freeze({
   EASE_INERTIA: 'power3.out',
   EASE_EXPO: 'expo.out',
   EASE_ELASTIC: 'elastic.out(1, 0.4)',
-  DAMPING: 0.08, // Weight/Luxury feel
-  STAGGER: 0.08  // Rhythm
-};
+  DAMPING: 0.08,
+  STAGGER: 0.08,
+  MAGNETIC_STRENGTH_LOW: 15,
+  MAGNETIC_STRENGTH_HIGH: 30
+});
 
 /**
- * MODULE: Spotlight & Magnetic Interaction
- * Adds tracking gradient glow AND physical magnetic pull.
+ * Handles Magnetic and Spotlight effects for UI elements.
  */
 class MagneticButton {
+  /**
+   * @param {HTMLElement} element - Target element
+   * @param {number} strength - Magnetic pull strength
+   */
   constructor(element, strength = 20) {
+    if (!element) throw new Error('MagneticButton: Element required');
+
     this.element = element;
     this.strength = strength;
-    this.glowElement = element.querySelector('::before') ? element : null; // Logic handled in CSS mostly
-    this.init();
+    this.rect = null;
+    this.isTouch = false;
+
+    this.bindEvents();
   }
 
-  init() {
-    this.element.addEventListener('mousemove', (e) => this.handleMove(e, false));
-    this.element.addEventListener('touchmove', (e) => this.handleMove(e, true), { passive: true });
-    this.element.addEventListener('touchstart', (e) => this.handleMove(e, true), { passive: true });
-
+  bindEvents() {
+    this.element.addEventListener('mouseenter', () => this.updateRect());
+    this.element.addEventListener('mousemove', (e) => this.handleMove(e));
     this.element.addEventListener('mouseleave', () => this.handleLeave());
+
+    this.element.addEventListener('touchstart', (e) => {
+      this.isTouch = true;
+      this.updateRect();
+      this.handleMove(e.touches[0]);
+    }, { passive: true });
+
+    this.element.addEventListener('touchmove', (e) => {
+      this.handleMove(e.touches[0]);
+    }, { passive: true });
+
     this.element.addEventListener('touchend', () => this.handleLeave());
   }
 
-  handleMove(e, isTouch) {
-    const rect = this.element.getBoundingClientRect();
-    let clientX, clientY;
+  updateRect() {
+    this.rect = this.element.getBoundingClientRect();
+  }
 
-    if (isTouch) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
+  handleMove(clientEvent) {
+    if (!this.rect) this.updateRect();
 
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+    const x = clientEvent.clientX - this.rect.left;
+    const y = clientEvent.clientY - this.rect.top;
 
-    // Spotlight Logic (CSS Vars)
+    // Spotlight Effect (CSS Variables)
     this.element.style.setProperty('--x', `${x}px`);
     this.element.style.setProperty('--y', `${y}px`);
 
-    // Magnetic Physics
-    // Only apply magnetic pull on Desktop to prevent scroll jank on mobile
-    if (!isTouch) {
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+    // Magnetic Pull (Desktop Only for Performance)
+    if (!this.isTouch) {
+      const centerX = this.rect.width / 2;
+      const centerY = this.rect.height / 2;
 
-      // Calculate distance from center (-1 to 1)
       const distX = (x - centerX) / centerX;
       const distY = (y - centerY) / centerY;
 
       gsap.to(this.element, {
         x: distX * this.strength,
         y: distY * this.strength,
-        rotation: distX * 2, // Slight tilt
+        rotation: distX * 2,
         duration: 0.5,
-        ease: PHYSICS.EASE_INERTIA
+        ease: PHYSICS.EASE_INERTIA,
+        overwrite: 'auto'
       });
     }
   }
 
   handleLeave() {
+    this.isTouch = false;
     gsap.to(this.element, {
       x: 0,
       y: 0,
       rotation: 0,
       duration: 0.8,
-      ease: PHYSICS.EASE_ELASTIC
+      ease: PHYSICS.EASE_ELASTIC,
+      overwrite: 'auto'
     });
   }
 }
 
 /**
- * MODULE: Typography Reveal
+ * Manages text reveal animations using SplitType.
  */
 class TypographyAnimator {
   constructor(selector) {
@@ -101,91 +117,132 @@ class TypographyAnimator {
   }
 
   init() {
-    this.elements.forEach(el => {
-      const text = new SplitType(el, { types: 'chars' });
+    if (!this.elements.length) return;
 
-      gsap.from(text.chars, {
-        yPercent: 120,
-        opacity: 0,
-        rotationX: -45,
-        stagger: 0.04,
-        duration: 1.4,
-        ease: 'power4.out',
-        delay: 0.2
-      });
+    this.elements.forEach((el) => {
+      try {
+        const text = new SplitType(el, { types: 'chars' });
+
+        if (!text.chars) return;
+
+        gsap.from(text.chars, {
+          yPercent: 120,
+          opacity: 0,
+          rotationX: -45,
+          stagger: 0.04,
+          duration: 1.4,
+          ease: 'power4.out',
+          delay: 0.2
+        });
+      } catch (error) {
+        // Fail silently in production, text renders normally as fallback
+      }
     });
   }
 }
 
 /**
- * CORE: Experience Orchestrator
+ * Core Application Controller
+ * Handles global state, scroll engine, and initialization.
  */
-const App = (function () {
+const App = (() => {
   const state = {
     lenis: null,
     isMobile: window.matchMedia('(max-width: 768px)').matches,
     prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
   };
 
-  const setupSmoothScroll = () => {
+  /**
+   * Initializes Lenis Scroll Engine synced with GSAP.
+   */
+  const _initScrollEngine = () => {
     if (state.prefersReducedMotion || state.isMobile) {
-      // Native scroll mainly for mobile performance or accessibility
       document.documentElement.style.scrollBehavior = 'smooth';
       return;
     }
 
-    // Lenis v1 Setup
-    state.lenis = new Lenis({
-      lerp: PHYSICS.DAMPING, // The "Weight"
-      smoothWheel: true,
-      wheelMultiplier: 1,
-    });
+    try {
+      state.lenis = new Lenis({
+        lerp: PHYSICS.DAMPING,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+      });
 
-    // Unified RAF Loop (Crucial for GSAP sync)
-    gsap.ticker.add((time) => {
-      state.lenis.raf(time * 1000); // Lenis requires ms
-    });
+      // Synchronize Lenis with GSAP Ticker
+      gsap.ticker.add((time) => {
+        state.lenis.raf(time * 1000);
+      });
 
-    gsap.ticker.lagSmoothing(0); // Prevent GSAP form catching up abruptly
+      gsap.ticker.lagSmoothing(0);
+    } catch (e) {
+      // Fallback to native scroll if Lenis fails
+      document.documentElement.style.scrollBehavior = 'smooth';
+    }
   };
 
-  const setupInteractions = () => {
-    // 1. Text Reveals
+  /**
+   * Initializes all interactive components.
+   */
+  const _initInteractions = () => {
+    // 1. Text Animations
     new TypographyAnimator('.nome');
 
-    // 2. Magnetic Interactive Elements
-    // Standard Links: low strength
-    document.querySelectorAll('nav a:not(.feature-card)').forEach(el => new MagneticButton(el, 15));
-    // Feature Card: high strength (High Gravity)
-    document.querySelectorAll('.feature-card').forEach(el => new MagneticButton(el, 30));
+    // 2. Interactive Buttons (Guard Clause for safety)
+    const navLinks = document.querySelectorAll('nav a:not(.feature-card)');
+    const featureCards = document.querySelectorAll('.feature-card');
 
-    // 3. Staggered Entrance (The "Flow")
+    navLinks.forEach(el => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_LOW));
+    featureCards.forEach(el => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_HIGH));
+
+    // 3. Staggered Entrance Animation
+    _playEntranceSequence();
+
+    // 4. Desktop Parallax (Performance Guard)
+    if (!state.isMobile && !state.prefersReducedMotion) {
+      _initParallax();
+    }
+  };
+
+  const _playEntranceSequence = () => {
     const tl = gsap.timeline({ delay: 0.5 });
 
-    tl.from('#profile', {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1.2,
-      ease: PHYSICS.EASE_EXPO
-    })
-      .from('nav li', {
+    const profile = document.getElementById('profile');
+    const navItems = document.querySelectorAll('nav li');
+    const socialLinks = document.getElementById('social-links');
+
+    if (profile) {
+      tl.from(profile, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 1.2,
+        ease: PHYSICS.EASE_EXPO
+      });
+    }
+
+    if (navItems.length) {
+      tl.from(navItems, {
         y: 40,
         opacity: 0,
         stagger: PHYSICS.STAGGER,
         duration: 1,
         ease: PHYSICS.EASE_INERTIA
-      }, "-=0.8") // Overlap
-      .from('#social-links', {
+      }, "-=0.8");
+    }
+
+    if (socialLinks) {
+      tl.from(socialLinks, {
         y: 20,
         opacity: 0,
         duration: 1,
         ease: PHYSICS.EASE_INERTIA
       }, "-=0.6");
+    }
+  };
 
-    // 4. Parallax Effect (Desktop Only)
-    if (!state.isMobile && !state.prefersReducedMotion) {
-      // Profile Image Parallax
-      gsap.to('#profile img', {
+  const _initParallax = () => {
+    const profileImg = document.querySelector('#profile img');
+    if (profileImg) {
+      gsap.to(profileImg, {
         yPercent: 20,
         scrollTrigger: {
           trigger: 'body',
@@ -198,14 +255,14 @@ const App = (function () {
   };
 
   const init = () => {
-    console.log('💎 Physics Engine: ONLINE');
-    setupSmoothScroll();
-    setupInteractions();
+    _initScrollEngine();
+    _initInteractions();
   };
 
   return { init };
 })();
 
+// Execution Entry Point
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', App.init);
 } else {
