@@ -158,9 +158,11 @@ header img:hover {
   font-family: var(--font-primary);
   font-size: var(--text-xl);
   /* Fluid sizing */
-  font-weight: 500;
+  font-weight: 600;
+  /* Bolder impact */
   color: var(--color-text-inverse);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.03em;
+  /* Tighter for modern feel */
   text-align: center;
   margin-top: var(--space-xs);
 }
@@ -198,7 +200,8 @@ nav>ul>li>a {
   text-decoration: none;
   font-weight: 500;
   font-size: var(--text-md);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
+  /* Neutral spacing */
 
   /* Interaction */
   transition: all 0.4s var(--ease-expo);
@@ -279,17 +282,21 @@ nav>ul>li>a.feature-card {
   font-family: var(--font-primary);
   font-size: var(--text-lg);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.1;
+  /* Tighter leading */
   margin: 0;
+  letter-spacing: -0.02em;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .card-subtitle {
   font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  /* Wide editorial tracking */
   text-transform: uppercase;
   opacity: 0.8;
+  font-weight: 500;
 }
 
 @media (hover: hover) {
