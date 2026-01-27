@@ -1,13 +1,84 @@
 /**
- * Immersive Ecosystem (Awwwards Grade)
- * Stack: Lenis + GSAP ScrollTrigger
+ * Immersive Ecosystem 2.0 (High-End Engineering)
+ * Stack: Lenis + GSAP (ScrollTrigger) + SplitType
  */
 import Lenis from 'https://cdn.skypack.dev/@studio-freight/lenis';
 import gsap from 'https://cdn.skypack.dev/gsap';
 import ScrollTrigger from 'https://cdn.skypack.dev/gsap/ScrollTrigger';
+import SplitType from 'https://cdn.skypack.dev/split-type';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * MODULE: Spotlight Interaction
+ * Adds a tracking gradient glow to elements.
+ */
+class SpotlightButton {
+  constructor(element) {
+    this.element = element;
+    this.init();
+  }
+
+  init() {
+    this.element.addEventListener('mousemove', this.handleMouseMove.bind(this));
+  }
+
+  handleMouseMove(e) {
+    const rect = this.element.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Update CSS variables for the glow effect
+    this.element.style.setProperty('--x', `${x}px`);
+    this.element.style.setProperty('--y', `${y}px`);
+
+    // Magnetic Pull (Physical feel)
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const pullX = (x - centerX) * 0.1; // 10% pull force
+    const pullY = (y - centerY) * 0.1;
+
+    gsap.to(this.element, {
+      x: pullX,
+      y: pullY,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
+  }
+}
+
+/**
+ * MODULE: Typography Animator
+ * Splits text and orchestrates editorial reveals.
+ */
+class TypographyAnimator {
+  constructor(selector) {
+    this.elements = document.querySelectorAll(selector);
+    this.init();
+  }
+
+  init() {
+    this.elements.forEach(el => {
+      // Split text into chars
+      const text = new SplitType(el, { types: 'chars' });
+
+      // Animate Chars
+      gsap.from(text.chars, {
+        yPercent: 120, // Comes from below
+        opacity: 0,
+        rotationX: -45,
+        stagger: 0.05, // Editorial timing
+        duration: 1.2,
+        ease: 'power4.out',
+        delay: 0.2
+      });
+    });
+  }
+}
+
+/**
+ * CORE: App Orchestrator
+ */
 const App = (function () {
   const state = {
     lenis: null,
@@ -15,124 +86,73 @@ const App = (function () {
     prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
   };
 
-  /**
-   * FASE 3: Smooth Wrapper Architecture
-   * Setup Lenis & Synchronize RAF
-   */
   const setupSmoothScroll = () => {
-    if (state.prefersReducedMotion) return; // Accessibility Check
+    if (state.prefersReducedMotion) return;
 
     state.lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential Ease
+      duration: 1.5, // Even smoother (Lux feel)
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
-      gestureDirection: 'vertical',
       smooth: true,
       mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      smoothTouch: true,
+      touchMultiplier: 1.5,
     });
 
-    // Sync GSAP ScrollTrigger with Lenis
     state.lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
       state.lenis.raf(time * 1000);
     });
 
-    gsap.ticker.lagSmoothing(0); // Remove lag smoothing for precise sync
+    gsap.ticker.lagSmoothing(0);
   };
 
-  /**
-   * FASE 4: Coreografia (Physics-Based)
-   */
-  const setupAnimations = () => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    // 1. Hero Reveal (Lei da Inércia - Entrada Suave)
-    tl.from('#profile img', {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1.5,
-      y: 50
-    })
-      .from('.nome', {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        filter: 'blur(10px)' // Cinematic Blur Effect
-      }, '-=1.2');
-
-    // 2. Links Stagger (Lei do Ritmo)
-    // "O conteúdo deve fluir, não aparecer"
-    gsap.from('nav ul li', {
-      scrollTrigger: {
-        trigger: 'nav',
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
-      },
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.1, // 0.1s rhythm
-      ease: 'expo.out'
-    });
-
-    // 3. Magnetic Microinteractions (Physics)
-    const buttons = document.querySelectorAll('nav a, #social-links a');
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        if (state.isMobile) return; // Mobile Guard
-
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        // Atração Magnética (0.3 power)
-        gsap.to(btn, {
-          x: x * 0.3,
-          y: y * 0.3,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.5,
-          ease: 'elastic.out(1, 0.4)' // Retorno com "peso"
-        });
-      });
-    });
-
-    // 4. Parallax Background & Elements (Lei da Profundidade)
+  const setupInteractions = () => {
+    // 1. Initialize Spotlights (non-mobile only for performance)
     if (!state.isMobile) {
-      gsap.to('#profile', {
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        },
-        yPercent: 50, // Move slower than scroll
-        opacity: 0
+      document.querySelectorAll('nav a').forEach(el => new SpotlightButton(el));
+
+      // Reset magnetic pull on leave
+      document.querySelectorAll('nav a').forEach(el => {
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+        });
       });
     }
+
+    // 2. Editorial Text Reveal
+    new TypographyAnimator('.nome');
+
+    // 3. Image Reveal (Scale + Fade)
+    gsap.from('#profile img', {
+      scale: 0.5,
+      opacity: 0,
+      duration: 1.5,
+      ease: 'expo.out',
+      delay: 0.1
+    });
+
+    // 4. Stagger Links (Lag Effect)
+    gsap.from('nav a', {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.1,
+      ease: 'power3.out',
+      delay: 0.5
+    });
   };
 
   const init = () => {
-    console.log('🚀 Immersive System Initialized');
+    console.log('✨ System Upgrade: High-End Motion Active');
     setupSmoothScroll();
-    setupAnimations();
+    setupInteractions();
   };
 
   return { init };
 })();
 
-// Wait for module execution
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', App.init);
 } else {

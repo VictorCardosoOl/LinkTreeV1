@@ -52,19 +52,22 @@ html.lenis body {
 }
 
 /* Reset & Base */
+/* Reset & Base */
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  /* Remove gray tap box on mobile */
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  background: var(--bg-image) no-repeat top center/cover fixed;
+  /* background moved to ::before for better mobile performance */
   font-family: var(--font-primary);
   color: var(--color-text-primary);
   line-height: 1.6;
@@ -72,6 +75,21 @@ body {
 
   /* Mobile Guard: Prevent pull-to-refresh style on smooth scroll */
   overscroll-behavior: none;
+}
+
+/* Stable Fixed Background for iOS/Mobile */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--bg-image) no-repeat top center/cover;
+  /* Will-change hints GPU to handle this layer separately */
+  will-change: transform;
+  pointer-events: none;
 }
 
 /* Main Container */
@@ -129,39 +147,98 @@ nav ul {
   gap: 1rem;
 }
 
+/* Navigation Links - Spotlight Effect & Glassmorphism 2.0 */
 nav a {
+  position: relative;
+  /* Context for spotlight */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  /* Slightly larger clickable area */
 
-  background: var(--color-bg-overlay);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  /* Ultra subtle base */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-  border: 1px solid var(--color-border);
-  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  /* Modern "Squircle" feel */
 
   color: var(--color-text-primary);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s var(--ease-elastic), border-color 0.3s ease, background 0.3s ease;
+  overflow: hidden;
+  /* Contains the spotlight */
+
+  /* GPU Acceleration Hints */
+  transform: translateZ(0);
+}
+
+/* The Spotlight Glow */
+nav a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%),
+      rgba(255, 255, 255, 0.15),
+      transparent 40%);
+
+  opacity: 0;
+  /* Hidden by default, reveal on hover */
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  /* Let clicks pass through */
+  z-index: 0;
+}
+
+/* Content needs to be above the glow */
+nav a span,
+nav a i,
+nav a img {
+  position: relative;
+  z-index: 1;
+}
+
+nav a:hover::before {
+  opacity: 1;
 }
 
 nav a:hover,
 nav a:focus-visible {
-  background: var(--color-bg-overlay-hover);
-  border-color: var(--color-border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
 }
 
 nav a:focus-visible {
   outline: 2px solid var(--color-text-primary);
   outline-offset: 2px;
+}
+
+/* Touch Feedback */
+nav a:active {
+  transform: scale(0.96);
+}
+
+/* Typography Animation Helpers (SplitType) */
+.char {
+  display: inline-block;
+  /* Allows transform on letters */
+  will-change: transform, opacity;
+}
+
+/* Reveal Mask Class */
+.reveal-text {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
 /* Social Section */
