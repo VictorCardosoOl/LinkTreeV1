@@ -8,55 +8,54 @@
 }
 
 :root {
-  /* Colors */
-  --text-color: #ffffff;
+  /* Colors - Updated for Black Text Theme */
+  --text-color: #1a1a1a;
+  /* Black (softened for screen readability) */
   --bg-url: url("./assets/b (4).jpg");
-  --stroke-color: rgba(255, 255, 255, 0.5);
-  --surface-color: rgba(255, 255, 255, 0.1);
-  --surface-color-hover: rgba(255, 255, 255, 0.05); /* Slightly lighter for hover/focus */
+  /* Assuming this bg works with black text, otherwise might need an overlay */
+
+  /* darker elements for light background feeling */
+  --stroke-color: rgba(0, 0, 0, 0.2);
+  --surface-color: rgba(255, 255, 255, 0.7);
+  /* Light glassy background for buttons */
+  --surface-color-hover: rgba(255, 255, 255, 0.9);
+
   --switch-bg-url: url("./assets/moon-stars.svg");
-  
+
   /* Spacing & Layout */
   --content-max-width: 580px;
   --content-padding: 24px;
-}
-
-/* Light Mode Support (Prepped for JS toggle) */
-.light {
-  --text-color: #333333;
-  --bg-url: url("./assets/bg-mobile-light.jpg"); /* Exemplo, ajustar asset */
-  --stroke-color: rgba(0, 0, 0, 0.5);
-  --surface-color: rgba(0, 0, 0, 0.05);
-  --surface-color-hover: rgba(0, 0, 0, 0.02);
 }
 
 body {
   /* Layout Base: Sticky Footer Pattern */
   display: flex;
   flex-direction: column;
-  min-height: 100dvh; /* Dynamic Viewport Height for mobile browsers */
-  
+  min-height: 100dvh;
+
   background: var(--bg-url) no-repeat top center/cover;
   font-family: "Inter", sans-serif;
   color: var(--text-color);
-  
-  /* Garante que o background fique fixo mesmo scrollando */
-  background-attachment: fixed; 
+  line-height: 1.6;
+  /* Improved readability */
+  letter-spacing: -0.01em;
+  /* Tighter, more modern tracking */
+
+  background-attachment: fixed;
 }
 
-/* Main Container */
+/* Main Container - Added faint backdrop to ensure readability if bg image is dark */
 #container {
   width: 100%;
   max-width: var(--content-max-width);
-  margin: 0 auto; /* Centraliza horizontalmente */
+  margin: 0 auto;
   padding: 0 var(--content-padding);
-  
-  /* Empurra o footer para baixo se o conteúdo for curto */
-  flex: 1; 
-  
+
+  flex: 1;
+
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centraliza verticalmente se sobrar espaço */
+  justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -66,16 +65,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px; /* Espaço consistente entre foto e nome */
+  gap: 16px;
   margin-bottom: 32px;
 }
 
 #profile img {
   width: 170px;
-  height: 170px; /* Garante proporção */
-  object-fit: cover; /* Evita distorção da imagem */
+  height: 170px;
+  object-fit: cover;
   border-radius: 50%;
-  border: 2px solid var(--stroke-color); /* Adicionado borda sutil para destaque */
+  border: 1px solid var(--stroke-color);
+  /* Thinner, more elegant border */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
   transition: transform 0.3s ease;
 }
 
@@ -84,11 +86,16 @@ body {
 }
 
 .nome {
-  font-family: "DM Serif Text", serif;
-  font-size: clamp(1.5rem, 5vw, 2.15rem); /* Tipografia fluida */
-  font-weight: 700;
+  font-family: "Playfair Display", serif;
+  /* More refined/elegant than DM Serif */
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 600;
+  /* Slightly lighter than bold */
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
+  color: #000000;
+  /* Pure black for the name */
+  letter-spacing: -0.02em;
 }
 
 /* Links List */
@@ -104,29 +111,32 @@ ul li a {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   padding: 16px 24px;
   background: var(--surface-color);
   border: 1px solid var(--stroke-color);
-  border-radius: 8px; /* Design mais moderno que o 50px pill, ou manter se for a marca */
-  border-radius: 50px; /* Mantendo o estilo pill original */
-  
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  
+  border-radius: 50px;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  
+  color: var(--text-color);
+
   transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Subtle lift */
 }
 
-ul li a:hover, 
+ul li a:hover,
 ul li a:focus {
   background: var(--surface-color-hover);
-  border-color: var(--text-color);
+  border-color: #000;
+  /* Darker border on hover */
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Social Links */
@@ -143,14 +153,15 @@ ul li a:focus {
   align-items: center;
   justify-content: center;
   padding: 12px;
-  
+
   border-radius: 50%;
   transition: background 0.3s, transform 0.3s;
-  color: var(--text-color); /* Garante cor do ícone */
+  color: var(--text-color);
 }
 
 #social-links a:hover {
-  background: var(--surface-color);
+  background: rgba(0, 0, 0, 0.05);
+  /* Slight dark tint on hover */
   transform: translateY(-4px);
 }
 
@@ -160,9 +171,9 @@ footer {
   padding: 24px;
   font-size: 0.875rem;
   opacity: 0.8;
-  
+
   /* Não é mais position: absolute, é parte do fluxo flex do body */
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .footer-content a {
@@ -185,8 +196,15 @@ footer {
 
 /* Animations */
 @keyframes slide-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #container {
