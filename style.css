@@ -115,7 +115,8 @@ main {
   width: 100%;
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: var(--space-xl) var(--layout-gutter);
+  /* Reduced top padding to bring avatar closer to top */
+  padding: 1rem var(--layout-gutter) var(--space-xl);
 
   display: flex;
   flex-direction: column;
