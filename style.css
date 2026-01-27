@@ -309,12 +309,15 @@ nav a.feature-card {
   height: 100%;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), filter 0.3s ease;
   z-index: 0;
 }
 
+/* Liquid Glass Interaction */
 nav a.feature-card:hover .card-bg {
   transform: scale(1.1);
+  /* Apply the injected SVG Filter for Refraction */
+  filter: url(#liquid-glass);
 }
 
 /* Dark Overlay for Readability */

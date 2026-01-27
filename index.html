@@ -93,6 +93,25 @@
     </div>
   </footer>
 
+  <!-- SVG Filters (Hidden) -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Filter: Liquid Refraction (Ripples) -->
+      <filter id="liquid-glass">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.15" numOctaves="2" result="fluid" />
+        <feDisplacementMap in="SourceGraphic" in2="fluid" scale="20" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+
+      <!-- Filter: Gooey (Merging) - Optional for future use -->
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
   <!-- Scripts: Defer for performance. Type="module" is required for ES Imports in script.js -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
