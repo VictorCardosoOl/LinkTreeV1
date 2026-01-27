@@ -272,12 +272,14 @@ nav a.feature-card {
 }
 
 .card-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  line-height: 1.1;
-  font-weight: 400;
-  font-style: italic;
+  font-family: var(--font-primary);
+  /* Fix: Use Outfit */
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 500;
   margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Better readability on bg */
 }
 
 .card-subtitle {
@@ -344,6 +346,12 @@ nav a:active {
   opacity: 1;
   color: white;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#social-links a:active {
+  transform: scale(0.9);
+  /* Tactile click */
+  transition: transform 0.1s ease;
 }
 
 #social-links a:not(:last-child)::after {
