@@ -77,7 +77,9 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  justify-content: center;
+  gap: 1rem;
+  /* Tightened from 2rem to match button rhythm */
   animation: fadeSlideUp 0.8s ease-out backwards;
 }
 
@@ -85,7 +87,9 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  /* Reduced header gap */
 }
 
 header img {
@@ -384,10 +388,11 @@ nav a:active {
 }
 
 footer {
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 4rem 1.5rem;
+  /* Extra bottom padding to lift copyright */
   text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
 }
 
 @keyframes fadeSlideUp {
