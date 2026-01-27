@@ -3,6 +3,28 @@
    Optimize: Performance, Maintainability, A11y
    ========================================= */
 
+/* Lenis Recommended Setup */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 :root {
   /* Design Tokens */
   --color-text-primary: #1a1a1a;
@@ -25,6 +47,8 @@
 
   /* Animation */
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  /* Awwwards Standard */
 }
 
 /* Reset & Base */
@@ -45,6 +69,9 @@ body {
   color: var(--color-text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+
+  /* Mobile Guard: Prevent pull-to-refresh style on smooth scroll */
+  overscroll-behavior: none;
 }
 
 /* Main Container */
