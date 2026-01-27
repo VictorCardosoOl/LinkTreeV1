@@ -170,8 +170,8 @@ nav a {
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   /* Stronger top reflection */
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  /* Super Soft Rounds */
+  border-radius: 9999px;
+  /* Pill Shape (Full Round) */
 
   /* Text Contrast Fix: Always white on dark glass */
   color: var(--color-text-inverse);
@@ -212,7 +212,8 @@ nav a::before {
   z-index: 0;
 }
 
-nav a:hover::before {
+nav a:hover::before,
+nav a:active::before {
   opacity: 1;
 }
 

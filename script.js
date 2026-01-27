@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * MODULE: Spotlight Interaction
- * Adds a tracking gradient glow to elements.
+ * Adds a tracking gradient glow to elements (Mouse + Touch).
  */
 class SpotlightButton {
   constructor(element) {
@@ -20,13 +20,29 @@ class SpotlightButton {
   }
 
   init() {
-    this.element.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    this.element.addEventListener('mousemove', (e) => this.handleMove(e, false));
+    this.element.addEventListener('touchmove', (e) => this.handleMove(e, true), { passive: true });
+    this.element.addEventListener('touchstart', (e) => this.handleMove(e, true), { passive: true }); // Snap to finger instantly
+
+    // Reset on leave/end
+    this.element.addEventListener('mouseleave', () => this.handleLeave());
+    this.element.addEventListener('touchend', () => this.handleLeave());
   }
 
-  handleMouseMove(e) {
+  handleMove(e, isTouch) {
     const rect = this.element.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let clientX, clientY;
+
+    if (isTouch) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     // Update CSS variables for the glow effect
     this.element.style.setProperty('--x', `${x}px`);
@@ -44,6 +60,10 @@ class SpotlightButton {
       duration: 0.4,
       ease: 'power2.out'
     });
+  }
+
+  handleLeave() {
+    gsap.to(this.element, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
   }
 }
 
@@ -109,17 +129,8 @@ const App = (function () {
   };
 
   const setupInteractions = () => {
-    // 1. Initialize Spotlights (non-mobile only for performance)
-    if (!state.isMobile) {
-      document.querySelectorAll('nav a').forEach(el => new SpotlightButton(el));
-
-      // Reset magnetic pull on leave
-      document.querySelectorAll('nav a').forEach(el => {
-        el.addEventListener('mouseleave', () => {
-          gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-        });
-      });
-    }
+    // 1. Initialize Spotlights (Enabled for both Mobile and Desktop)
+    document.querySelectorAll('nav a').forEach(el => new SpotlightButton(el));
 
     // 2. Editorial Text Reveal
     new TypographyAnimator('.nome');
