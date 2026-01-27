@@ -17,60 +17,61 @@
 </head>
 
 <body>
-  <div id="particles-js">
-  </div> 
+  <!-- Mantendo div para compatibilidade caso script particles seja adicionado depois, mas idealmente removeria se não usado -->
+  <div id="particles-js"></div> 
 
-  <div id="container">
+  <main id="container">
     <div id="profile">
-      <img src="./assets/Avatar1.jpeg" />
+      <img src="./assets/Avatar1.jpeg" alt="Foto de perfil de Victor Cardoso" />
       <p class="nome">Victor Cardoso</p>
     </div>
-    <ul>
-      <li>
-        <a href="https://github.com/VictorCardosoOl" target="_blank">Meus Projetos</a>
-      </li>
+    
+    <nav>
+      <ul>
+        <li>
+          <a href="https://github.com/VictorCardosoOl" target="_blank">Meus Projetos</a>
+        </li>
 
-      <li>
-        <a href="https://www.wisesystem.com.br/" target="_blank">Wise System</a>
-      </li>
+        <li>
+          <a href="https://www.wisesystem.com.br/" target="_blank">Wise System</a>
+        </li>
 
-      <li>
-        <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank">Linkedin</a>
-      </li>
+        <li>
+          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank">Linkedin</a>
+        </li>
 
-      <li>
-        <a href="https://wa.me/5511977440146" target="_blank">Whatsapp</a>
-      </li>
-    </ul>
+        <li>
+          <a href="https://wa.me/5511977440146" target="_blank">Whatsapp</a>
+        </li>
+      </ul>
+    </nav>
 
     <div id="social-links">
-      <a href="https://github.com/VictorCardosoOl" target="_blank">
+      <a href="https://github.com/VictorCardosoOl" target="_blank" aria-label="Github">
         <ion-icon name="logo-github"></ion-icon>
       </a>
 
-      <a href="https://www.instagram.com/hi.chicocdo/" target="_blank">
+      <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" aria-label="Instagram">
         <ion-icon name="logo-instagram"></ion-icon>
       </a>
 
-      <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank">
+      <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" aria-label="Linkedin">
         <ion-icon name="logo-linkedin"></ion-icon>
       </a>
-      <a href="mailto:victorcardcunha@gmail.com">
+      <a href="mailto:victorcardcunha@gmail.com" aria-label="Email">
         <ion-icon name="mail"></ion-icon>
       </a>
-      <a href="tel:+11977440146" id="phone_button">
+      <a href="tel:+11977440146" id="phone_button" aria-label="Telefone">
         <ion-icon name="call"></ion-icon>
       </a>
     </div>
-  </div>
+  </main>
 
   <footer>
     <div class="footer-content">
-      <a target="_blank" href="https://www.instagram.com/hi.chicocdo/" class="coppy">© 2024 Victor Cardoso São Paulo-SP</a>
+      <a target="_blank" href="https://www.instagram.com/hi.chicocdo/" class="copy">© 2024 Victor Cardoso São Paulo-SP</a>
     </div>
   </footer>
-
-
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

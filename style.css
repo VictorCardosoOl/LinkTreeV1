@@ -1,133 +1,194 @@
+/* Modern CSS Reset & Variables */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  /* Colors */
+  --text-color: #ffffff;
+  --bg-url: url("./assets/b (4).jpg");
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.1);
+  --surface-color-hover: rgba(255, 255, 255, 0.05); /* Slightly lighter for hover/focus */
+  --switch-bg-url: url("./assets/moon-stars.svg");
+  
+  /* Spacing & Layout */
+  --content-max-width: 580px;
+  --content-padding: 24px;
+}
+
+/* Light Mode Support (Prepped for JS toggle) */
+.light {
+  --text-color: #333333;
+  --bg-url: url("./assets/bg-mobile-light.jpg"); /* Exemplo, ajustar asset */
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+}
+
+body {
+  /* Layout Base: Sticky Footer Pattern */
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh; /* Dynamic Viewport Height for mobile browsers */
+  
+  background: var(--bg-url) no-repeat top center/cover;
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+  
+  /* Garante que o background fique fixo mesmo scrollando */
+  background-attachment: fixed; 
+}
+
+/* Main Container */
+#container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto; /* Centraliza horizontalmente */
+  padding: 0 var(--content-padding);
+  
+  /* Empurra o footer para baixo se o conteúdo for curto */
+  flex: 1; 
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente se sobrar espaço */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Profile Section */
+#profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px; /* Espaço consistente entre foto e nome */
+  margin-bottom: 32px;
+}
+
+#profile img {
+  width: 170px;
+  height: 170px; /* Garante proporção */
+  object-fit: cover; /* Evita distorção da imagem */
+  border-radius: 50%;
+  border: 2px solid var(--stroke-color); /* Adicionado borda sutil para destaque */
+  transition: transform 0.3s ease;
+}
+
+#profile img:hover {
+  transform: scale(1.05);
+}
+
+.nome {
+  font-family: "DM Serif Text", serif;
+  font-size: clamp(1.5rem, 5vw, 2.15rem); /* Tipografia fluida */
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Links List */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  padding: 16px 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px; /* Design mais moderno que o 50px pill, ou manter se for a marca */
+  border-radius: 50px; /* Mantendo o estilo pill original */
+  
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  
+  transition: all 0.2s ease-in-out;
+}
+
+ul li a:hover, 
+ul li a:focus {
+  background: var(--surface-color-hover);
+  border-color: var(--text-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Social Links */
+#social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  font-size: 24px;
+}
+
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  
+  border-radius: 50%;
+  transition: background 0.3s, transform 0.3s;
+  color: var(--text-color); /* Garante cor do ícone */
+}
+
+#social-links a:hover {
+  background: var(--surface-color);
+  transform: translateY(-4px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  
+  /* Não é mais position: absolute, é parte do fluxo flex do body */
+  margin-top: auto; 
+}
+
+.footer-content a {
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.footer-content a:hover {
+  border-color: var(--text-color);
+}
+
+/* Desktop Enhancements */
+@media (min-width: 768px) {
   :root {
-    --text-color: white;
-    --bg-url: url(./assets/b\ \(4\).jpg);
-    --stroke-color: rgba(255, 255, 255, 0.5);
-    --surface-color: rgba(255, 255, 255, 0.1);
-    --surface-color-hover: rgba(255, 255, 255, 0.15);
-    --switch-bg-url: url(./assets/moon-stars.svg);
+    --bg-url: url("./assets/desk.jpg");
   }
+}
 
+/* Animations */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  body {
-    height: 100vh;
-    background: var(--bg-url) no-repeat top center/cover;
-  }
-  body * {
-    font-family: "Inter", sans-serif;
-    color: var(--text-color);
-  }
-  #container {
-    width: 100%;
-    max-width: 550px;
-    margin: 20px auto 0px;
-    padding: 0 18px;
-  
-  }
-  #profile {
-    text-align: center;
-    padding: 15px;
-    
-  }
-  #profile img {
-    width: 170px;
-    border-radius: 50%;
-    
-  }
-  .nome{
-    font-family: "DM Serif Text", serif;
-    font-size: 2.15rem;
-    font-weight: 700;
-    padding: 0.5rem;
-  }
- 
-  ul {
-    display: flex;
-    list-style: none;
-    flex-direction: column;
-    gap: 8px;
-    padding: 5px 0;
-  }
-  ul li a {
-    display: flex;
-    border-radius: 50px;
-    border: 1px solid var(--stroke-color);
-    background: var(--surface-color);
-    backdrop-filter: blur(15px);
-    justify-content: center;
-    align-items: center;
-    padding: 16px 18px;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 300;
-    transition: background 0.5s;
-  }
-  ul li a:hover {
-    border: 1.5px solid var(--text-color);
-    background: var(--surface-color-hover);
-  }
-  #social-links {
-    padding: 5px 0;
-    display: flex;
-    justify-content: center;
-    font-size: 24px;
-  }
-  #social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    transition: background 1s, transform 1s;
-    border-radius: 50%;
-  }
-  #social-links a:hover {
-    background: var(--surface-color-hover);
-    transform: translateY(-10px);
-  }
-
-  .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center; 
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-   
-  }
-  .footer-content {
-    display: flex;
-    justify-content: center; 
-  }
-
-  a{
-    text-decoration: none;
-  }
-
-  @media (min-width: 700px) {
-    :root {
-      --bg-url: url(./assets/desk.jpg);
-    }
-  }
-  @keyframes slide-in {
-    from {
-      left: 0;
-    }
-    to {
-      left: 50%;
-    }
-  }
-  @keyframes slide-back {
-    from {
-      right: 0;
-    }
-    to {
-      right: 50%;
-    }
-  }
- 
-  
+#container {
+  animation: slide-in 0.8s ease-out backwards;
+}
