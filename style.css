@@ -37,11 +37,11 @@
   /* 40px */
 
   /* Layout */
-  --layout-max-width: 36rem;
-  /* ~576px */
+  --layout-max-width: 38rem;
+  /* Wider feel */
   --layout-gutter: clamp(1rem, 5vw, 2rem);
-  --header-avatar-size: 8.125rem;
-  /* 130px */
+  --header-avatar-size: 9rem;
+  /* 144px - Bigger presence */
 
   /* Animation */
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -169,8 +169,8 @@ nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
-  /* 10px - Optical consistency */
+  gap: 0.75rem;
+  /* Increased from 10px to 12px for breathability */
 }
 
 /* Base Link Style */
@@ -179,8 +179,8 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.875rem 1.5rem;
-  /* ~14px vertical */
+  padding: 1rem 1.75rem;
+  /* Increased touch target / visuals */
 
   /* Glassmorphism */
   background: var(--color-surface-glass);
@@ -243,8 +243,8 @@ nav a:focus-visible {
 /* --- Feature Card Variant --- */
 nav a.feature-card {
   flex-direction: column;
-  min-height: 6.25rem;
-  /* 100px min-height replacement */
+  min-height: 7rem;
+  /* Increased presence (112px) */
   border-radius: 2rem;
   padding: var(--space-md);
 }
