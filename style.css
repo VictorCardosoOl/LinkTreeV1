@@ -157,29 +157,45 @@ nav a {
   padding: 1.25rem 1.5rem;
   /* Slightly larger clickable area */
 
-  background: rgba(255, 255, 255, 0.03);
-  /* Ultra subtle base */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Liquid Glass Base 3.0 - Deep & Reflective */
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  /* Modern "Squircle" feel */
+  /* Border with top-light accent (Glass edge effect) */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  /* Stronger top reflection */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  /* Super Soft Rounds */
 
-  color: var(--color-text-primary);
+  /* Text Contrast Fix: Always white on dark glass */
+  color: var(--color-text-inverse);
   text-decoration: none;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 
-  transition: transform 0.3s var(--ease-elastic), border-color 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s var(--ease-elastic), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+
+  /* Depth Shadow - Double Inset for Volume */
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.3),
+    /* External Shadow */
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    /* Top Highlight */
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+  /* Bottom Shadow */
+
   overflow: hidden;
-  /* Contains the spotlight */
-
-  /* GPU Acceleration Hints */
   transform: translateZ(0);
 }
 
-/* The Spotlight Glow */
+/* The Spotlight Glow (Desktop Hover) */
 nav a::before {
   content: "";
   position: absolute;
@@ -187,40 +203,80 @@ nav a::before {
   left: 0;
   right: 0;
   bottom: 0;
-
-  background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%),
+  background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%),
       rgba(255, 255, 255, 0.15),
       transparent 40%);
-
   opacity: 0;
-  /* Hidden by default, reveal on hover */
   transition: opacity 0.5s ease;
   pointer-events: none;
-  /* Let clicks pass through */
   z-index: 0;
-}
-
-/* Content needs to be above the glow */
-nav a span,
-nav a i,
-nav a img {
-  position: relative;
-  z-index: 1;
 }
 
 nav a:hover::before {
   opacity: 1;
 }
 
+/* Mobile Shimmer Animation (Alive feel without hover) */
+@media (max-width: 768px) {
+  nav a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent);
+    transform: skewX(-20deg);
+    animation: shimmer 6s infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+
+  20% {
+    left: 200%;
+  }
+
+  /* Fast pass */
+  100% {
+    left: 200%;
+  }
+
+  /* Long pause */
+}
+
+/* Content needs to be above the glow */
+nav a span,
+nav a i,
+nav a img,
+nav a ion-icon {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
 nav a:hover,
 nav a:focus-visible {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.1) 100%);
   transform: scale(1.02);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 20px 50px -10px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
 }
 
 nav a:focus-visible {
-  outline: 2px solid var(--color-text-primary);
+  outline: 2px solid var(--color-text-inverse);
   outline-offset: 2px;
 }
 
