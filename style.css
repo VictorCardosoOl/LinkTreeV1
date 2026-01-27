@@ -154,8 +154,8 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.25rem 1.5rem;
-  /* Slightly larger clickable area */
+  padding: 1rem 1.5rem;
+  /* Slight reduction for better mobile visual */
 
   /* Liquid Glass Base 3.0 - Deep & Reflective */
   background: linear-gradient(135deg,
