@@ -1,82 +1,89 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="">
+<html lang="pt-BR">
 
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=UnifrakturMaguntia&display=swap"
-    rel="stylesheet">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Victor Cardoso</title>
+  <meta name="description" content="Links oficiais de Victor Cardoso: Projetos, Contato e Redes Sociais.">
+  <meta name="theme-color" content="#1a1a1a">
+
+  <title>Victor Cardoso | Links</title>
+
+  <!-- Performance: Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com">
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles & Iconic Assets -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-  <!-- Mantendo div para compatibilidade caso script particles seja adicionado depois, mas idealmente removeria se não usado -->
-  <div id="particles-js"></div> 
-
   <main id="container">
-    <div id="profile">
-      <img src="./assets/Avatar1.jpeg" alt="Foto de perfil de Victor Cardoso" />
-      <p class="nome">Victor Cardoso</p>
-    </div>
-    
-    <nav>
+    <header id="profile">
+      <img src="./assets/Avatar1.jpeg" alt="Victor Cardoso" loading="eager" width="170" height="170" />
+      <h1 class="nome">Victor Cardoso</h1>
+    </header>
+
+    <nav aria-label="Links Principais">
       <ul>
         <li>
-          <a href="https://github.com/VictorCardosoOl" target="_blank">Meus Projetos</a>
+          <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer">Meus Projetos</a>
         </li>
-
         <li>
-          <a href="https://www.wisesystem.com.br/" target="_blank">Wise System</a>
+          <a href="https://www.wisesystem.com.br/" target="_blank" rel="noopener noreferrer">Wise System</a>
         </li>
-
         <li>
-          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank">Linkedin</a>
+          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank"
+            rel="noopener noreferrer">Linkedin</a>
         </li>
-
         <li>
-          <a href="https://wa.me/5511977440146" target="_blank">Whatsapp</a>
+          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer">Whatsapp</a>
         </li>
       </ul>
     </nav>
 
-    <div id="social-links">
-      <a href="https://github.com/VictorCardosoOl" target="_blank" aria-label="Github">
-        <ion-icon name="logo-github"></ion-icon>
+    <section id="social-links" aria-label="Redes Sociais">
+      <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer"
+        aria-label="Visite meu Github">
+        <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
       </a>
 
-      <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" aria-label="Instagram">
-        <ion-icon name="logo-instagram"></ion-icon>
+      <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" rel="noopener noreferrer"
+        aria-label="Visite meu Instagram">
+        <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
       </a>
 
-      <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" aria-label="Linkedin">
-        <ion-icon name="logo-linkedin"></ion-icon>
+      <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer"
+        aria-label="Visite meu Linkedin">
+        <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
       </a>
-      <a href="mailto:victorcardcunha@gmail.com" aria-label="Email">
-        <ion-icon name="mail"></ion-icon>
+
+      <a href="mailto:victorcardcunha@gmail.com" aria-label="Envie um Email">
+        <ion-icon name="mail" aria-hidden="true"></ion-icon>
       </a>
-      <a href="tel:+11977440146" id="phone_button" aria-label="Telefone">
-        <ion-icon name="call"></ion-icon>
+
+      <a href="tel:+11977440146" id="phone_button" aria-label="Ligar agora">
+        <ion-icon name="call" aria-hidden="true"></ion-icon>
       </a>
-    </div>
+    </section>
   </main>
 
   <footer>
     <div class="footer-content">
-      <a target="_blank" href="https://www.instagram.com/hi.chicocdo/" class="copy">© 2024 Victor Cardoso São Paulo-SP</a>
+      <p>&copy; 2024 Victor Cardoso &bull; São Paulo-SP</p>
     </div>
   </footer>
 
+  <!-- Scripts: Defer for performance -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 </body>
 
 </html>
