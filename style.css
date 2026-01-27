@@ -84,12 +84,26 @@ body::before {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  /* Fix: Use static vh to avoid jumpy URL bar resize */
   z-index: -1;
   background: var(--bg-image) no-repeat top center/cover;
   /* Will-change hints GPU to handle this layer separately */
   will-change: transform;
+  transform: translateZ(0);
+  /* Force GPU Layer */
   pointer-events: none;
+}
+
+/* ... (Omitted content is handled by context) ... */
+
+/* Liquid Glass Interaction (Mouse Only) */
+@media (hover: hover) {
+  nav a.feature-card:hover .card-bg {
+    transform: scale(1.1);
+    /* Apply the injected SVG Filter for Refraction */
+    filter: url(#liquid-glass);
+  }
 }
 
 /* Main Container */
