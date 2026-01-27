@@ -123,21 +123,33 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.85rem 1.5rem;
+  /* Reduced height to match Footer Capsule */
+
+  /* Dark Glass Premium */
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  /* Refined Border - thinner and sharper */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  /* Reflective Top */
+
   border-radius: 9999px;
   color: var(--color-text-inverse);
   text-decoration: none;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s var(--ease-elastic), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.04em;
+  /* Elegant spacing */
+
+  transition: all 0.4s var(--ease-expo);
+
+  /* Deep Shadow construction */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
   overflow: hidden;
   transform: translateZ(0);
 }
