@@ -1,8 +1,3 @@
-/**
- * Immersive Ecosystem 3.0 (Physics-Based)
- * Stack: Lenis + GSAP (ScrollTrigger) + SplitType
- * @module App
- */
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,10 +5,6 @@ import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Physics Configuration Constants
- * @constant {Object}
- */
 const PHYSICS = Object.freeze({
   EASE_INERTIA: 'power3.out',
   EASE_EXPO: 'expo.out',
@@ -21,140 +12,135 @@ const PHYSICS = Object.freeze({
   DAMPING: 0.08,
   STAGGER: 0.08,
   MAGNETIC_STRENGTH_LOW: 15,
-  MAGNETIC_STRENGTH_HIGH: 30
+  MAGNETIC_STRENGTH_HIGH: 30,
 });
 
-/**
- * Handles Magnetic and Spotlight effects for UI elements.
- */
 class MagneticButton {
-  /**
-   * @param {HTMLElement} element - Target element
-   * @param {number} strength - Magnetic pull strength
-   */
+  #element;
+  #strength;
+  #rect = null;
+  #isTouch = false;
+  #abortController = new AbortController();
+
   constructor(element, strength = 20) {
-    if (!element) throw new Error('MagneticButton: Element required');
-
-    this.element = element;
-    this.strength = strength;
-    this.rect = null;
-    this.isTouch = false;
-
-    this.bindEvents();
-  }
-
-  bindEvents() {
-    this.element.addEventListener('mouseenter', () => this.updateRect());
-    this.element.addEventListener('mousemove', (e) => this.handleMove(e));
-    this.element.addEventListener('mouseleave', () => this.handleLeave());
-
-    this.element.addEventListener('touchstart', (e) => {
-      this.isTouch = true;
-      this.updateRect();
-      this.handleMove(e.touches[0]);
-    }, { passive: true });
-
-    this.element.addEventListener('touchmove', (e) => {
-      this.handleMove(e.touches[0]);
-    }, { passive: true });
-
-    this.element.addEventListener('touchend', () => this.handleLeave());
-  }
-
-  updateRect() {
-    this.rect = this.element.getBoundingClientRect();
-  }
-
-  handleMove(clientEvent) {
-    if (!this.rect) this.updateRect();
-
-    const x = clientEvent.clientX - this.rect.left;
-    const y = clientEvent.clientY - this.rect.top;
-
-    // Spotlight Effect (CSS Variables)
-    this.element.style.setProperty('--x', `${x}px`);
-    this.element.style.setProperty('--y', `${y}px`);
-
-    // Magnetic Pull (Desktop Only for Performance)
-    if (!this.isTouch) {
-      const centerX = this.rect.width / 2;
-      const centerY = this.rect.height / 2;
-
-      const distX = (x - centerX) / centerX;
-      const distY = (y - centerY) / centerY;
-
-      gsap.to(this.element, {
-        x: distX * this.strength,
-        y: distY * this.strength,
-        rotation: distX * 2,
-        duration: 0.5,
-        ease: PHYSICS.EASE_INERTIA,
-        overwrite: 'auto'
-      });
+    if (!(element instanceof HTMLElement)) {
+      throw new TypeError('MagneticButton: element must be an HTMLElement');
     }
+    this.#element = element;
+    this.#strength = strength;
+    this.#bindEvents();
   }
 
-  handleLeave() {
-    this.isTouch = false;
-    gsap.to(this.element, {
-      x: 0,
-      y: 0,
-      rotation: 0,
+  #updateRect() {
+    this.#rect = this.#element.getBoundingClientRect();
+  }
+
+  #handleMove(clientX, clientY) {
+    if (!this.#rect) this.#updateRect();
+
+    const x = clientX - this.#rect.left;
+    const y = clientY - this.#rect.top;
+
+    this.#element.style.setProperty('--x', `${x}px`);
+    this.#element.style.setProperty('--y', `${y}px`);
+
+    if (this.#isTouch) return;
+
+    const distX = (x - this.#rect.width / 2) / (this.#rect.width / 2);
+    const distY = (y - this.#rect.height / 2) / (this.#rect.height / 2);
+
+    gsap.to(this.#element, {
+      x: distX * this.#strength,
+      y: distY * this.#strength,
+      rotation: distX * 2,
+      duration: 0.5,
+      ease: PHYSICS.EASE_INERTIA,
+      overwrite: 'auto',
+    });
+  }
+
+  #handleLeave() {
+    this.#isTouch = false;
+    gsap.to(this.#element, {
+      x: 0, y: 0, rotation: 0,
       duration: 0.8,
       ease: PHYSICS.EASE_ELASTIC,
-      overwrite: 'auto'
+      overwrite: 'auto',
     });
+  }
+
+  #bindEvents() {
+    const { signal } = this.#abortController;
+
+    this.#element.addEventListener('mouseenter', () => this.#updateRect(), { signal });
+    this.#element.addEventListener('mousemove', ({ clientX, clientY }) => this.#handleMove(clientX, clientY), { signal });
+    this.#element.addEventListener('mouseleave', () => this.#handleLeave(), { signal });
+
+    this.#element.addEventListener('touchstart', ({ touches }) => {
+      this.#isTouch = true;
+      this.#updateRect();
+      this.#handleMove(touches[0].clientX, touches[0].clientY);
+    }, { passive: true, signal });
+
+    this.#element.addEventListener('touchmove', ({ touches }) => {
+      this.#handleMove(touches[0].clientX, touches[0].clientY);
+    }, { passive: true, signal });
+
+    this.#element.addEventListener('touchend', () => this.#handleLeave(), { signal });
+  }
+
+  destroy() {
+    this.#abortController.abort();
+    gsap.killTweensOf(this.#element);
   }
 }
 
-/**
- * Manages text reveal animations using SplitType.
- */
 class TypographyAnimator {
+  #elements;
+
   constructor(selector) {
-    this.elements = document.querySelectorAll(selector);
-    this.init();
+    if (typeof selector !== 'string' || !selector.trim()) {
+      throw new TypeError('TypographyAnimator: selector must be a non-empty string');
+    }
+    this.#elements = document.querySelectorAll(selector);
+    this.#init();
   }
 
-  init() {
-    if (!this.elements.length) return;
+  #animateElement(el) {
+    const split = new SplitType(el, { types: 'chars' });
+    if (!split.chars?.length) return;
 
-    this.elements.forEach((el) => {
+    gsap.from(split.chars, {
+      yPercent: 120,
+      opacity: 0,
+      rotationX: -45,
+      stagger: 0.04,
+      duration: 1.4,
+      ease: 'power4.out',
+      delay: 0.2,
+    });
+  }
+
+  #init() {
+    if (!this.#elements.length) return;
+
+    this.#elements.forEach((el) => {
       try {
-        const text = new SplitType(el, { types: 'chars' });
-
-        if (!text.chars) return;
-
-        gsap.from(text.chars, {
-          yPercent: 120,
-          opacity: 0,
-          rotationX: -45,
-          stagger: 0.04,
-          duration: 1.4,
-          ease: 'power4.out',
-          delay: 0.2
-        });
-      } catch (error) {
-        // Fail silently in production, text renders normally as fallback
+        this.#animateElement(el);
+      } catch {
+        // Text renders normally as fallback
       }
     });
   }
 }
 
-/**
- * Core Application Controller
- * Handles global state, scroll engine, and initialization.
- */
 const App = (() => {
   const state = {
     lenis: null,
     isMobile: window.matchMedia('(max-width: 768px)').matches,
-    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   };
 
-  /**
-   * Initializes Lenis Scroll Engine synced with GSAP.
-   */
   const _initScrollEngine = () => {
     if (state.prefersReducedMotion || state.isMobile) {
       document.documentElement.style.scrollBehavior = 'smooth';
@@ -168,89 +154,63 @@ const App = (() => {
         wheelMultiplier: 1,
       });
 
-      // Synchronize Lenis with GSAP Ticker
-      gsap.ticker.add((time) => {
-        state.lenis.raf(time * 1000);
-      });
-
+      gsap.ticker.add((time) => state.lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
-    } catch (e) {
-      // Fallback to native scroll if Lenis fails
+    } catch {
       document.documentElement.style.scrollBehavior = 'smooth';
     }
   };
 
-  /**
-   * Initializes all interactive components.
-   */
-  const _initInteractions = () => {
-    // 1. Text Animations
-    new TypographyAnimator('.nome');
-
-    // 2. Interactive Buttons (Guard Clause for safety)
-    const navLinks = document.querySelectorAll('nav a:not(.feature-card)');
-    const featureCards = document.querySelectorAll('.feature-card');
-
-    navLinks.forEach(el => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_LOW));
-    featureCards.forEach(el => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_HIGH));
-
-    // 3. Staggered Entrance Animation
-    _playEntranceSequence();
-
-    // 4. Desktop Parallax (Performance Guard)
-    if (!state.isMobile && !state.prefersReducedMotion) {
-      _initParallax();
-    }
+  const _initMagneticButtons = () => {
+    document.querySelectorAll('nav a:not(.feature-card)').forEach(
+      (el) => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_LOW)
+    );
+    document.querySelectorAll('.feature-card').forEach(
+      (el) => new MagneticButton(el, PHYSICS.MAGNETIC_STRENGTH_HIGH)
+    );
   };
 
   const _playEntranceSequence = () => {
     const tl = gsap.timeline({ delay: 0.5 });
-
     const profile = document.getElementById('profile');
     const navItems = document.querySelectorAll('nav li');
-    const socialLinks = document.getElementById('social-links');
 
     if (profile) {
-      tl.from(profile, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 1.2,
-        ease: PHYSICS.EASE_EXPO
-      });
+      tl.from(profile, { scale: 0.8, opacity: 0, duration: 1.2, ease: PHYSICS.EASE_EXPO });
     }
 
     if (navItems.length) {
       tl.from(navItems, {
-        y: 40,
-        opacity: 0,
+        y: 40, opacity: 0,
         stagger: PHYSICS.STAGGER,
         duration: 1,
-        ease: PHYSICS.EASE_INERTIA
-      }, "-=0.8");
-    }
-
-    if (socialLinks) {
-      tl.from(socialLinks, {
-        y: 20,
-        opacity: 0,
-        duration: 1,
-        ease: PHYSICS.EASE_INERTIA
-      }, "-=0.6");
+        ease: PHYSICS.EASE_INERTIA,
+      }, '-=0.8');
     }
   };
 
   const _initParallax = () => {
     const profileImg = document.querySelector('#profile img');
-    if (profileImg) {
-      gsap.to(profileImg, {
-        yPercent: 20,
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
+    if (!profileImg) return;
+
+    gsap.to(profileImg, {
+      yPercent: 20,
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  };
+
+  const _initInteractions = () => {
+    new TypographyAnimator('.nome');
+    _initMagneticButtons();
+    _playEntranceSequence();
+
+    if (!state.isMobile && !state.prefersReducedMotion) {
+      _initParallax();
     }
   };
 
@@ -262,7 +222,6 @@ const App = (() => {
   return { init };
 })();
 
-// Execution Entry Point
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', App.init);
 } else {

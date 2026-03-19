@@ -4,43 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Victor Cardoso - Creative Developer & Tech Enthusiast. Confira meus projetos e entre em contato.">
+  <meta name="description" content="Victor Cardoso — Creative Developer &amp; Tech Enthusiast. Confira meus projetos e entre em contato.">
   <meta name="author" content="Victor Cardoso">
   <meta name="theme-color" content="#0a0a0a">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://victorcardoso.com/">
   <meta property="og:title" content="Victor Cardoso | Creative Portfolio">
-  <meta property="og:description"
-    content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
+  <meta property="og:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
   <meta property="og:image" content="./assets/og-image.jpg">
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://victorcardoso.com/">
-  <meta property="twitter:title" content="Victor Cardoso | Creative Portfolio">
-  <meta property="twitter:description"
-    content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
-  <meta property="twitter:image" content="./assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://victorcardoso.com/">
+  <meta name="twitter:title" content="Victor Cardoso | Creative Portfolio">
+  <meta name="twitter:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
+  <meta name="twitter:image" content="./assets/og-image.jpg">
 
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <title>Victor Cardoso | Links</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
   <main id="container">
     <header id="profile">
-      <img src="./assets/Avatar1.jpeg" alt="Victor Cardoso" loading="eager" width="170" height="170" />
+      <img src="./assets/Avatar1.jpeg" alt="Foto de perfil de Victor Cardoso" loading="eager" width="170" height="170">
       <h1 class="nome">Victor Cardoso</h1>
     </header>
 
@@ -50,12 +43,9 @@
           <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer">Whatsapp</a>
         </li>
         <li>
-          <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer"
-            class="feature-card">
-            <div class="card-bg"
-              style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop');">
-            </div>
-            <div class="card-overlay"></div>
+          <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="feature-card">
+            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop');"></div>
+            <div class="card-overlay" aria-hidden="true"></div>
             <div class="card-content">
               <h2 class="card-title">Portfólio</h2>
               <p class="card-subtitle">Explore meu portfólio completo</p>
@@ -66,51 +56,43 @@
           <a href="https://www.wisesystem.com.br/" target="_blank" rel="noopener noreferrer">Wise System</a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank"
-            rel="noopener noreferrer">Linkedin</a>
+          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer">Linkedin</a>
         </li>
         <li>
-          <!-- Social Icons moved inside Nav for perfect spacing -->
-          <div id="social-links" aria-label="Redes Sociais">
-            <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" aria-label="Github">
+          <div id="social-links" role="list" aria-label="Redes Sociais">
+            <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" aria-label="Github" role="listitem">
               <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
             </a>
-            <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" rel="noopener noreferrer"
-              aria-label="Instagram">
+            <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" role="listitem">
               <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
             </a>
-            <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer"
-              aria-label="Linkedin">
+            <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" aria-label="Linkedin" role="listitem">
               <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
             </a>
-            <a href="mailto:victorcardcunha@gmail.com" aria-label="Email">
+            <a href="mailto:victorcardcunha@gmail.com" aria-label="Enviar email" role="listitem">
               <ion-icon name="mail" aria-hidden="true"></ion-icon>
             </a>
-            <a href="tel:+11977440146" aria-label="Ligar">
+            <a href="tel:+5511977440146" aria-label="Ligar" role="listitem">
               <ion-icon name="call" aria-hidden="true"></ion-icon>
             </a>
-            <a href="gallery.html" aria-label="Álbuns">
+            <a href="gallery.html" aria-label="Álbuns de fotos" role="listitem">
               <ion-icon name="images" aria-hidden="true"></ion-icon>
             </a>
           </div>
         </li>
       </ul>
     </nav>
-
-    <!-- social-links moved to nav -->
   </main>
 
   <footer>
     <div class="footer-content">
-      <!-- Copyright Linkified -->
-      <a href="https://victor-cardoso-dev.vercel.app" style="text-decoration: none; color: inherit; cursor: pointer;">
+      <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer" aria-label="Ir para o portfólio de Victor Cardoso">
         <p>&copy; 2024 Victor Cardoso &bull; São Paulo-SP</p>
       </a>
     </div>
   </footer>
 
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
-    xmlns="http://www.w3.org/2000/svg">
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <filter id="liquid-glass">
         <feTurbulence type="turbulence" baseFrequency="0.01 0.15" numOctaves="2" result="fluid" />
@@ -119,40 +101,17 @@
     </defs>
   </svg>
 
-  <script type="importmap">
-  {
-    "imports": {
-      "lenis": "https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.mjs",
-      "gsap": "https://unpkg.com/gsap@3.12.5/index.js",
-      "gsap/ScrollTrigger": "https://unpkg.com/gsap@3.12.5/ScrollTrigger.js",
-      "split-type": "https://unpkg.com/split-type@0.3.4/umd/index.js"
-    }
-  }
-  </script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script type="module" src="./script.js"></script>
 
-  <!-- Fallback for JS Disabled -->
   <noscript>
     <style>
-      body::before {
-        opacity: 1;
-      }
-
-      main {
-        opacity: 1;
-        transform: none;
-        animation: none;
-      }
-
-      nav a,
-      header img {
-        opacity: 1;
-        transform: none !important;
-      }
+      body::before { opacity: 1; }
+      main { opacity: 1; transform: none; animation: none; }
+      nav a, header img { opacity: 1; transform: none !important; }
     </style>
-    <div style="text-align:center; padding: 1rem; color: #fff; background: #990000;">
+    <div style="text-align:center;padding:1rem;color:#fff;background:#990000;">
       Para a experiência completa, por favor ative o JavaScript.
     </div>
   </noscript>
