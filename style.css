@@ -37,11 +37,15 @@
   /* 40px */
 
   /* Layout */
-  --layout-max-width: 38rem;
-  /* Wider feel */
+  --layout-max-width: 38rem;       /* Mobile base */
   --layout-gutter: clamp(1rem, 5vw, 2rem);
+  --layout-padding-top: 1rem;
   --header-avatar-size: 9rem;
-  /* 144px - Bigger presence */
+
+  /* Breakpoints (reference only — usados nas media queries) */
+  --bp-2xl: 1536px;
+  --bp-3xl: 1920px;
+  --bp-4xl: 2560px;
 
   /* Animation */
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -49,9 +53,41 @@
   --bg-image: url("./assets/b (4).jpg");
 }
 
+/* ── Tablet ── */
 @media (min-width: 768px) {
   :root {
     --bg-image: url("./assets/desk.jpg");
+    --layout-max-width: 42rem;
+  }
+}
+
+/* ── 2XL: 1536px ── */
+@media (min-width: 1536px) {
+  :root {
+    --layout-max-width: 52rem;
+    --layout-padding-top: 2rem;
+    --layout-gutter: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+/* ── 3XL: 1920px (Full HD+) ── */
+@media (min-width: 1920px) {
+  :root {
+    --layout-max-width: 60rem;
+    --layout-padding-top: 3rem;
+    --layout-gutter: clamp(2.5rem, 3vw, 4rem);
+    --header-avatar-size: 11rem;
+    --text-xl: clamp(2rem, 3.5vw, 3rem);
+  }
+}
+
+/* ── 4XL: 2560px (2K / QHD) ── */
+@media (min-width: 2560px) {
+  :root {
+    --layout-max-width: 72rem;
+    --layout-padding-top: 4rem;
+    --layout-gutter: clamp(3rem, 2.5vw, 5rem);
+    --header-avatar-size: 13rem;
   }
 }
 
@@ -115,8 +151,7 @@ main {
   width: 100%;
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  /* Reduced top padding to bring avatar closer to top */
-  padding: 1rem var(--layout-gutter) var(--space-xl);
+  padding: var(--layout-padding-top) var(--layout-gutter) var(--space-xl);
 
   display: flex;
   flex-direction: column;
@@ -248,9 +283,22 @@ nav>ul>li>a:focus-visible {
 nav>ul>li>a.feature-card {
   flex-direction: column;
   min-height: 7rem;
-  /* Increased presence (112px) */
   border-radius: 2rem;
   padding: var(--space-md);
+}
+
+@media (min-width: 1920px) {
+  nav>ul>li>a.feature-card {
+    min-height: 10rem;
+    border-radius: 2.5rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  nav>ul>li>a.feature-card {
+    min-height: 13rem;
+    border-radius: 3rem;
+  }
 }
 
 .card-bg {
