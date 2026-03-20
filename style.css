@@ -1,94 +1,25 @@
 /* 
-   ARCHITECTURE: SENIOR FRONTEND REFACTOR
-   Stack: CSS Variables (Tokens) + Flexbox + Container Queries
-   Philosophy: Fluidity, Relativity (rem), Stability
+   ARCHITECTURE: EDITORIAL MINIMALIST (B&W)
+   Stack: CSS Variables + Flexbox / Grid
+   Theme: High contrast, serif titles, sans-serif small caps, card overlaps
 */
 
-/* 1. TOKENS & RESET */
 :root {
   /* Colors */
-  --color-text-primary: #1a1a1a;
-  --color-text-inverse: #ffffff;
-  --color-surface-glass: rgba(10, 10, 10, 0.6);
-  --color-border-glass: rgba(255, 255, 255, 0.08);
-  --color-border-glass-highlight: rgba(255, 255, 255, 0.25);
+  --color-bg-body: #eaeaeb;       /* Fundo da "mesa" onde o app fica */
+  --color-bg-app: #ffffff;        /* Fundo do card/app */
+  --color-text-main: #111111;     /* Textos escuros (Nome, Stats) */
+  --color-text-mutted: #888888;   /* Textos de apoio, labels (Lorem ipsum) */
+  --color-border: #eaeaea;        /* Divisores sutis */
 
   /* Typography */
-  --font-primary: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Playfair Display", serif;
+  --font-sans: "Outfit", -apple-system, sans-serif;
+  --font-serif: "Playfair Display", serif;
 
-  /* Fluid Typography Scale (Mobile -> Desktop) */
-  --text-xs: clamp(0.75rem, 0.8vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 1vw, 1rem);
-  --text-md: clamp(1rem, 1.2vw, 1.125rem);
-  --text-lg: clamp(1.5rem, 2vw, 1.75rem);
-  --text-xl: clamp(1.75rem, 4vw, 2.5rem);
-
-  /* Spacing Scale (4px baseline) */
-  --space-xs: 0.25rem;
-  /* 4px */
-  --space-sm: 0.5rem;
-  /* 8px */
-  --space-md: 1rem;
-  /* 16px */
-  --space-lg: 1.5rem;
-  /* 24px */
-  --space-xl: 2.5rem;
-  /* 40px */
-
-  /* Layout */
-  --layout-max-width: 38rem;       /* Mobile base */
-  --layout-gutter: clamp(1rem, 5vw, 2rem);
-  --layout-padding-top: 1rem;
-  --header-avatar-size: 9rem;
-
-  /* Breakpoints (reference only — usados nas media queries) */
-  --bp-2xl: 1536px;
-  --bp-3xl: 1920px;
-  --bp-4xl: 2560px;
-
-  /* Animation */
-  --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --bg-image: url("./assets/b (4).jpg");
-}
-
-/* ── Tablet ── */
-@media (min-width: 768px) {
-  :root {
-    --bg-image: url("./assets/desk.jpg");
-    --layout-max-width: 42rem;
-  }
-}
-
-/* ── 2XL: 1536px ── */
-@media (min-width: 1536px) {
-  :root {
-    --layout-max-width: 52rem;
-    --layout-padding-top: 2rem;
-    --layout-gutter: clamp(2rem, 4vw, 3rem);
-  }
-}
-
-/* ── 3XL: 1920px (Full HD+) ── */
-@media (min-width: 1920px) {
-  :root {
-    --layout-max-width: 60rem;
-    --layout-padding-top: 3rem;
-    --layout-gutter: clamp(2.5rem, 3vw, 4rem);
-    --header-avatar-size: 11rem;
-    --text-xl: clamp(2rem, 3.5vw, 3rem);
-  }
-}
-
-/* ── 4XL: 2560px (2K / QHD) ── */
-@media (min-width: 2560px) {
-  :root {
-    --layout-max-width: 72rem;
-    --layout-padding-top: 4rem;
-    --layout-gutter: clamp(3rem, 2.5vw, 5rem);
-    --header-avatar-size: 13rem;
-  }
+  /* App Layout (Mobile First, constrained on Desktop) */
+  --app-max-width: 420px;         /* Limita a largura para manter aspecto mobile */
+  --cover-height: 48vh;           /* Altura da foto B&W vazada no topo */
+  --card-radius: 32px;
 }
 
 *,
@@ -105,331 +36,223 @@ html.lenis body {
   height: auto;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-/* 2. GLOBAL LAYOUT */
 body {
-  display: flex;
-  flex-direction: column;
+  background-color: var(--color-bg-body);
+  font-family: var(--font-sans);
+  color: var(--color-text-main);
+  line-height: 1.6;
   min-height: 100dvh;
-  /* Robust mobile viewport height */
-  font-family: var(--font-primary);
-  color: var(--color-text-primary);
-  line-height: 1.5;
+  display: flex;
+  justify-content: center; /* Centraliza o 'app' em telas grandes */
+  align-items: flex-start;
   -webkit-font-smoothing: antialiased;
-  background-color: #000;
-  /* Fallback */
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background Layer */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: var(--bg-image) no-repeat top center/cover;
-  will-change: transform;
-  transform: translateZ(0);
-  /* Hardware Acceleration */
-  pointer-events: none;
-}
-
-/* Main Container */
-main {
-  flex: 1;
-  /* Pushes footer down */
+/* ──────────────────────────────────────────────────────────── */
+/* APP WRAPPER (Simula a tela do celular em desktop) */
+/* ──────────────────────────────────────────────────────────── */
+.app-container {
   width: 100%;
-  max-width: var(--layout-max-width);
-  margin: 0 auto;
-  padding: var(--layout-padding-top) var(--layout-gutter) var(--space-xl);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-md);
-  /* Consistent vertical rhythm */
-
-  animation: fadeSlideUp 0.8s ease-out backwards;
-}
-
-/* 3. COMPONENTS */
-
-/* --- Profile Header --- */
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
-}
-
-header img {
-  width: var(--header-avatar-size);
-  height: var(--header-avatar-size);
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  object-fit: cover;
-  transition: transform 0.3s var(--ease-elastic);
-  will-change: transform;
-  background-color: #2a2a2a;
-}
-
-header img:hover {
-  transform: scale(1.05);
-}
-
-.nome {
-  font-family: var(--font-primary);
-  font-size: var(--text-xl);
-  /* Fluid sizing */
-  font-weight: 600;
-  /* Bolder impact */
-  color: var(--color-text-inverse);
-  letter-spacing: -0.03em;
-  /* Tighter for modern feel */
-  text-align: center;
-  margin-top: var(--space-xs);
-}
-
-/* --- Navigation & Links --- */
-nav ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  /* Increased from 10px to 12px for breathability */
-}
-
-/* Base Link Style */
-nav>ul>li>a {
+  max-width: var(--app-max-width);
+  min-height: 100dvh;
+  background-color: var(--color-bg-app);
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 1.75rem;
-  /* Increased touch target / visuals */
-
-  /* Glassmorphism */
-  background: var(--color-surface-glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-
-  /* Borders */
-  border: 1px solid var(--color-border-glass);
-  border-top: 1px solid var(--color-border-glass-highlight);
-  border-radius: 9999px;
-
-  /* Text */
-  color: var(--color-text-inverse);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: var(--text-md);
-  letter-spacing: 0.01em;
-  /* Neutral spacing */
-
-  /* Interaction */
-  transition: all 0.4s var(--ease-expo);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
-  transform: translateZ(0);
-  /* Paint layer isolation */
+  overflow: hidden; /* Corta o que passar do card */
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
 }
 
-/* Spotlight Effect Layer */
-nav>ul>li>a::before {
-  content: "";
+/* Hamburger Menu Icon (Top Left) */
+.menu-btn {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.15), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+  color: #fff; /* Fica branco sobre a foto preta */
+  font-size: 1.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
-nav>ul>li>a:hover::before {
+.menu-btn:hover {
   opacity: 1;
 }
 
-/* Interactive States */
-nav>ul>li>a:hover,
-nav>ul>li>a:focus-visible {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-  transform: scale(1.02);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.4);
+/* Quando a header é branca (Gallery), o ícone é cinza */
+.app-container.header-light .menu-btn {
+  color: var(--color-text-mutted);
 }
 
-nav>ul>li>a:active {
-  transform: scale(0.98);
-}
+/* ──────────────────────────────────────────────────────────── */
+/* HOME: COVER PHOTO & OVERLAPPING CARD */
+/* ──────────────────────────────────────────────────────────── */
 
-nav>ul>li>a:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 4px;
-}
-
-/* --- Feature Card Variant --- */
-nav>ul>li>a.feature-card {
-  flex-direction: column;
-  min-height: 7rem;
-  border-radius: 2rem;
-  padding: var(--space-md);
-}
-
-@media (min-width: 1920px) {
-  nav>ul>li>a.feature-card {
-    min-height: 10rem;
-    border-radius: 2.5rem;
-  }
-}
-
-@media (min-width: 2560px) {
-  nav>ul>li>a.feature-card {
-    min-height: 13rem;
-    border-radius: 3rem;
-  }
-}
-
-.card-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s var(--ease-expo), filter 0.3s ease;
-  z-index: 0;
-}
-
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.85));
-  z-index: 1;
-}
-
-.card-content {
+/* Capa preta/foto no topo */
+.hero-cover {
+  width: 100%;
+  height: var(--cover-height);
+  background-color: #000;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* A imagem será alinhada por baixo *//* A imagem alinha embaixo */
+}
+
+.hero-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%) contrast(1.1); /* Editorial B&W */
+  opacity: 0.85; /* Leve escurecida para o ícone de menu aparecer */
+}
+
+/* Card Branco Sobreposto */
+.profile-card {
+  position: relative;
+  background-color: var(--color-bg-app);
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  margin-top: -3rem; /* Sobe por cima da imagem */
+  padding: 3rem 2rem 2rem;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Nome (Serifa Elegante) */
+.profile-name {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Botão de Seguir/Contato */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--color-text-main);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-text-main);
+  background-color: #fafafa;
+}
+
+/* Bio Text */
+.profile-bio {
+  text-align: center;
+  color: var(--color-text-mutted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* STATS SECTION */
+/* ──────────────────────────────────────────────────────────── */
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem;
+  margin-bottom: 3rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.25rem;
 }
 
-.card-title {
-  font-family: var(--font-primary);
-  font-size: var(--text-lg);
+.stat-value {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
   font-weight: 600;
-  line-height: 1.1;
-  /* Tighter leading */
-  margin: 0;
-  letter-spacing: -0.02em;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  color: var(--color-text-main);
 }
 
-.card-subtitle {
-  font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.1em;
-  /* Wide editorial tracking */
+.stat-label {
+  font-size: 0.55rem;
   text-transform: uppercase;
-  opacity: 0.8;
+  letter-spacing: 0.15em;
+  color: var(--color-text-mutted);
   font-weight: 500;
 }
 
-@media (hover: hover) {
-  nav>ul>li>a.feature-card:hover .card-bg {
-    transform: scale(1.1);
-    filter: url(#liquid-glass);
-  }
-}
-
-/* --- Social Capsule --- */
-#social-links {
-  display: flex;
+/* ──────────────────────────────────────────────────────────── */
+/* SOCIAL LINKS (Minimalist format) */
+/* ──────────────────────────────────────────────────────────── */
+.links-section {
   width: 100%;
-  padding: 0.35rem;
-  /* Compact padding */
-  gap: 0.25rem;
-
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid var(--color-border-glass);
-  border-radius: 9999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-#social-links a {
-  flex: 1;
+.link-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 0;
-
-  color: var(--color-text-inverse);
-  font-size: 1.5rem;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  border-radius: 50px;
-  /* For hover shape */
-  opacity: 0.7;
-  transition: opacity 0.3s ease, transform 0.2s var(--ease-elastic);
-}
-
-/* Override default link:hover styles specifically for social icons */
-#social-links a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-  opacity: 1;
-}
-
-#social-links a:active {
-  transform: scale(0.9);
-}
-
-/* Separators */
-#social-links a:not(:last-child)::after {
-  /* Removing separators for cleaner capsule look */
-  content: none;
-}
-
-/* 4. FOOTER & UTILITIES */
-footer {
+  gap: 0.75rem;
   width: 100%;
-  padding: 1rem var(--layout-padding) 2rem;
-  /* Reduced top padding, kept safe bottom */
+  padding: 1rem;
+  background: transparent;
+  border-bottom: 1px solid #f2f2f2;
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.link-item:hover {
+  opacity: 0.6;
+}
+
+.link-item ion-icon {
+  font-size: 1.25rem;
+  color: var(--color-text-mutted);
+}
+
+/* Footer (sempre sutil embaixo) */
+footer {
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: var(--text-xs);
-  margin-top: -1rem;
-  /* Pull closer to the list intentionally */
+  padding: 2rem 0;
+  font-size: 0.75rem;
+  color: var(--color-text-mutted);
 }
 
-.char {
-  display: inline-block;
-  will-change: transform, opacity;
+footer a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+footer a:hover {
+  text-decoration: underline;
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Animações (Utils para GSAP) */
+.anim-el {
+  visibility: hidden; /* O GSAP mostra quando entrar */
 }

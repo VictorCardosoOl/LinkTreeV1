@@ -1,20 +1,32 @@
 {
   "name": "linktreev1",
-  "version": "1.0.0",
-  "description": "Código desenvolvido para treinar os seguintes conceitos: \r - Pagina Estática;\r - Logica de Programação;\r - Figma.",
+  "version": "1.3.0",
+  "type": "module",
+  "description": "Victor Cardoso personal links page — physics-based animations, glassmorphism UI, PWA-ready.",
   "main": "script.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint script.js",
+    "lint:fix": "eslint script.js --fix",
+    "format": "prettier --write \"**/*.{js,html,css,json,md}\"",
+    "check": "eslint script.js && prettier --check \"**/*.{js,html,css,json,md}\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["portfolio", "linktree", "gsap", "vite", "glassmorphism"],
+  "author": "Victor Cardoso <victorcardcunha@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^8.57.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
     "gsap": "^3.14.2",
+    "ionicons": "^8.0.13",
     "lenis": "^1.3.17",
+    "prettier": "^3.8.1",
     "split-type": "^0.3.4",
     "vite": "^7.3.1"
   }

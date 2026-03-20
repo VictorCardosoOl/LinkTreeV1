@@ -1,62 +1,59 @@
-.gallery-subtitle {
-  color: rgba(255, 255, 255, 0.6);
-  text-align: center;
-  font-size: var(--text-sm);
-  margin-top: var(--space-xs);
+/**
+ * Estilos específicos da aba Gallery/Posts.
+ * Complementa o style.css para o layout de lista de posts (2 colunas quadradas).
+ */
+
+.profile-card.gallery-header {
+  margin-top: 2rem; /* Como não tem foto de topo, não usa margem negativa */
+  border-radius: 0;
+  padding-top: 2rem;
 }
 
-#profile {
-  margin-top: 2rem;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
+/* Divisor "POSTS" */
+.posts-divider {
   width: 100%;
-  margin-top: 2rem;
-}
-
-.gallery-item {
-  aspect-ratio: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 2rem;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  margin-bottom: 2rem;
 }
 
-.gallery-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.back-btn {
-  align-self: flex-start;
-  color: var(--color-text-inverse);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0.7;
-  font-size: var(--text-sm);
+.posts-divider span {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-mutted);
   font-weight: 500;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  padding: 0.5rem 0;
+  padding: 0 1rem;
 }
 
-.back-btn:hover {
-  opacity: 1;
-  transform: translateX(-3px);
+/* Duas colunas pra imitar o grid do Figma */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
-.back-btn:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 4px;
-  border-radius: 4px;
+.gallery-item {
+  width: 100%;
+  aspect-ratio: 1; /* Quadrados perfeitos */
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5; /* Skeleton fallback */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1); /* Mantém estética B&W e sombria uniformizada */
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  filter: grayscale(0) contrast(1); /* Traz a cor de volta no hover leve */
+  transform: scale(1.03);
 }

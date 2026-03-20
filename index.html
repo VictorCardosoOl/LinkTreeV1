@@ -3,22 +3,16 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="Victor Cardoso — Creative Developer &amp; Tech Enthusiast. Confira meus projetos e entre em contato.">
   <meta name="author" content="Victor Cardoso">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#eaeaeb">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://victorcardoso.com/">
-  <meta property="og:title" content="Victor Cardoso | Creative Portfolio">
-  <meta property="og:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
+  <meta property="og:title" content="Victor Cardoso | Editorial Portfolio">
+  <meta property="og:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência minimalista.">
   <meta property="og:image" content="./assets/og-image.jpg">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://victorcardoso.com/">
-  <meta name="twitter:title" content="Victor Cardoso | Creative Portfolio">
-  <meta name="twitter:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência imersiva.">
-  <meta name="twitter:image" content="./assets/og-image.jpg">
 
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
@@ -30,91 +24,78 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <main id="container">
-    <header id="profile">
-      <img src="./assets/Avatar1.jpeg" alt="Foto de perfil de Victor Cardoso" loading="eager" width="170" height="170">
-      <h1 class="nome">Victor Cardoso</h1>
-    </header>
+<body data-page="home">
+  <!-- Container que imita tela de app -->
+  <main class="app-container">
+    
+    <!-- Ícone Hambúrguer (Header) -->
+    <button class="menu-btn" aria-label="Abrir menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
 
-    <nav aria-label="Links Principais">
-      <ul>
-        <li>
-          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer">Whatsapp</a>
-        </li>
-        <li>
-          <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="feature-card">
-            <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop');"></div>
-            <div class="card-overlay" aria-hidden="true"></div>
-            <div class="card-content">
-              <h2 class="card-title">Portfólio</h2>
-              <p class="card-subtitle">Explore meu portfólio completo</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.wisesystem.com.br/" target="_blank" rel="noopener noreferrer">Wise System</a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer">Linkedin</a>
-        </li>
-        <li>
-          <div id="social-links" role="list" aria-label="Redes Sociais">
-            <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" aria-label="Github" role="listitem">
-              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-            </a>
-            <a href="https://www.instagram.com/hi.chicocdo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" role="listitem">
-              <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
-            </a>
-            <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" aria-label="Linkedin" role="listitem">
-              <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
-            </a>
-            <a href="mailto:victorcardcunha@gmail.com" aria-label="Enviar email" role="listitem">
-              <ion-icon name="mail" aria-hidden="true"></ion-icon>
-            </a>
-            <a href="tel:+5511977440146" aria-label="Ligar" role="listitem">
-              <ion-icon name="call" aria-hidden="true"></ion-icon>
-            </a>
-            <a href="gallery.html" aria-label="Álbuns de fotos" role="listitem">
-              <ion-icon name="images" aria-hidden="true"></ion-icon>
-            </a>
-          </div>
-        </li>
-      </ul>
-    </nav>
+    <!-- Topo da tela: Foto em P&B -->
+    <div class="hero-cover">
+      <!-- Filtro grayscale aplicado no CSS -->
+      <img src="./assets/Avatar1.jpeg" alt="Retrato de Victor Cardoso" loading="eager" width="400" height="500">
+    </div>
+
+    <!-- Card Branco Sobreposto -->
+    <div class="profile-card">
+      <h1 class="profile-name">Victor Cardoso</h1>
+      
+      <a href="https://wa.me/5511977440146" class="btn-outline anim-el" target="_blank" rel="noopener noreferrer">
+        Contato
+      </a>
+
+      <p class="profile-bio anim-el">
+        Creative Developer &amp; Tech Enthusiast.<br>
+        Focado em design limpo e interfaces modernas de alta performance.
+      </p>
+
+      <!-- Stats Line -->
+      <div class="stats-row anim-el">
+        <div class="stat-item">
+          <span class="stat-value">05</span>
+          <span class="stat-label">Projetos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">4</span>
+          <span class="stat-label">Anos Exp</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">12k</span>
+          <span class="stat-label">Commits</span>
+        </div>
+      </div>
+
+      <!-- Links Minimalistas -->
+      <nav class="links-section anim-el" aria-label="Links Sociais">
+        <a href="gallery.html" class="link-item">
+          <ion-icon name="images-outline"></ion-icon>
+          Fotografia &amp; Artes
+        </a>
+        <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="link-item">
+          <ion-icon name="globe-outline"></ion-icon>
+          Portfólio Web
+        </a>
+        <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item">
+          <ion-icon name="logo-github"></ion-icon>
+          Git Repository
+        </a>
+        <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item">
+          <ion-icon name="logo-linkedin"></ion-icon>
+          LinkedIn
+        </a>
+      </nav>
+
+      <footer>
+        <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
+          &copy; 2024 Victor Cardoso &bull; SP
+        </a>
+      </footer>
+    </div>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer" aria-label="Ir para o portfólio de Victor Cardoso">
-        <p>&copy; 2024 Victor Cardoso &bull; São Paulo-SP</p>
-      </a>
-    </div>
-  </footer>
-
-  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="liquid-glass">
-        <feTurbulence type="turbulence" baseFrequency="0.01 0.15" numOctaves="2" result="fluid" />
-        <feDisplacementMap in="SourceGraphic" in2="fluid" scale="20" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
-
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script type="module" src="./script.js"></script>
-
-  <noscript>
-    <style>
-      body::before { opacity: 1; }
-      main { opacity: 1; transform: none; animation: none; }
-      nav a, header img { opacity: 1; transform: none !important; }
-    </style>
-    <div style="text-align:center;padding:1rem;color:#fff;background:#990000;">
-      Para a experiência completa, por favor ative o JavaScript.
-    </div>
-  </noscript>
 </body>
-
 </html>
