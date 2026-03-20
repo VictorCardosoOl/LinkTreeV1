@@ -1,76 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Victor Cardoso — Creative Developer &amp; Tech Enthusiast. Confira meus projetos e entre em contato."
+    />
+    <meta name="author" content="Victor Cardoso" />
+    <meta name="theme-color" content="#eaeaeb" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Victor Cardoso — Creative Developer &amp; Tech Enthusiast. Confira meus projetos e entre em contato.">
-  <meta name="author" content="Victor Cardoso">
-  <meta name="theme-color" content="#eaeaeb">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://victorcardoso.com/" />
+    <meta property="og:title" content="Victor Cardoso | Editorial Portfolio" />
+    <meta
+      property="og:description"
+      content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência minimalista."
+    />
+    <meta property="og:image" content="./assets/og-image.jpg" />
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://victorcardoso.com/">
-  <meta property="og:title" content="Victor Cardoso | Editorial Portfolio">
-  <meta property="og:description" content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência minimalista.">
-  <meta property="og:image" content="./assets/og-image.jpg">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+    <title>Victor Cardoso | Links</title>
 
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <title>Victor Cardoso | Links</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <body data-page="home">
+    <!-- Container que imita tela de app -->
+    <main class="app-container">
+      <!-- Ícone Hambúrguer (Header) -->
+      <button class="menu-btn" aria-label="Abrir menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
 
-<body data-page="home">
-  <!-- Container que imita tela de app -->
-  <main class="app-container">
-    
-    <!-- Ícone Hambúrguer (Header) -->
-    <button class="menu-btn" aria-label="Abrir menu">
-      <ion-icon name="menu-outline"></ion-icon>
-    </button>
+      <!-- Topo da tela: Foto em P&B -->
+      <div class="hero-cover">
+        <!-- Filtro grayscale aplicado no CSS -->
+        <img
+          src="./assets/Avatar1.jpeg"
+          alt="Retrato de Victor Cardoso"
+          loading="eager"
+          width="400"
+          height="500"
+        />
+      </div>
 
-    <!-- Topo da tela: Foto em P&B -->
-    <div class="hero-cover">
-      <!-- Filtro grayscale aplicado no CSS -->
-      <img src="./assets/Avatar1.jpeg" alt="Retrato de Victor Cardoso" loading="eager" width="400" height="500">
-    </div>
+      <!-- Card Branco Sobreposto -->
+      <div class="profile-card">
+        <h1 class="profile-name">Victor Cardoso</h1>
 
-    <!-- Card Branco Sobreposto -->
-    <div class="profile-card">
-      <h1 class="profile-name">Victor Cardoso</h1>
+        <!-- Links Minimalistas -->
+        <nav class="links-section anim-el" aria-label="Links Sociais">
+          <a href="gallery.html" class="link-item">
+            <ion-icon name="images-outline"></ion-icon>
+            Fotografia &amp; Artes
+          </a>
+          <a
+            href="https://victor-cardoso-dev.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-item"
+          >
+            <ion-icon name="globe-outline"></ion-icon>
+            Portfólio Web
+          </a>
+          <a
+            href="https://github.com/VictorCardosoOl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-item"
+          >
+            <ion-icon name="logo-github"></ion-icon>
+            Git Repository
+          </a>
+          <a
+            href="https://www.linkedin.com/in/victor-card-cunha/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-item"
+          >
+            <ion-icon name="logo-linkedin"></ion-icon>
+            LinkedIn
+          </a>
+        </nav>
 
-      <!-- Links Minimalistas -->
-      <nav class="links-section anim-el" aria-label="Links Sociais">
-        <a href="gallery.html" class="link-item">
-          <ion-icon name="images-outline"></ion-icon>
-          Fotografia &amp; Artes
-        </a>
-        <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="link-item">
-          <ion-icon name="globe-outline"></ion-icon>
-          Portfólio Web
-        </a>
-        <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item">
-          <ion-icon name="logo-github"></ion-icon>
-          Git Repository
-        </a>
-        <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item">
-          <ion-icon name="logo-linkedin"></ion-icon>
-          LinkedIn
-        </a>
-      </nav>
+        <footer>
+          <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
+            &copy; 2024 Victor Cardoso &bull; SP
+          </a>
+        </footer>
+      </div>
+    </main>
 
-      <footer>
-        <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
-          &copy; 2024 Victor Cardoso &bull; SP
-        </a>
-      </footer>
-    </div>
-  </main>
-
-  <script type="module" src="./script.js"></script>
-</body>
+    <script type="module" src="./script.js"></script>
+  </body>
 </html>

@@ -6,19 +6,19 @@
 
 :root {
   /* Colors */
-  --color-bg-body: #eaeaeb;       /* Fundo da "mesa" onde o app fica */
-  --color-bg-app: #ffffff;        /* Fundo do card/app */
-  --color-text-main: #111111;     /* Textos escuros (Nome, Stats) */
-  --color-text-mutted: #888888;   /* Textos de apoio, labels (Lorem ipsum) */
-  --color-border: #eaeaea;        /* Divisores sutis */
+  --color-bg-body: #eaeaeb; /* Fundo da "mesa" onde o app fica */
+  --color-bg-app: #ffffff; /* Fundo do card/app */
+  --color-text-main: #111111; /* Textos escuros (Nome, Stats) */
+  --color-text-mutted: #888888; /* Textos de apoio, labels (Lorem ipsum) */
+  --color-border: #eaeaea; /* Divisores sutis */
 
   /* Typography */
-  --font-sans: "Outfit", -apple-system, sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --font-sans: 'Outfit', -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', serif;
 
   /* App Layout (Mobile First, constrained on Desktop) */
-  --app-max-width: 420px;         /* Limita a largura para manter aspecto mobile */
-  --cover-height: 48vh;           /* Altura da foto B&W vazada no topo */
+  --app-max-width: 420px; /* Limita a largura para manter aspecto mobile */
+  --cover-height: 48vh; /* Altura da foto B&W vazada no topo */
   --card-radius: 32px;
 }
 
@@ -98,7 +98,7 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* A imagem será alinhada por baixo *//* A imagem alinha embaixo */
+  align-items: flex-end; /* A imagem será alinhada por baixo */ /* A imagem alinha embaixo */
 }
 
 .hero-cover img {

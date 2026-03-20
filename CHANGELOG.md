@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.3.0] - 2026-03-19
 
 ### Added
+
 - Enterprise-grade infrastructure: `.gitignore`, `.nvmrc`, `vite.config.js`
 - Code quality tooling: ESLint 8 + Prettier with shared config
 - CI workflow via GitHub Actions (`build` + `lint` on every push)
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ionicons installed as local npm dependency
 
 ### Changed
+
 - `script.js` refactored: `PAGE_HANDLERS` pattern replaces implicit page coupling
 - `MagneticButton`: private class fields (`#`), `AbortController` for listener cleanup
 - `TypographyAnimator`: `#animateElement` extracted as private method (SRP)
@@ -29,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Wide-screen breakpoints (2xl/3xl/4xl) added to CSS token system
 
 ### Fixed
+
 - Font `Outfit` was referenced in CSS but missing from HTML font loading
 - `gallery.html` missing `meta description`, favicon and `noscript` block
 - `manifest.json` `purpose: "any maskable"` combined (W3C antipattern)
@@ -39,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.0] - 2026-02-13
 
 ### Added
+
 - Physics-based animations using GSAP + ScrollTrigger
 - Smooth scroll via Lenis
 - Text reveal animation via SplitType
@@ -46,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PWA manifest (`manifest.json`)
 
 ### Changed
+
 - Full CSS architecture refactor: CSS Variables design token system
 - Fluid typography using `clamp()`
 - Glassmorphism card design for nav links
@@ -55,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-01-01
 
 ### Added
+
 - Initial release: LinkTree-style personal page
 - Static HTML + CSS layout
 - Social links: WhatsApp, LinkedIn, GitHub, Instagram, Email

@@ -58,15 +58,15 @@ The app will be available at `http://localhost:5173`.
 
 ## 📦 Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start Vite development server with HMR |
-| `npm run build` | Production build with vendor code-splitting |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint across all JS files |
-| `npm run lint:fix` | Auto-fix ESLint errors |
-| `npm run format` | Format all files with Prettier |
-| `npm run check` | Run lint + format check (for CI) |
+| Command            | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `npm run dev`      | Start Vite development server with HMR      |
+| `npm run build`    | Production build with vendor code-splitting |
+| `npm run preview`  | Preview the production build locally        |
+| `npm run lint`     | Run ESLint across all JS files              |
+| `npm run lint:fix` | Auto-fix ESLint errors                      |
+| `npm run format`   | Format all files with Prettier              |
+| `npm run check`    | Run lint + format check (for CI)            |
 
 ---
 
@@ -99,13 +99,13 @@ LinkTreeV1/
 
 All design tokens are defined as CSS Custom Properties in `style.css`:
 
-| Category | Variables |
-|---|---|
-| Colors | `--color-text-primary`, `--color-surface-glass`, `--color-border-glass` |
-| Typography | `--font-primary`, `--font-display`, `--text-xs` → `--text-xl` |
-| Spacing | `--space-xs` → `--space-xl` (4px baseline grid) |
-| Layout | `--layout-max-width`, `--layout-gutter`, `--layout-padding-top` |
-| Animation | `--ease-elastic`, `--ease-expo` |
+| Category   | Variables                                                               |
+| ---------- | ----------------------------------------------------------------------- |
+| Colors     | `--color-text-primary`, `--color-surface-glass`, `--color-border-glass` |
+| Typography | `--font-primary`, `--font-display`, `--text-xs` → `--text-xl`           |
+| Spacing    | `--space-xs` → `--space-xl` (4px baseline grid)                         |
+| Layout     | `--layout-max-width`, `--layout-gutter`, `--layout-padding-top`         |
+| Animation  | `--ease-elastic`, `--ease-expo`                                         |
 
 ---
 
@@ -122,17 +122,17 @@ npm run check      # lint + format check (CI-safe)
 
 ## 📋 Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Build tool | [Vite 7](https://vitejs.dev/) |
-| Animations | [GSAP 3](https://gsap.com/) + [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) |
-| Scroll | [Lenis](https://github.com/darkroomengineering/lenis) |
-| Text split | [SplitType](https://github.com/lukePeavey/SplitType) |
-| Icons | [Ionicons 7](https://ionic.io/ionicons) |
-| Fonts | [Outfit](https://fonts.google.com/specimen/Outfit) + [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) |
-| Linting | ESLint 8 + eslint-config-prettier |
-| Formatting | Prettier 3 |
-| CI | GitHub Actions |
+| Layer      | Technology                                                                                                                  |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Build tool | [Vite 7](https://vitejs.dev/)                                                                                               |
+| Animations | [GSAP 3](https://gsap.com/) + [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)                              |
+| Scroll     | [Lenis](https://github.com/darkroomengineering/lenis)                                                                       |
+| Text split | [SplitType](https://github.com/lukePeavey/SplitType)                                                                        |
+| Icons      | [Ionicons 7](https://ionic.io/ionicons)                                                                                     |
+| Fonts      | [Outfit](https://fonts.google.com/specimen/Outfit) + [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) |
+| Linting    | ESLint 8 + eslint-config-prettier                                                                                           |
+| Formatting | Prettier 3                                                                                                                  |
+| CI         | GitHub Actions                                                                                                              |
 
 ---
 

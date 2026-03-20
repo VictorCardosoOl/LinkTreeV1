@@ -16,7 +16,13 @@
     "format": "prettier --write \"**/*.{js,html,css,json,md}\"",
     "check": "eslint script.js && prettier --check \"**/*.{js,html,css,json,md}\""
   },
-  "keywords": ["portfolio", "linktree", "gsap", "vite", "glassmorphism"],
+  "keywords": [
+    "portfolio",
+    "linktree",
+    "gsap",
+    "vite",
+    "glassmorphism"
+  ],
   "author": "Victor Cardoso <victorcardcunha@gmail.com>",
   "license": "ISC",
   "devDependencies": {

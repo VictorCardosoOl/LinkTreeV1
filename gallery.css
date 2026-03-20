@@ -50,7 +50,9 @@
   height: 100%;
   object-fit: cover;
   filter: grayscale(100%) contrast(1.1); /* Mantém estética B&W e sombria uniformizada */
-  transition: filter 0.5s ease, transform 0.5s ease;
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease;
 }
 
 .gallery-item:hover img {
