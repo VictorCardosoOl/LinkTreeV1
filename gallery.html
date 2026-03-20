@@ -27,8 +27,9 @@
   </head>
 
   <body data-page="gallery">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <!-- Container principal, com a classe header-light para o ícone de menu ficar escuro -->
-    <main class="app-container header-light">
+    <main id="main-content" class="app-container header-light">
       <!-- Ícone Hambúrguer (Header) -> Clicar levaria de volta pra Home neste mock -->
       <a href="index.html" class="menu-btn" aria-label="Voltar para a página principal">
         <ion-icon name="menu-outline"></ion-icon>
@@ -64,6 +65,16 @@
         </footer>
       </div>
     </main>
+
+    <!-- Lightbox Nativo HTML5 -->
+    <dialog id="lightbox" aria-label="Visualizador de Imagem Expandida">
+      <div class="lightbox-wrapper">
+        <button id="close-lightbox" aria-label="Fechar visualizador">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+        <img id="lightbox-img" src="" alt="Obra expandida" />
+      </div>
+    </dialog>
 
     <script type="module" src="./script.js"></script>
   </body>

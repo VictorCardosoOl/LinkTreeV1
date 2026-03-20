@@ -38,6 +38,51 @@ const App = (() => {
     }
   };
 
+  const initLightbox = () => {
+    const dialog = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('close-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+
+    if (!dialog || !closeBtn || !lightboxImg) return;
+
+    // Open lightbox
+    galleryItems.forEach((img) => {
+      img.closest('.gallery-item').addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || 'Imagem ampliada';
+        dialog.showModal();
+        document.body.style.overflow = 'hidden'; // Evita scroll do fundo
+      });
+      // Acessibilidade via teclado
+      img.closest('.gallery-item').setAttribute('tabindex', '0');
+      img.closest('.gallery-item').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lightboxImg.src = img.src;
+          dialog.showModal();
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    // Close lightbox
+    const closeDialog = () => {
+      dialog.close();
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    };
+
+    closeBtn.addEventListener('click', closeDialog);
+
+    // Close on backdrop click
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        closeDialog();
+      }
+    });
+  };
+
   const playEntranceSequence = () => {
     try {
       const timeline = gsap.timeline({ delay: 0.3 });
@@ -96,6 +141,11 @@ const App = (() => {
   const init = () => {
     try {
       initScrollEngine();
+
+      const page = document.body.dataset.page ?? 'home';
+      if (page === 'gallery') {
+        initLightbox();
+      }
       playEntranceSequence();
     } catch (error) {
       console.error('App initialization failed:', error);
