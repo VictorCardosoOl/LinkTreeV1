@@ -77,7 +77,7 @@ LinkTreeV1/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml          # GitHub Actions: lint + build
-├── assets/                 # Static assets (images, favicon, og-image)
+├── assets/                 # Static assets (images, favicon)
 ├── .eslintrc.json          # ESLint 8 config (browser + ES2022)
 ├── .gitignore
 ├── .nvmrc                  # Node version pin (22 LTS)

@@ -7,8 +7,8 @@ import gsap from 'gsap';
 import 'ionicons';
 
 const PHYSICS = Object.freeze({
-  EASE_EXPO: 'power4.out',
-  STAGGER: 0.08,
+  EASE_EXPO: 'power2.out',
+  STAGGER: 0.1,
 });
 
 const App = (() => {
@@ -26,7 +26,7 @@ const App = (() => {
 
     try {
       state.lenis = new Lenis({
-        lerp: 0.1,
+        lerp: 0.08,
         smoothWheel: true,
       });
 
@@ -40,7 +40,7 @@ const App = (() => {
 
   const playEntranceSequence = () => {
     try {
-      const timeline = gsap.timeline({ delay: 0.2 });
+      const timeline = gsap.timeline({ delay: 0.3 });
       const heroCover = document.querySelector('.hero-cover');
       const profileName = document.querySelector('.profile-name');
       const animatedElements = document.querySelectorAll('.anim-el');
@@ -48,8 +48,8 @@ const App = (() => {
       if (heroCover && !state.prefersReducedMotion) {
         timeline.from(heroCover, {
           opacity: 0,
-          y: -20,
-          duration: 1.2,
+          y: -10,
+          duration: 1.8,
           ease: PHYSICS.EASE_EXPO,
         });
       }
@@ -59,11 +59,11 @@ const App = (() => {
           profileName,
           {
             opacity: 0,
-            y: 15,
-            duration: 1.5,
+            y: 8,
+            duration: 2.0,
             ease: PHYSICS.EASE_EXPO,
           },
-          heroCover ? '-=0.8' : 0
+          heroCover ? '-=1.2' : 0
         );
       }
 
@@ -75,12 +75,12 @@ const App = (() => {
             animatedElements,
             {
               opacity: 0,
-              y: 10,
+              y: 5,
               stagger: PHYSICS.STAGGER,
-              duration: 1.2,
+              duration: 1.8,
               ease: PHYSICS.EASE_EXPO,
             },
-            '-=1.2'
+            '-=1.5'
           );
         }
       }
