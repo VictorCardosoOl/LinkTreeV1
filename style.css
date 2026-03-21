@@ -124,19 +124,19 @@ body {
   position: relative;
   margin-top: -3rem;
   width: 100%;
-  background: var(--glass-light-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid var(--glass-light-border);
-  border-left: 1px solid var(--glass-light-border);
-  border-right: 1px solid var(--glass-light-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
+  backdrop-filter: blur(32px) saturate(150%);
+  -webkit-backdrop-filter: blur(32px) saturate(150%);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
   padding: clamp(1.5rem, 5vh, 3rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05), inset 0 2px 5px rgba(255, 255, 255, 0.7);
 }
 
 /* Header inside card */
