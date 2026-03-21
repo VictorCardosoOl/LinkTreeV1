@@ -153,7 +153,9 @@ const App = (() => {
       initScrollEngine();
 
       const page = document.body.dataset.page ?? 'home';
-      initLightbox();
+      if (page === 'gallery') {
+        initLightbox();
+      }
       playEntranceSequence();
     } catch (error) {
       console.error('App initialization failed:', error);
