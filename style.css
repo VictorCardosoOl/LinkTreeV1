@@ -124,46 +124,25 @@ body {
   position: relative;
   margin-top: -3rem;
   width: 100%;
-  background: transparent;
+  /* Glassmorphism Refinado da Foto - Gradiente e Blur */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  
+  /* Bordas Simples, Limpas e Reflexivas como Vidro Físico */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  
   border-radius: var(--card-radius) var(--card-radius) 0 0;
   padding: clamp(1.5rem, 5vh, 3rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1), 0 20px 60px rgba(0, 0, 0, 0.05);
-}
-
-/* Fundo Distorcido (Liquid Glass Mágico) */
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 100%);
-  backdrop-filter: blur(40px) saturate(200%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
-  filter: url(#liquid-glass-filter);
-}
-
-/* Bordas Refletivas Hiper-realistas via Máscara */
-.profile-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: inherit;
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.5) inset, 0 1px 3px rgba(255, 255, 255, 0.25) inset;
-  background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 30%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0) 100%);
-  padding: 1.5px;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  mix-blend-mode: overlay;
-  opacity: 0.8;
+  
+  /* Sombra suave por fora, luz fina (inset shadow) por dentro = espessura de vidro */
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 /* Header inside card */
