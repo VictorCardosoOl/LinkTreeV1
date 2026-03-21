@@ -1,20 +1,21 @@
 /* 
-   ARCHITECTURE: PREMIUM LIQUID GLASS (DARK MODE)
-   Theme: High contrast, dark charcoal/brown backgrounds, glassmorphism cards, pill buttons
+   ARCHITECTURE: EDITORIAL P&B + LIQUID GLASS
+   Theme: High contrast, greyscale images, white glassmorphism cards, pill buttons
 */
 
 :root {
-  /* Colors - Premium Dark Theme */
-  --color-bg-body: #0a0908; /* Outside the app */
-  --color-text-main: #ffffff;
-  --color-text-mutted: #b8b8b8;
-  --color-border: rgba(255, 255, 255, 0.1);
+  /* Colors - Editorial B&W Theme */
+  --color-bg-body: #eaeaeb; 
+  --color-text-main: #111111;
+  --color-text-mutted: #888888;
+  --color-border: rgba(17, 17, 17, 0.1);
 
   /* Glassmorphism Variables */
-  --glass-light-bg: rgba(255, 255, 255, 0.12); /* For main card */
-  --glass-light-border: rgba(255, 255, 255, 0.2);
-  --glass-dark-bg: rgba(15, 12, 11, 0.65); /* For buttons/gallery */
-  --glass-dark-border: rgba(255, 255, 255, 0.08);
+  --glass-light-bg: rgba(255, 255, 255, 0.85); /* Frosty white card */
+  --glass-light-border: rgba(255, 255, 255, 0.5);
+  
+  --glass-dark-bg: rgba(17, 17, 17, 0.9); /* Dark pills */
+  --glass-dark-border: rgba(0, 0, 0, 0.1);
 
   /* Typography */
   --font-sans: 'Outfit', -apple-system, sans-serif;
@@ -22,8 +23,9 @@
 
   /* Layout */
   --app-max-width: 420px;
-  --card-radius: 40px; /* Highly rounded */
-  --pill-radius: 999px; /* Pill shape */
+  --card-radius: 40px; 
+  --pill-radius: 999px;
+  --cover-height: 48vh; 
   
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -48,7 +50,7 @@ html.lenis body {
   top: -3rem;
   left: 1rem;
   background: var(--color-text-main);
-  color: var(--color-bg-body);
+  color: #fff;
   padding: 0.5rem 1rem;
   z-index: 1000;
   border-radius: var(--pill-radius);
@@ -79,106 +81,46 @@ body {
   width: 100%;
   max-width: var(--app-max-width);
   min-height: 100dvh;
-  background-color: #1a1715; /* Fallback deep warm dark */
+  background-color: #ffffff;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
 }
 
-/* Fullscreen Background Image for App */
+/* Hero Image Top */
 .hero-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 1;
+  height: var(--cover-height);
+  position: relative;
 }
 
 .hero-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  filter: brightness(0.6) contrast(1.1) saturate(1.2); /* Deep, rich colors */
+  object-position: center top;
+  filter: grayscale(100%) contrast(1.1); /* Voltou o visual lindo em preto e branco */
 }
 
-/* Title over image (like N99) */
-.hero-title-overlay {
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  z-index: 2;
-  width: 100%;
-}
-
-.hero-title-overlay h2 {
-  font-family: var(--font-sans);
-  font-size: 3.5rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  color: #fff;
-  line-height: 1;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.hero-title-overlay p {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 0.5rem;
-}
-
-/* Hamburger Menu Icon (Top Left) */
-.menu-btn {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 10;
-  color: #fff;
-  font-size: 1.75rem;
-  background: var(--glass-dark-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-dark-border);
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s var(--ease-expo), background-color 0.3s;
-}
-
-.menu-btn:hover {
-  background: rgba(255,255,255,0.1);
-  transform: scale(1.05);
-}
-
-/* GLASSMORPHISM CARD (Overlaps the bottom part) */
+/* GLASSMORPHISM CARD (Overlaps the image) */
 .profile-card {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  margin-top: -3rem; /* Sobrepõe imagem */
   width: 100%;
   /* The Glass Effect */
   background: var(--glass-light-bg);
-  backdrop-filter: blur(34px);
-  -webkit-backdrop-filter: blur(34px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-top: 1px solid var(--glass-light-border);
   border-left: 1px solid var(--glass-light-border);
   border-right: 1px solid var(--glass-light-border);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: 2.5rem 1.5rem 2.5rem;
+  padding: 3rem 1.5rem 2.5rem;
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05); /* Sombra mais sutil no claro */
 }
 
 /* Header inside card */
@@ -191,23 +133,23 @@ body {
 }
 
 .badge {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+  background: transparent;
+  color: var(--color-text-main);
   font-size: 0.65rem;
   font-weight: 500;
   padding: 0.3rem 0.8rem;
   border-radius: var(--pill-radius);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid var(--color-border);
 }
 
 .profile-name {
-  font-family: var(--font-sans);
-  font-size: 1.8rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   margin-bottom: 0.2rem;
 }
 
@@ -232,27 +174,31 @@ body {
   gap: 0.75rem;
   width: 100%;
   padding: 1.2rem;
-  background: var(--glass-dark-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-dark-border);
+  background: transparent; /* P&B clean style */
+  border: 1px solid var(--color-border);
   border-radius: var(--pill-radius);
   color: var(--color-text-main);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
-  transition: transform 0.3s var(--ease-elastic), background 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s;
 }
 
 .link-item:hover {
   transform: scale(1.02);
-  background: rgba(30,30,30,0.8);
+  background: var(--glass-dark-bg);
+  color: #fff;
+  border-color: var(--glass-dark-bg);
+}
+
+.link-item:hover ion-icon {
+  color: #fff;
 }
 
 .link-item ion-icon {
   font-size: 1.3rem;
-  color: #fff;
+  color: var(--color-text-mutted);
+  transition: color 0.3s;
 }
 
 /* SOCIAL ICONS BLOCK */
@@ -272,21 +218,25 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--glass-dark-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-dark-border);
+  background: transparent;
+  border: 1px solid var(--color-border);
   transition: transform 0.3s var(--ease-elastic), background 0.3s;
 }
 
 .social-icons-grid a ion-icon {
   color: var(--color-text-main);
   font-size: 1.3rem;
+  transition: color 0.3s;
 }
 
 .social-icons-grid a:hover {
   transform: scale(1.1) translateY(-3px);
-  background: rgba(255,255,255,0.1);
+  background: var(--glass-dark-bg);
+  border-color: var(--glass-dark-bg);
+}
+
+.social-icons-grid a:hover ion-icon {
+  color: #fff;
 }
 
 footer {
@@ -294,7 +244,7 @@ footer {
   padding: 1.5rem 0 0;
   font-size: 0.75rem;
   color: var(--color-text-mutted);
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 footer a {
@@ -316,42 +266,38 @@ footer a {
     display: flex;
     max-width: 1200px;
     width: 100%;
-    height: 80vh;
+    height: auto;
     min-height: 80vh;
     flex-direction: row;
     border-radius: var(--card-radius);
     overflow: hidden;
     position: relative;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08); /* Sombra clara elegante */
   }
 
   .hero-cover {
-    position: relative;
-    width: 50%;
+    width: 45%;
     height: 100%;
+    min-height: 80vh;
     border-radius: 0;
   }
   
-  .hero-title-overlay {
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .hero-cover img {
+    height: 100%;
   }
 
   .profile-card {
     position: relative;
-    width: 50%;
-    height: 100%;
+    width: 55%;
+    height: auto;
+    margin-top: 0;
     border-radius: 0;
     padding: 4rem 10%;
     justify-content: center;
     border: none;
     border-left: 1px solid var(--glass-light-border);
     box-shadow: none;
-  }
-
-  .menu-btn {
-    top: 2rem;
-    left: 2rem;
+    background: #ffffff; /* Sólido no desktop para leitura perfeita */
   }
 }
 
