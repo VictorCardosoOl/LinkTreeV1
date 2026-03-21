@@ -62,10 +62,6 @@
 
         <!-- Links Minimalistas -->
         <nav class="links-section anim-el" aria-label="Links Sociais">
-          <a href="gallery.html" class="link-item">
-            <ion-icon name="images-outline"></ion-icon>
-            Fotografia &amp; Artes
-          </a>
           <a
             href="https://victor-cardoso-dev.vercel.app"
             target="_blank"
@@ -95,6 +91,26 @@
           </a>
         </nav>
 
+        <!-- Grade de Ícones Sociais Puros -->
+        <div class="social-icons-grid anim-el">
+          <a
+            href="https://www.linkedin.com/in/victor-card-cunha/"
+            target="_blank"
+            aria-label="LinkedIn"
+          >
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+          <a href="https://instagram.com/abaxu_artes" target="_blank" aria-label="Instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Email">
+            <ion-icon name="mail-outline"></ion-icon>
+          </a>
+          <a href="https://wa.me/5511977440146" target="_blank" aria-label="WhatsApp">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+          </a>
+        </div>
+
         <footer>
           <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
             &copy; 2024 Victor Cardoso &bull; SP
@@ -103,6 +119,12 @@
       </div>
     </main>
 
+    <!-- IonIcons CDN (Resolve problema de SVGs não injetados no build do Vite) -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script type="module" src="./script.js"></script>
   </body>
 </html>

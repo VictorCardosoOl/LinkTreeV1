@@ -273,6 +273,114 @@ footer a:hover {
   text-decoration: underline;
 }
 
+/* ──────────────────────────────────────────────────────────── */
+/* SOCIAL ICONS BLOCK                                           */
+/* ──────────────────────────────────────────────────────────── */
+.social-icons-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.social-icons-grid a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s var(--ease-expo);
+}
+
+.social-icons-grid a ion-icon {
+  color: var(--color-text-main);
+  font-size: 2.2rem; /* Tamanho maior para destaque */
+  transition: color 0.3s ease;
+}
+
+.social-icons-grid a:hover {
+  transform: scale(1.15) translateY(-3px);
+}
+
+.social-icons-grid a:hover ion-icon {
+  color: #000;
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* DESKTOP SPLIT LAYOUT (CINEMA-STYLE)                          */
+/* ──────────────────────────────────────────────────────────── */
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .app-container {
+    max-width: 1200px; /* Expande o limite de 420px */
+    width: 100%;
+    height: auto;
+    min-height: 80vh;
+    flex-direction: row; /* Divide a tela lado a lado */
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08); /* Sombra elegante no wrapper todo */
+  }
+
+  .menu-btn {
+    top: 2rem;
+    left: 2rem;
+    z-index: 50; /* Garante que fique acima da imagem */
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+
+  .hero-cover {
+    width: 45%;
+    height: 100%;
+    min-height: 80vh;
+    position: relative;
+    border-radius: 0;
+  }
+
+  .hero-cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-card {
+    width: 55%;
+    height: auto;
+    margin-top: 0; /* Remove o overlap negativo do mobile */
+    border-radius: 0;
+    padding: 4rem 10%; /* Espaçamento interno luxuoso */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .links-section {
+    margin-top: 3rem;
+  }
+
+  /* Na página de galeria (opcional), ajustamos levemente */
+  .profile-card.gallery-header {
+    width: 100%; /* Galeria expande */
+    padding: 4rem 5%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas na galeria desktop */
+    gap: 2rem;
+  }
+}
+
 /* Animações (Utils para GSAP) */
 .anim-el {
   visibility: hidden; /* O GSAP mostra quando entrar */

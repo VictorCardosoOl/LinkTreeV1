@@ -4,7 +4,6 @@
  */
 import Lenis from 'lenis';
 import gsap from 'gsap';
-import 'ionicons';
 
 const PHYSICS = Object.freeze({
   EASE_EXPO: 'power2.out',
