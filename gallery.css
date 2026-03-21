@@ -1,75 +1,136 @@
 /**
- * Estilos específicos da aba Gallery/Posts.
- * Complementa o style.css para o layout de lista de posts (2 colunas quadradas).
+ * GALLERY ESTHETICS - Premium Liquid Glass
+ * Complementa o style.css para o layout de lista de posts (Grid Premium).
  */
 
 .profile-card.gallery-header {
-  margin-top: 2rem; /* Como não tem foto de topo, não usa margem negativa */
+  margin-top: 0;
   border-radius: 0;
-  padding-top: 2rem;
+  padding-top: 6rem;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
 }
 
-/* Divisor "POSTS" */
+/* Divisor "Add inspo" */
 .posts-divider {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
   margin-bottom: 2rem;
+  padding: 0 0.5rem;
 }
 
-.posts-divider span {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--color-text-mutted);
+.posts-divider .title-block h2 {
+  font-family: var(--font-sans);
+  font-size: 2rem;
   font-weight: 500;
-  padding: 0 1rem;
+  color: #fff;
+  letter-spacing: -0.02em;
 }
 
-/* Duas colunas pra imitar o grid do Figma */
+.posts-divider .title-block p {
+  font-size: 0.8rem;
+  color: var(--color-text-mutted);
+  margin-top: 0.2rem;
+}
+
+/* Pill Tags Row (Mockup Filters) */
+/* No HTML vamos adicionar um container div.tags-row */
+.tags-row {
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.tags-row::-webkit-scrollbar {
+  display: none;
+}
+
+.tag-pill {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--pill-radius);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-mutted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s var(--ease-expo);
+}
+
+.tag-pill ion-icon {
+  font-size: 1rem;
+}
+
+.tag-pill:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* Grade Masonry/Quadrada */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
 .gallery-item {
   width: 100%;
-  aspect-ratio: 1; /* Quadrados perfeitos */
-  border-radius: 12px;
+  aspect-ratio: 0.85; /* Mais alto que largo (retangular) */
+  border-radius: 24px;
   overflow: hidden;
   position: relative;
-  background-color: #f5f5f5; /* Skeleton fallback */
+  background-color: var(--glass-dark-bg);
+  cursor: pointer;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.1); /* Mantém estética B&W e sombria uniformizada */
-  transition:
-    filter 0.5s ease,
-    transform 0.5s ease;
+  transition: transform 0.6s var(--ease-expo), filter 0.6s ease;
+  filter: brightness(0.8) contrast(1.1);
 }
 
 .gallery-item:hover img {
-  filter: grayscale(0) contrast(1); /* Traz a cor de volta no hover leve */
-  transform: scale(1.03);
+  transform: scale(1.05);
+  filter: brightness(1) contrast(1.15);
+}
+
+/* Floating icons inside gallery item */
+.item-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 2;
+  font-size: 1rem;
 }
 
 /* ──────────────────────────────────────────────────────────── */
 /* LIGHTBOX MODAL DIALOG */
 /* ──────────────────────────────────────────────────────────── */
-
-/* Fix pointer cursor on gallery items */
-.gallery-item {
-  cursor: pointer;
-}
-
-/* O elemento <dialog> base */
 #lightbox {
   padding: 0;
   border: none;
@@ -85,13 +146,12 @@
   overflow: hidden;
 }
 
-/* O Backdrop nativo do HTML5 dialog */
 #lightbox::backdrop {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(8px);
+  background: rgba(10, 9, 8, 0.95); /* Escuro charocal */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Wrapper centralizado */
 .lightbox-wrapper {
   width: 100%;
   height: 100%;
@@ -103,34 +163,36 @@
   padding: 2rem;
 }
 
-/* Botão Fechar */
 #close-lightbox {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: transparent;
-  border: none;
+  top: 2rem;
+  right: 2rem;
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   cursor: pointer;
   z-index: 20;
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-  opacity: 0.7;
+  transition: transform 0.3s var(--ease-elastic), background 0.3s;
 }
 
 #close-lightbox:hover {
-  opacity: 1;
+  background: rgba(255,255,255,0.2);
   transform: scale(1.1);
 }
 
-/* Imagem Expandida */
 #lightbox-img {
   max-width: 100%;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
   user-select: none;
 }

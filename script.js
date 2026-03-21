@@ -6,8 +6,9 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 
 const PHYSICS = Object.freeze({
-  EASE_EXPO: 'power2.out',
-  STAGGER: 0.1,
+  EASE_EXPO: 'power4.out',
+  EASE_ELASTIC: 'elastic.out(1, 0.85)',
+  STAGGER: 0.12,
 });
 
 const App = (() => {
@@ -92,22 +93,24 @@ const App = (() => {
       if (heroCover && !state.prefersReducedMotion) {
         timeline.from(heroCover, {
           opacity: 0,
-          y: -10,
-          duration: 1.8,
+          scale: 1.05,
+          duration: 2.5,
           ease: PHYSICS.EASE_EXPO,
         });
       }
 
       if (profileName) {
+        const headerElements = document.querySelectorAll('.card-header > *');
         timeline.from(
-          profileName,
+          headerElements,
           {
             opacity: 0,
-            y: 8,
-            duration: 2.0,
-            ease: PHYSICS.EASE_EXPO,
+            y: 15,
+            stagger: 0.1,
+            duration: 1.8,
+            ease: PHYSICS.EASE_ELASTIC,
           },
-          heroCover ? '-=1.2' : 0
+          heroCover ? '-=1.8' : 0
         );
       }
 
@@ -119,12 +122,12 @@ const App = (() => {
             animatedElements,
             {
               opacity: 0,
-              y: 5,
+              y: 20,
               stagger: PHYSICS.STAGGER,
               duration: 1.8,
-              ease: PHYSICS.EASE_EXPO,
+              ease: PHYSICS.EASE_ELASTIC,
             },
-            '-=1.5'
+            '-=1.4'
           );
         }
       }

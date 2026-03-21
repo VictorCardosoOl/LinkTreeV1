@@ -44,21 +44,26 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <!-- Topo da tela: Foto em P&B -->
+      <!-- Topo da tela: Background com overlay -->
       <div class="hero-cover">
-        <!-- Filtro grayscale aplicado no CSS -->
         <img
           src="./assets/Avatar1.jpeg"
           alt="Retrato de Victor Cardoso"
           loading="eager"
-          width="400"
-          height="500"
         />
+        <div class="hero-title-overlay anim-el">
+          <h2>VICTOR°</h2>
+          <p>Creative Studio</p>
+        </div>
       </div>
 
-      <!-- Card Branco Sobreposto -->
+      <!-- Card de Vidro Sobreposto -->
       <div class="profile-card">
-        <h1 class="profile-name">Victor Cardoso</h1>
+        <div class="card-header anim-el">
+          <span class="badge">Disponível</span>
+          <h1 class="profile-name">Victor Cardoso</h1>
+          <p class="profile-subtitle">+ Ecossistema Digital</p>
+        </div>
 
         <!-- Links Minimalistas -->
         <nav class="links-section anim-el" aria-label="Links Sociais">
@@ -69,7 +74,7 @@
             class="link-item"
           >
             <ion-icon name="globe-outline"></ion-icon>
-            Portfólio Web
+            Portfólio Premium
           </a>
           <a
             href="https://github.com/VictorCardosoOl"
@@ -78,7 +83,7 @@
             class="link-item"
           >
             <ion-icon name="logo-github"></ion-icon>
-            Git Repository
+            Repositório Git
           </a>
           <a
             href="https://www.linkedin.com/in/victor-card-cunha/"
@@ -111,9 +116,9 @@
           </a>
         </div>
 
-        <footer>
+        <footer class="anim-el">
           <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
-            &copy; 2024 Victor Cardoso &bull; SP
+            &copy; 2026 Victor Cardoso
           </a>
         </footer>
       </div>
