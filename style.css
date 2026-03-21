@@ -99,7 +99,7 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: grayscale(100%) contrast(1.1);
+  filter: contrast(1.1);
   will-change: transform;
 }
 
@@ -293,13 +293,16 @@ footer a {
 
   .hero-cover {
     width: 45%;
-    height: 100%;
+    height: auto;
+    align-self: stretch; /* Preenche toda a altura do container pai (.app-container) */
     min-height: 80vh;
     border-radius: 0;
   }
   
   .hero-cover img {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 
   .profile-card {
