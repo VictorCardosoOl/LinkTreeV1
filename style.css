@@ -25,7 +25,7 @@
   --app-max-width: 420px;
   --card-radius: 40px; 
   --pill-radius: 999px;
-  --cover-height: clamp(240px, 35vh, 360px); 
+  --cover-height: 48vh; 
   
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -115,7 +115,7 @@ body {
   border-left: 1px solid var(--glass-light-border);
   border-right: 1px solid var(--glass-light-border);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: 3rem 1.5rem 2.5rem;
+  padding: clamp(1.5rem, 5vh, 3rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -128,7 +128,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
   text-align: center;
 }
 
@@ -173,7 +173,7 @@ body {
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 1.2rem;
+  padding: clamp(0.8rem, 2vh, 1.2rem);
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--pill-radius);
@@ -215,7 +215,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: clamp(1rem, 3vh, 1.5rem);
   padding: 0.5rem 0;
 }
 
