@@ -25,7 +25,7 @@
   --app-max-width: 420px;
   --card-radius: 40px; 
   --pill-radius: 999px;
-  --cover-height: 48vh; 
+  --cover-height: clamp(240px, 35vh, 360px); 
   
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -83,7 +83,7 @@ body {
   min-height: 100dvh;
   background-color: #ffffff;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Garante que o conteúdo não seja cortado se crescer além do viewport no mobile */
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
 }
 
