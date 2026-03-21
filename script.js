@@ -46,32 +46,37 @@ const App = (() => {
 
     if (!dialog || !closeBtn || !lightboxImg) return;
 
-    // Open lightbox
-    galleryItems.forEach((img) => {
-      img.closest('.gallery-item').addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || 'Imagem ampliada';
-        dialog.showModal();
-        document.body.style.overflow = 'hidden'; // Evita scroll do fundo
-      });
-      // Acessibilidade via teclado
-      img.closest('.gallery-item').setAttribute('tabindex', '0');
-      img.closest('.gallery-item').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          lightboxImg.src = img.src;
-          dialog.showModal();
-          document.body.style.overflow = 'hidden';
-        }
-      });
-    });
-
     // Close lightbox
     const closeDialog = () => {
       dialog.close();
       document.body.style.overflow = '';
       lightboxImg.src = '';
     };
+
+    // Open lightbox
+    galleryItems.forEach((img) => {
+      const item = img.closest('.gallery-item');
+
+      item.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || 'Imagem ampliada';
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+      });
+
+      // Acessibilidade via teclado
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt || 'Imagem ampliada';
+          dialog.showModal();
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
 
     closeBtn.addEventListener('click', closeDialog);
 
@@ -81,6 +86,9 @@ const App = (() => {
         closeDialog();
       }
     });
+
+    // Close on Escape key (reforço além do comportamento nativo do <dialog>)
+    dialog.addEventListener('cancel', closeDialog);
   };
 
   const playEntranceSequence = () => {
@@ -94,7 +102,7 @@ const App = (() => {
         timeline.from(heroCover, {
           opacity: 0,
           scale: 1.05,
-          duration: 2.5,
+          duration: 1.5,
           ease: PHYSICS.EASE_EXPO,
         });
       }
@@ -107,10 +115,10 @@ const App = (() => {
             opacity: 0,
             y: 15,
             stagger: 0.1,
-            duration: 1.8,
+            duration: 1.5,
             ease: PHYSICS.EASE_ELASTIC,
           },
-          heroCover ? '-=1.8' : 0
+          heroCover ? '-=1.2' : 0
         );
       }
 
@@ -124,10 +132,10 @@ const App = (() => {
               opacity: 0,
               y: 20,
               stagger: PHYSICS.STAGGER,
-              duration: 1.8,
+              duration: 1.5,
               ease: PHYSICS.EASE_ELASTIC,
             },
-            '-=1.4'
+            '-=1.2'
           );
         }
       }

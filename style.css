@@ -7,14 +7,14 @@
   /* Colors - Editorial B&W Theme */
   --color-bg-body: #eaeaeb; 
   --color-text-main: #111111;
-  --color-text-mutted: #888888;
+  --color-text-muted: #666666; /* Corrigido: 'mutted' → 'muted' | Contraste 5.7:1 (WCAG AA ✅) */
   --color-border: rgba(17, 17, 17, 0.1);
 
   /* Glassmorphism Variables */
-  --glass-light-bg: rgba(255, 255, 255, 0.85); /* Frosty white card */
+  --glass-light-bg: rgba(255, 255, 255, 0.85);
   --glass-light-border: rgba(255, 255, 255, 0.5);
   
-  --glass-dark-bg: rgba(17, 17, 17, 0.9); /* Dark pills */
+  --glass-dark-bg: rgba(17, 17, 17, 0.9);
   --glass-dark-border: rgba(0, 0, 0, 0.1);
 
   /* Typography */
@@ -99,15 +99,15 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: grayscale(100%) contrast(1.1); /* Voltou o visual lindo em preto e branco */
+  filter: grayscale(100%) contrast(1.1);
+  will-change: transform;
 }
 
 /* GLASSMORPHISM CARD (Overlaps the image) */
 .profile-card {
   position: relative;
-  margin-top: -3rem; /* Sobrepõe imagem */
+  margin-top: -3rem;
   width: 100%;
-  /* The Glass Effect */
   background: var(--glass-light-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -120,7 +120,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05); /* Sombra mais sutil no claro */
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
 }
 
 /* Header inside card */
@@ -155,7 +155,7 @@ body {
 
 .profile-subtitle {
   font-size: 0.85rem;
-  color: var(--color-text-mutted);
+  color: var(--color-text-muted);
   font-weight: 400;
 }
 
@@ -174,30 +174,38 @@ body {
   gap: 0.75rem;
   width: 100%;
   padding: 1.2rem;
-  background: transparent; /* P&B clean style */
+  background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--pill-radius);
   color: var(--color-text-main);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
-  transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s;
+  transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s, border-color 0.3s;
+  will-change: transform;
 }
 
-.link-item:hover {
+.link-item:hover,
+.link-item:focus-visible {
   transform: scale(1.02);
   background: var(--glass-dark-bg);
   color: #fff;
   border-color: var(--glass-dark-bg);
+  outline: none;
 }
 
-.link-item:hover ion-icon {
+.link-item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.4);
+}
+
+.link-item:hover ion-icon,
+.link-item:focus-visible ion-icon {
   color: #fff;
 }
 
 .link-item ion-icon {
   font-size: 1.3rem;
-  color: var(--color-text-mutted);
+  color: var(--color-text-muted);
   transition: color 0.3s;
 }
 
@@ -220,7 +228,13 @@ body {
   border-radius: 50%;
   background: transparent;
   border: 1px solid var(--color-border);
-  transition: transform 0.3s var(--ease-elastic), background 0.3s;
+  transition: transform 0.3s var(--ease-elastic), background 0.3s, border-color 0.3s;
+  will-change: transform;
+}
+
+.social-icons-grid a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.4);
 }
 
 .social-icons-grid a ion-icon {
@@ -229,13 +243,15 @@ body {
   transition: color 0.3s;
 }
 
-.social-icons-grid a:hover {
+.social-icons-grid a:hover,
+.social-icons-grid a:focus-visible {
   transform: scale(1.1) translateY(-3px);
   background: var(--glass-dark-bg);
   border-color: var(--glass-dark-bg);
 }
 
-.social-icons-grid a:hover ion-icon {
+.social-icons-grid a:hover ion-icon,
+.social-icons-grid a:focus-visible ion-icon {
   color: #fff;
 }
 
@@ -243,7 +259,7 @@ footer {
   text-align: center;
   padding: 1.5rem 0 0;
   font-size: 0.75rem;
-  color: var(--color-text-mutted);
+  color: var(--color-text-muted);
   opacity: 0.8;
 }
 
@@ -272,7 +288,7 @@ footer a {
     border-radius: var(--card-radius);
     overflow: hidden;
     position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.08); /* Sombra clara elegante */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
   }
 
   .hero-cover {
@@ -297,7 +313,7 @@ footer a {
     border: none;
     border-left: 1px solid var(--glass-light-border);
     box-shadow: none;
-    background: #ffffff; /* Sólido no desktop para leitura perfeita */
+    background: #ffffff;
   }
 }
 

@@ -4,8 +4,8 @@
   "description": "Ecossistema digital de Victor Cardoso — projetos, contatos e redes sociais.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#eaeaeb",
+  "theme_color": "#eaeaeb",
   "orientation": "portrait",
   "icons": [
     {
@@ -14,28 +14,16 @@
       "type": "image/x-icon"
     },
     {
-      "src": "./assets/Avatar1.jpeg",
+      "src": "./assets/icon-192.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./assets/Avatar1.jpeg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./assets/Avatar1.jpeg",
+      "src": "./assets/icon-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any"
-    },
-    {
-      "src": "./assets/Avatar1.jpeg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "maskable"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

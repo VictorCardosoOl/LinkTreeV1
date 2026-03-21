@@ -1,6 +1,6 @@
 /**
  * GALLERY ESTHETICS - Premium Liquid Glass
- * Complementa o style.css para o layout de lista de posts (Grid Premium).
+ * Complementa o style.css para o layout de galeria de obras.
  */
 
 .profile-card.gallery-header {
@@ -14,7 +14,38 @@
   box-shadow: none;
 }
 
-/* Divisor "Add inspo" */
+/* Botão Voltar */
+.menu-btn {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-dark-border);
+  color: #fff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease-elastic), background 0.3s;
+  will-change: transform;
+}
+
+.menu-btn:hover,
+.menu-btn:focus-visible {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+/* Divisor de seção */
 .posts-divider {
   width: 100%;
   display: flex;
@@ -25,59 +56,20 @@
 }
 
 .posts-divider .title-block h2 {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 2rem;
-  font-weight: 500;
-  color: #fff;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
 }
 
 .posts-divider .title-block p {
   font-size: 0.8rem;
-  color: var(--color-text-mutted);
+  color: var(--color-text-muted);
   margin-top: 0.2rem;
 }
 
-/* Pill Tags Row (Mockup Filters) */
-/* No HTML vamos adicionar um container div.tags-row */
-.tags-row {
-  display: flex;
-  gap: 0.8rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  scrollbar-width: none;
-}
-
-.tags-row::-webkit-scrollbar {
-  display: none;
-}
-
-.tag-pill {
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--pill-radius);
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-mutted);
-  font-size: 0.8rem;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s var(--ease-expo);
-}
-
-.tag-pill ion-icon {
-  font-size: 1rem;
-}
-
-.tag-pill:hover {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  border-color: rgba(255,255,255,0.3);
-}
-
-/* Grade Masonry/Quadrada */
+/* Grade Quadrada 2 colunas */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -88,11 +80,11 @@
 
 .gallery-item {
   width: 100%;
-  aspect-ratio: 0.85; /* Mais alto que largo (retangular) */
+  aspect-ratio: 0.85;
   border-radius: 24px;
   overflow: hidden;
   position: relative;
-  background-color: var(--glass-dark-bg);
+  background-color: var(--color-bg-body);
   cursor: pointer;
 }
 
@@ -101,12 +93,19 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s var(--ease-expo), filter 0.6s ease;
-  filter: brightness(0.8) contrast(1.1);
+  filter: brightness(0.85) contrast(1.1);
+  will-change: transform;
 }
 
-.gallery-item:hover img {
+.gallery-item:hover img,
+.gallery-item:focus-visible img {
   transform: scale(1.05);
   filter: brightness(1) contrast(1.15);
+}
+
+.gallery-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.5);
 }
 
 /* Floating icons inside gallery item */
@@ -116,7 +115,7 @@
   right: 1rem;
   width: 28px;
   height: 28px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 50%;
@@ -125,11 +124,12 @@
   justify-content: center;
   color: #fff;
   z-index: 2;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  pointer-events: none;
 }
 
 /* ──────────────────────────────────────────────────────────── */
-/* LIGHTBOX MODAL DIALOG */
+/* LIGHTBOX MODAL DIALOG                                        */
 /* ──────────────────────────────────────────────────────────── */
 #lightbox {
   padding: 0;
@@ -147,7 +147,7 @@
 }
 
 #lightbox::backdrop {
-  background: rgba(10, 9, 8, 0.95); /* Escuro charocal */
+  background: rgba(10, 9, 8, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -183,9 +183,12 @@
   transition: transform 0.3s var(--ease-elastic), background 0.3s;
 }
 
-#close-lightbox:hover {
-  background: rgba(255,255,255,0.2);
+#close-lightbox:hover,
+#close-lightbox:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
 }
 
 #lightbox-img {

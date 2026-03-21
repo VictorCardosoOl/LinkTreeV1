@@ -8,7 +8,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['gsap', 'lenis', 'split-type'],
+          vendor: ['gsap', 'lenis'],
         },
       },
     },

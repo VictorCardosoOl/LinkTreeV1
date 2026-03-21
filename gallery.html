@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0"
     />
     <meta
       name="description"
       content="Victor Cardoso — Fotografia e Artes. Explore meu portfólio visual."
     />
     <meta name="author" content="Victor Cardoso" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#eaeaeb" />
 
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
     <title>Victor Cardoso | Fotografia &amp; Artes</title>
@@ -30,50 +30,39 @@
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <!-- Container principal -->
     <main id="main-content" class="app-container">
-      <!-- Ícone Hambúrguer (Header) -> Back button here -->
+      <!-- Botão Voltar -->
       <a href="index.html" class="menu-btn" aria-label="Voltar para a página principal">
         <ion-icon name="chevron-back-outline"></ion-icon>
       </a>
 
-      <!-- Card Secundário Transparente -->
+      <!-- Card Secundário -->
       <div class="profile-card gallery-header">
         
-        <!-- Divider: ADD INSPO -->
+        <!-- Divisor: Galeria de Obras -->
         <div class="posts-divider anim-el">
           <div class="title-block">
-            <h2>Add inspo</h2>
-            <p>Your references for stylist</p>
+            <h2>Obras &amp; Arte</h2>
+            <p>Portfólio visual — fotografia e design</p>
           </div>
-          <div class="actions">
-            <ion-icon name="search-outline" style="color:#fff; font-size:1.2rem; margin-right: 0.5rem;"></ion-icon>
-            <ion-icon name="heart" style="color:#fff; font-size:1.2rem;"></ion-icon>
-          </div>
-        </div>
-
-        <!-- Filters Row -->
-        <div class="tags-row anim-el">
-          <button class="tag-pill">Autumn <ion-icon name="close-outline"></ion-icon></button>
-          <button class="tag-pill">Almond shape <ion-icon name="close-outline"></ion-icon></button>
-          <button class="tag-pill">Nude <ion-icon name="close-outline"></ion-icon></button>
         </div>
 
         <!-- Grid de Imagens -->
-        <section class="gallery-grid anim-el">
+        <section class="gallery-grid anim-el" aria-label="Galeria de obras">
           <div class="gallery-item">
             <div class="item-icon"><ion-icon name="heart"></ion-icon></div>
-            <img src="./assets/b (4).jpg" alt="Obra 1" loading="lazy" />
+            <img src="./assets/gallery-1.jpg" alt="Obra fotográfica 1" loading="lazy" />
           </div>
           <div class="gallery-item">
-            <div class="item-icon"><ion-icon name="add-outline"></ion-icon></div>
-            <img src="./assets/b (4).jpg" alt="Obra 2" loading="lazy" />
+            <div class="item-icon"><ion-icon name="star-outline"></ion-icon></div>
+            <img src="./assets/gallery-2.jpg" alt="Obra fotográfica 2" loading="lazy" />
           </div>
           <div class="gallery-item">
             <div class="item-icon"><ion-icon name="heart-outline"></ion-icon></div>
-            <img src="./assets/b (4).jpg" alt="Obra 3" loading="lazy" />
+            <img src="./assets/gallery-3.jpg" alt="Obra fotográfica 3" loading="lazy" />
           </div>
           <div class="gallery-item">
-            <div class="item-icon"><ion-icon name="add-outline"></ion-icon></div>
-            <img src="./assets/b (4).jpg" alt="Obra 4" loading="lazy" />
+            <div class="item-icon"><ion-icon name="aperture-outline"></ion-icon></div>
+            <img src="./assets/gallery-4.jpg" alt="Obra fotográfica 4" loading="lazy" />
           </div>
         </section>
 
@@ -84,7 +73,7 @@
     </main>
 
     <!-- Lightbox Nativo HTML5 -->
-    <dialog id="lightbox" aria-label="Visualizador de Imagem Expandida">
+    <dialog id="lightbox" aria-label="Visualizador de Imagem Expandida" aria-modal="true">
       <div class="lightbox-wrapper">
         <button id="close-lightbox" aria-label="Fechar visualizador">
           <ion-icon name="close-outline"></ion-icon>
