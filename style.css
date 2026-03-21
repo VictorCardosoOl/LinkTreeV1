@@ -3,6 +3,22 @@
    Theme: High contrast, greyscale images, white glassmorphism cards, pill buttons
 */
 
+@font-face {
+  font-family: 'Plein';
+  src: url('./assets/fonts/Plein/Plein-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plein';
+  src: url('./assets/fonts/Plein/Plein-VariableItalic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* Colors - Editorial B&W Theme */
   --color-bg-body: #eaeaeb; 
@@ -18,8 +34,8 @@
   --glass-dark-border: rgba(0, 0, 0, 0.1);
 
   /* Typography */
-  --font-sans: 'Outfit', -apple-system, sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Plein', -apple-system, sans-serif;
+  --font-serif: 'Plein', -apple-system, sans-serif;
 
   /* Layout */
   --app-max-width: 420px;
