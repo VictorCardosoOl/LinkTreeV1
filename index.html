@@ -87,18 +87,46 @@
           </a>
         </nav>
 
-        <!-- Grade de Ícones Sociais -->
-        <div class="social-icons-grid anim-el">
-          <a href="https://instagram.com/abaxu_artes" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <!-- Bento Grid: Ícones Sociais -->
+        <div class="social-bento anim-el">
+          <a href="https://instagram.com/abaxu_artes" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="bento-item">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
-          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Email">
+          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Email" class="bento-item">
             <ion-icon name="mail-outline"></ion-icon>
           </a>
-          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="bento-item">
             <ion-icon name="logo-whatsapp"></ion-icon>
           </a>
         </div>
+
+        <!-- Divisor: Galeria de Obras -->
+        <div class="posts-divider anim-el">
+          <div class="title-block">
+            <h2>Obras &amp; Arte</h2>
+            <p>Portfólio visual — fotografia e design</p>
+          </div>
+        </div>
+
+        <!-- Grid de Imagens -->
+        <section class="gallery-grid anim-el" aria-label="Galeria de obras">
+          <div class="gallery-item">
+            <div class="item-icon"><ion-icon name="heart"></ion-icon></div>
+            <img src="./assets/gallery-1.jpg" alt="Obra fotográfica 1" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <div class="item-icon"><ion-icon name="star-outline"></ion-icon></div>
+            <img src="./assets/gallery-2.jpg" alt="Obra fotográfica 2" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <div class="item-icon"><ion-icon name="heart-outline"></ion-icon></div>
+            <img src="./assets/gallery-3.jpg" alt="Obra fotográfica 3" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <div class="item-icon"><ion-icon name="aperture-outline"></ion-icon></div>
+            <img src="./assets/gallery-4.jpg" alt="Obra fotográfica 4" loading="lazy" />
+          </div>
+        </section>
 
         <footer class="anim-el">
           <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
@@ -107,6 +135,16 @@
         </footer>
       </div>
     </main>
+
+    <!-- Lightbox Nativo HTML5 -->
+    <dialog id="lightbox" aria-label="Visualizador de Imagem Expandida" aria-modal="true">
+      <div class="lightbox-wrapper">
+        <button id="close-lightbox" aria-label="Fechar visualizador">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+        <img id="lightbox-img" src="" alt="Obra expandida" />
+      </div>
+    </dialog>
 
     <!-- IonIcons CDN (Resolve problema de SVGs não injetados no build do Vite) -->
     <script
