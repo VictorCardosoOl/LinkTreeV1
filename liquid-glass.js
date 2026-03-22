@@ -115,24 +115,6 @@ export function initLiquidGlass() {
     el.style.border = 'none';
     el.style.boxShadow = 'none';
 
-    // 1. Tints "overLight": Dão contraste escuro para que o vidro seja visto contra fundos claros
-    const darkTint1 = document.createElement('div');
-    darkTint1.className = 'glass-tint-1';
-    darkTint1.style.position = 'absolute';
-    darkTint1.style.inset = '0';
-    darkTint1.style.borderRadius = radius;
-    darkTint1.style.pointerEvents = 'none';
-    darkTint1.style.backgroundColor = 'rgba(0,0,0,0.20)';
-
-    const darkTint2 = document.createElement('div');
-    darkTint2.className = 'glass-tint-2';
-    darkTint2.style.position = 'absolute';
-    darkTint2.style.inset = '0';
-    darkTint2.style.borderRadius = radius;
-    darkTint2.style.pointerEvents = 'none';
-    darkTint2.style.mixBlendMode = 'overlay';
-    darkTint2.style.backgroundColor = 'rgba(0,0,0,1)';
-
     // 2. Warp/Shader (A lente translúcida com distorção)
     const warpLayer = document.createElement('span');
     warpLayer.className = 'glass-warp-layer';
@@ -143,7 +125,16 @@ export function initLiquidGlass() {
     warpLayer.style.backdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
     warpLayer.style.WebkitBackdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
     warpLayer.style.background = 'transparent';
-    warpLayer.style.boxShadow = '0px 16px 70px rgba(0, 0, 0, 0.75)'; // Sombra intensa the overLight mode
+    warpLayer.style.boxShadow = '0px 10px 40px rgba(0, 0, 0, 0.05), inset 0 1px 3px rgba(255,255,255,0.5)';
+
+    // Adicionamos um layer de background base claro simulando vidro transmitindo luz clara
+    const baseBgLayer = document.createElement('span');
+    baseBgLayer.style.position = 'absolute';
+    baseBgLayer.style.inset = '0';
+    baseBgLayer.style.borderRadius = radius;
+    baseBgLayer.className = 'glass-base-bg';
+    baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 100%)';
+    baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
 
     // Camadas de Borda Brilhante Reativa do React!
     const border1 = document.createElement('span');
@@ -193,9 +184,8 @@ export function initLiquidGlass() {
     contentContainer.appendChild(fragment);
 
     // Constrói a árvore de nós interna
-    el.appendChild(darkTint1);
-    el.appendChild(darkTint2);
     el.appendChild(warpLayer);
+    el.appendChild(baseBgLayer);
     el.appendChild(border1);
     el.appendChild(border2);
     el.appendChild(hoverHighlight);
