@@ -19,6 +19,7 @@
 ## ✨ Features
 
 - **Glassmorphism UI** — dark theme with backdrop-filter and glass surfaces
+- **Liquid Glass Lens** — WebGL-inspired interactive SVG `feDisplacementMap` filters ported to Vanilla JS
 - **Physics-based animations** — GSAP + elastic easing + magnetic hover effects
 - **Smooth scroll** — Lenis with GSAP ticker sync
 - **Text reveal** — SplitType character-level entrance animations
@@ -125,6 +126,7 @@ npm run check      # lint + format check (CI-safe)
 | Layer      | Technology                                                                                                                  |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Build tool | [Vite 7](https://vitejs.dev/)                                                                                               |
+| Visuals    | Vanilla JS + Custom SVG Filters (`feDisplacementMap`, `feColorMatrix` for Liquid Glass Lens effects)                        |
 | Animations | [GSAP 3](https://gsap.com/) + [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)                              |
 | Scroll     | [Lenis](https://github.com/darkroomengineering/lenis)                                                                       |
 | Text split | [SplitType](https://github.com/lukePeavey/SplitType)                                                                        |

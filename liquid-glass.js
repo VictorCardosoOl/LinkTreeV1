@@ -133,7 +133,8 @@ export function initLiquidGlass() {
     baseBgLayer.style.inset = '0';
     baseBgLayer.style.borderRadius = radius;
     baseBgLayer.className = 'glass-base-bg';
-    baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 100%)';
+    // Gradiente significativamente ampliado para preencher a cor vítrea com mais presença
+    baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 65%, rgba(255,255,255,0.05) 100%)';
     baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
 
     // Camadas de Borda Brilhante Reativa do React!
@@ -200,10 +201,13 @@ export function initLiquidGlass() {
         const mx = ((e.clientX - centerX) / rect.width) * 100;
         const my = ((e.clientY - centerY) / rect.height) * 100;
 
-        // Atualiza a borda brilhante e elástica
+        // Atualiza a borda brilhante e elástica: com área do gradiente muito mais ampla e brilhante
         const angle = 135 + mx * 1.2;
-        border1.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.12+Math.abs(mx)*0.008}) ${Math.max(10,33+my*0.3)}%, rgba(255,255,255,${0.4+Math.abs(mx)*0.012}) ${Math.min(90,66+my*0.4)}%, rgba(255,255,255,0) 100%)`;
-        border2.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.32+Math.abs(mx)*0.008}) ${Math.max(10,33+my*0.3)}%, rgba(255,255,255,${0.6+Math.abs(mx)*0.012}) ${Math.min(90,66+my*0.4)}%, rgba(255,255,255,0) 100%)`;
+        const colorStart = `rgba(255,255,255,${0.3 + Math.abs(mx) * 0.008})`;
+        const colorMid = `rgba(255,255,255,${0.6 + Math.abs(mx) * 0.012})`;
+        
+        border1.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, ${colorStart} ${Math.max(0, 15 + my * 0.3)}%, ${colorMid} ${Math.min(100, 85 + my * 0.4)}%, rgba(255,255,255,0) 100%)`;
+        border2.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.5 + Math.abs(mx) * 0.01}) ${Math.max(0, 15 + my * 0.3)}%, rgba(255,255,255,${0.8 + Math.abs(mx) * 0.015}) ${Math.min(100, 85 + my * 0.4)}%, rgba(255,255,255,0) 100%)`;
 
         const deltaX = e.clientX - centerX;
         const deltaY = e.clientY - centerY;
@@ -220,7 +224,7 @@ export function initLiquidGlass() {
     });
 
     el.addEventListener('mouseenter', () => {
-        hoverHighlight.style.opacity = '0.4';
+        hoverHighlight.style.opacity = '0.7'; // Glow mais forte
     });
 
     el.addEventListener('mouseleave', () => {
@@ -231,12 +235,12 @@ export function initLiquidGlass() {
     });
 
     el.addEventListener('mousedown', () => {
-        hoverHighlight.style.opacity = '0.8';
+        hoverHighlight.style.opacity = '1';
         el.style.transform = `scale(0.96)`;
     });
 
     el.addEventListener('mouseup', () => {
-        hoverHighlight.style.opacity = '0.4';
+        hoverHighlight.style.opacity = '0.7';
     });
     
     // As injeções em links que antes tinham um ícone puro precisam preservar estado original (reparar color via css no elemento filho e não no parent background)
