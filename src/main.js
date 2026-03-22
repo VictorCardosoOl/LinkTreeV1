@@ -4,7 +4,7 @@
  */
 import Lenis from 'lenis';
 import gsap from 'gsap';
-import { initLiquidGlass } from './liquid-glass.js';
+import { initLiquidGlass } from './features/liquid-glass.js';
 
 const PHYSICS = Object.freeze({
   EASE_EXPO: 'power4.out',
@@ -43,7 +43,7 @@ class AppManager {
     const pageType = document.body.dataset.page || 'home';
     
     if (pageType === 'gallery') {
-      import('./modules/lightbox.js')
+      import('./features/lightbox.js')
         .then(({ initLightbox }) => initLightbox())
         .catch((err) => console.error('[App] Falha ao baixar o modulo Gallery', err));
     } else {

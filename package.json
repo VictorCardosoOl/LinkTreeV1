@@ -12,10 +12,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "compress:images": "node scripts/compress-images.mjs",
-    "lint": "eslint script.js",
-    "lint:fix": "eslint script.js --fix",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "format": "prettier --write \"**/*.{js,html,css,json,md}\"",
-    "check": "eslint script.js && prettier --check \"**/*.{js,html,css,json,md}\""
+    "check": "eslint src/ ; prettier --check \"**/*.{js,html,css,json,md}\""
   },
   "keywords": [
     "portfolio",
