@@ -4,6 +4,7 @@
  */
 import Lenis from 'lenis';
 import gsap from 'gsap';
+import { initLiquidGlass } from './liquid-glass.js';
 
 const PHYSICS = Object.freeze({
   EASE_EXPO: 'power4.out',
@@ -157,6 +158,9 @@ const App = (() => {
         initLightbox();
       }
       playEntranceSequence();
+
+      // Inicia Liquid Glass
+      initLiquidGlass();
     } catch (error) {
       console.error('App initialization failed:', error);
     }

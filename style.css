@@ -215,7 +215,6 @@ body {
 
 .link-item:hover,
 .link-item:focus-visible {
-  transform: scale(1.02);
   background: var(--glass-dark-bg);
   color: #fff;
   border-color: var(--glass-dark-bg);
@@ -273,7 +272,6 @@ body {
 
 .social-icons-grid a:hover,
 .social-icons-grid a:focus-visible {
-  transform: scale(1.1) translateY(-3px);
   background: var(--glass-dark-bg);
   border-color: var(--glass-dark-bg);
 }
@@ -350,4 +348,35 @@ footer a {
 
 .anim-el {
   visibility: hidden;
+}
+
+/* =========================================
+   LIQUID GLASS EFFECT
+   Integração Dinâmica via Javascript
+   ========================================= */
+
+.glass-target {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.1),
+              filter 0.3s ease, 
+              background 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+  will-change: transform, filter;
+  /* Propriedades padrão */
+  --scale-x: 1;
+  --scale-y: 1;
+  --elastic-x: 0px;
+  --elastic-y: 0px;
+}
+
+.glass-target.glass-hovered {
+  position: relative;
+  z-index: 10;
+  /* O transform agora é dinâmico, ditado pelo cursor do mouse via JS */
+  transform: translate(var(--elastic-x), var(--elastic-y)) scaleX(var(--scale-x)) scaleY(var(--scale-y)) !important;
+}
+
+.glass-target.glass-active {
+  /* Quando clicado */
+  transform: scale(0.96) !important;
 }
