@@ -26,7 +26,7 @@ function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
   
   const filterHTML = `
     <filter id="${id}" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
-      <feImage id="feimage" x="0" y="0" width="100%" height="100%" result="DISPLACEMENT_MAP" href="${displacementMap}" preserveAspectRatio="xMidYMid slice" />
+      <feImage id="feimage" x="0" y="0" width="100%" height="100%" result="DISPLACEMENT_MAP" href="${displacementMap.replace(/\s+/g, '')}" preserveAspectRatio="xMidYMid slice" />
 
       <!-- Create edge mask using the displacement map itself -->
       <feColorMatrix
