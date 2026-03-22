@@ -80,45 +80,60 @@ export function initLiquidGlass() {
   const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 
   const links = document.querySelectorAll('.link-item');
-  const profileCard = document.querySelector('.profile-card');
   const socialIcons = document.querySelectorAll('.social-icons-grid a');
   
-  const allGlassElements = [...links, profileCard, ...socialIcons].filter(Boolean);
+  // Vamos focar o efeito de liquid glass apenas nos elementos iterativos (botões) 
+  // para garantir a semântica visual e evitar o bug da caixa branca no profile-card.
+  const allGlassElements = [...links, ...socialIcons].filter(Boolean);
 
   allGlassElements.forEach((el, idx) => {
     if(el.dataset.hasLiquidGlass) return;
     el.dataset.hasLiquidGlass = true;
 
-    // Valores mais intensos, como no original (scale 70, blurAmount 0.0625 ajustado)
-    const displacementScale = 70; 
-    const saturation = 160;
-    const blurPx = 24; 
+    // overLight mode params: (reduz a distorção pela metade, adiciona sombras ricas e fundo escurecido)
+    const displacementScale = 35; // 70 * 0.5 for overLight
+    const saturation = 140;
+    const blurPx = 14; 
     const elasticity = 0.15;
     
     const filterId = `liquid-glass-filter-${idx}`;
     createGlassSVGFilter(filterId, displacementScale, 2);
 
-    // Estruturando o DOM para que o filtro não distorça o conteúdo em si (o texto)
     const computedStyle = window.getComputedStyle(el);
     const radius = computedStyle.borderRadius || '999px';
 
-    // Movemos os nós reais para manter as referências do GSAP intactas
     const fragment = document.createDocumentFragment();
     while(el.firstChild) {
         fragment.appendChild(el.firstChild);
     }
     
-    // Configura o Wrapper Original
     el.style.position = 'relative'; 
     el.style.isolation = 'isolate'; 
     el.style.zIndex = '1';
-    el.style.background = 'transparent'; // Remove o background do container principal, passa pro warp
+    el.style.background = 'transparent';
     el.style.backdropFilter = 'none'; 
-    el.style.border = 'none'; // borda vai ser falsa agora
+    el.style.border = 'none';
     el.style.boxShadow = 'none';
 
-    // Cria as camadas de vidro corretas!
-    // 1. Warp/Shader (Camada do vidro trêmulo com o feDisplacementMap)
+    // 1. Tints "overLight": Dão contraste escuro para que o vidro seja visto contra fundos claros
+    const darkTint1 = document.createElement('div');
+    darkTint1.className = 'glass-tint-1';
+    darkTint1.style.position = 'absolute';
+    darkTint1.style.inset = '0';
+    darkTint1.style.borderRadius = radius;
+    darkTint1.style.pointerEvents = 'none';
+    darkTint1.style.backgroundColor = 'rgba(0,0,0,0.20)';
+
+    const darkTint2 = document.createElement('div');
+    darkTint2.className = 'glass-tint-2';
+    darkTint2.style.position = 'absolute';
+    darkTint2.style.inset = '0';
+    darkTint2.style.borderRadius = radius;
+    darkTint2.style.pointerEvents = 'none';
+    darkTint2.style.mixBlendMode = 'overlay';
+    darkTint2.style.backgroundColor = 'rgba(0,0,0,1)';
+
+    // 2. Warp/Shader (A lente translúcida com distorção)
     const warpLayer = document.createElement('span');
     warpLayer.className = 'glass-warp-layer';
     warpLayer.style.position = 'absolute';
@@ -127,24 +142,8 @@ export function initLiquidGlass() {
     warpLayer.style.filter = isFirefox ? 'none' : `url(#${filterId})`;
     warpLayer.style.backdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
     warpLayer.style.WebkitBackdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
-    warpLayer.style.background = 'transparent'; // O SVG Filter exige fundo transparente para distorcer apenas o backdrop
-    
-    // Adicionamos um layer de background base suave que não sofra com o filtro SVG
-    const baseBgLayer = document.createElement('span');
-    baseBgLayer.style.position = 'absolute';
-    baseBgLayer.style.inset = '0';
-    baseBgLayer.style.borderRadius = radius;
-    baseBgLayer.className = 'glass-base-bg';
-    // Repassa o visual de card translúcido exigido pelo tema do usuário
-    if(el.classList.contains('profile-card')) {
-        baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 100%)';
-        baseBgLayer.style.boxShadow = '0 -10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5)';
-        baseBgLayer.style.border = '1px solid rgba(255,255,255,0.2)';
-        baseBgLayer.style.borderTop = '1px solid rgba(255, 255, 255, 0.6)';
-        baseBgLayer.style.borderLeft = '1px solid rgba(255, 255, 255, 0.4)';
-    } else {
-        baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
-    }
+    warpLayer.style.background = 'transparent';
+    warpLayer.style.boxShadow = '0px 16px 70px rgba(0, 0, 0, 0.75)'; // Sombra intensa the overLight mode
 
     // Camadas de Borda Brilhante Reativa do React!
     const border1 = document.createElement('span');
@@ -194,8 +193,9 @@ export function initLiquidGlass() {
     contentContainer.appendChild(fragment);
 
     // Constrói a árvore de nós interna
+    el.appendChild(darkTint1);
+    el.appendChild(darkTint2);
     el.appendChild(warpLayer);
-    el.appendChild(baseBgLayer);
     el.appendChild(border1);
     el.appendChild(border2);
     el.appendChild(hoverHighlight);
