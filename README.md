@@ -16,16 +16,13 @@
 
 ---
 
-## ✨ Features
-
-- **Glassmorphism UI** — dark theme with backdrop-filter and glass surfaces
-- **Liquid Glass Lens** — WebGL-inspired interactive SVG `feDisplacementMap` filters ported to Vanilla JS
-- **Physics-based animations** — GSAP + elastic easing + magnetic hover effects
-- **Smooth scroll** — Lenis with GSAP ticker sync
-- **Text reveal** — SplitType character-level entrance animations
-- **Wide-screen layout** — responsive from 375px up to 2560px (2K) with CSS tokens
-- **PWA-ready** — `manifest.json` with maskable icons
-- **Accessibility** — ARIA attributes, `prefers-reduced-motion`, `focus-visible`, `noscript` fallback
+- **Clean Architecture** — Industry-standard project structure with `src/` and `public/` isolation
+- **Glassmorphism UI** — Editorial B&W theme with refined backdrop-filter surfaces
+- **Liquid Glass Tooling** — Interactive SVG `feDisplacementMap` filters with `requestAnimationFrame` throttling
+- **AppManager Singleton** — Scalable OOP entry point with error handling and fallback support
+- **On-Demand Loading** — Code-split gallery features (`lightbox.js`) for optimized mobile performance
+- **Performance Optimized** — Physics-based animations with GSAP and 60 FPS smooth scrolling via Lenis
+- **PWA-ready** — `manifest.json` with maskable icons and theme synchronization
 - **Light / Dark mode** — respects `prefers-color-scheme` system preference
 
 ---
@@ -62,12 +59,11 @@ The app will be available at `http://localhost:5173`.
 | Command            | Description                                 |
 | ------------------ | ------------------------------------------- |
 | `npm run dev`      | Start Vite development server with HMR      |
-| `npm run build`    | Production build with vendor code-splitting |
+| `npm run build`    | Production build with dynamic code-splitting|
 | `npm run preview`  | Preview the production build locally        |
-| `npm run lint`     | Run ESLint across all JS files              |
-| `npm run lint:fix` | Auto-fix ESLint errors                      |
+| `npm run lint`     | Run ESLint across `src/` directory          |
 | `npm run format`   | Format all files with Prettier              |
-| `npm run check`    | Run lint + format check (for CI)            |
+| `npm run check`    | Comprehensive CI validation (lint + format) |
 
 ---
 
@@ -75,23 +71,17 @@ The app will be available at `http://localhost:5173`.
 
 ```
 LinkTreeV1/
-├── .github/
-│   └── workflows/
-│       └── ci.yml          # GitHub Actions: lint + build
-├── assets/                 # Static assets (images, favicon)
-├── .eslintrc.json          # ESLint 8 config (browser + ES2022)
-├── .gitignore
-├── .nvmrc                  # Node version pin (20 LTS)
-├── .prettierrc             # Prettier formatting rules
-├── CHANGELOG.md            # Project history (Keep a Changelog format)
-├── gallery.css             # Gallery-specific styles
-├── gallery.html            # Gallery page
-├── index.html              # Main page (LinkTree)
-├── manifest.json           # PWA manifest
-├── package.json
-├── script.js               # App entry — GSAP, Lenis, SplitType, interactions
-├── style.css               # Global design system (CSS tokens + layout)
-└── vite.config.js          # Vite config (vendor chunks, base, target)
+├── public/                 # Static global assets (favicons, manifest)
+├── scripts/                # Utility scripts (image compression)
+├── src/
+│   ├── assets/             # Dynamic assets (avatars, textures, fonts)
+│   ├── features/           # Modular project features (Liquid Glass, Lightbox)
+│   ├── styles/             # Design System (Global & Component CSS)
+│   └── main.js             # Application Entry (AppManager Singleton)
+├── index.html              # Home Page entry
+├── gallery.html            # Gallery Page entry
+├── vite.config.js          # Build & Asset configuration
+└── .eslintrc.json          # Code quality rules
 ```
 
 ---
