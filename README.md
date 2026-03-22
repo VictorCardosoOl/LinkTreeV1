@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/Vite-7.x-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
   <img src="https://img.shields.io/badge/GSAP-3.x-88CE02?style=for-the-badge&logo=greensock&logoColor=white" alt="GSAP">
   <img src="https://img.shields.io/badge/Lenis-Smooth_Scroll-black?style=for-the-badge" alt="Lenis">
-  <img src="https://img.shields.io/badge/Node-22_LTS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node">
+  <img src="https://img.shields.io/badge/Node-20_LTS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node">
   <img src="https://img.shields.io/badge/ESLint-8.x-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
   <img src="https://img.shields.io/badge/Prettier-3.x-F7B93E?style=for-the-badge&logo=prettier&logoColor=black" alt="Prettier">
   <img src="https://img.shields.io/github/actions/workflow/status/VictorCardosoOl/LinkTreeV1/ci.yml?style=for-the-badge&label=CI" alt="CI">
@@ -34,7 +34,7 @@
 
 ### Prerequisites
 
-- [Node.js 22 LTS](https://nodejs.org/) — see `.nvmrc`
+- [Node.js 20 LTS](https://nodejs.org/) — see `.nvmrc`
 - npm 10+
 
 > **Using nvm?** Run `nvm install` and `nvm use` in the project root.
@@ -81,7 +81,7 @@ LinkTreeV1/
 ├── assets/                 # Static assets (images, favicon)
 ├── .eslintrc.json          # ESLint 8 config (browser + ES2022)
 ├── .gitignore
-├── .nvmrc                  # Node version pin (22 LTS)
+├── .nvmrc                  # Node version pin (20 LTS)
 ├── .prettierrc             # Prettier formatting rules
 ├── CHANGELOG.md            # Project history (Keep a Changelog format)
 ├── gallery.css             # Gallery-specific styles
