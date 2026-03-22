@@ -3,16 +3,11 @@
  * Baseado no liquid-glass-react (https://github.com/rdev/liquid-glass-react)
  */
 
-// O mapa de displacement padrão (padrão do repositório original)
 const displacementMap = "data:image/jpeg;base64,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kziomgGgkoxZGgxZFQFQlYnQHRdPfj/10KCSCKESCNiVkViPSLpD0h6I0Q0I0A2IoBWBIJIBKBIJoJIJ2R2J0JWBUJ0JUB0XTv479dFZDYiglYigkhEgjZFQjRFQjRFQjQigFYigHYigmgEgmglYlYnQlQlYlQHQlQnQ9P/kf1yVkNiNCNkNiVENiNiViNEViNkVCVgKCViViViSCViSCVgdCViVCViVCdgVCVCdD1D+U/XBWQ2I0I2Q2JUQ2I0JWQ0I2JUQ2JUI2JUI2J0JWJWJWA2R0BWJ0I2JUJ2BUJUJ0P//EABkQAQEBAQEBAAAAAAAAAAAAAAECABEDEP/aAAgBAQABAgB1atWrVq1atWrVq1atWrVq1atWrVq1atWrVq+OrVq1atWrVq1atWrVq1atWrVq1atWrVq1atXxVppppppdWrVq1atWrVq1NNNNNNNNNNNPVWmmmmms6tWrVq1atWpppppppppppppp6q0000uc51atWrVq1ammmmmmmmmmmmmt1Vpppc5znVq1atWrVqaaaaaaaaaaaaaeqtNLnOc51atWrVq1ammmmmmmmmmmmmnqrS5znOc6tWrVq16222mmmmmmlVppp6tKuc5znOrVq1a9TbbbbTTTTTSq000qtLnOc5zq1atWrW0222200000qqqtKqrnOc5zq1atTbbbbbbbbTTTSqqqqqq5znOc6tTTTbbbbbbbbTTTSqqqqrlVznOctNNNtttttttttNNNNKqqqrqznKqrTTTTbbbbbbbbbTTTSqqqqrqznOc5aaaabbbbbbbbbaaaaVVVVVdWc5znVq1NNttttttttttNNKqqqqudWc5znVq16tbbbbbbbbbbTTSqqqq5XVnOc6tWrVrb1tttttttttNNKqqqqrWrK5VWmmm2230bbbbbbaaaXOc5zlVa1KuVVppptttt9G22222mmlzlVznK6tWVVWmmmm2222222222mlznOc5znLWppVVWmmm22222229bTWrOc5znOcq1qaaVpWmm222222229erVqznOc5znKtatStK0rTbTTbbbberXr1as5znOc5aVpppppWlabaabbbb1ta9WrVnOc5znU0rTTTTTTTTTbTTbbbTWvVq1as5znOdTTStNNNNNNNNNtNNtttN6tWvVq1ZznOrU00rTTTTTTTTTTTTTbTWvVq1atWrOc6tTTTStNNNNNNNNNNtNNtNa9WrVq1Z1Z1NNNNNK1q1NNNNNNNNNNNtNatWrVq1atWrU00000rWrVq1atWrVq1alaaa1atWrVq1NNNammmmla1atWrVq1aterVq16tWrVnVqa1NK1qaaaVX/xAAWEAADAAAAAAAAAAAAAAAAAAAhgJD/2gAIAQEAAz8AaExf/8QAGhEBAQEBAQEBAAAAAAAAAAAAAQISEQADEP/aAAgBAgEBAgDx48ePHjx48ePHjx48ePHjx48ePHjx48ePHj86IiIiIiInjx48ePHjx48IiIiIj0oooooooooRERER73ve60UUUUUUVrWiiiiiihERERER73ve97ooooorRWiiiiihKERERER73ve973RRRRWtFFFFFFCIiIiIiPe973ve60UUVrRRRRRRQiIlCIiI973ve973pRRWiiiiiiiiiiiiiiihEe973ve973RRWtFFFFFFFFFFFFFFFFFFa13ve973WitaKKKKKKKKKKKKKKKKKK1rWtd1rutFa1oooooooooooosssooorWta1rWta1rRRRRRRRRRRZZZZZZZZZWta1rWta1rRRRRRRRRZZZZZZZZZZZZe9a1rWta1rWitaKLLLLLLLLLLLLLLLLL3rWta1rWtFbLLLLLLLLLLLLLLLLLLLL3vWta1rWita1ssssssss+hZZZZZZZZe961rWta0Vre97LLLLLLLLLLLPoWWWWWXrWta1oorWta3ssss+hZZZZ9Cyyyyyyyyiita1orWta1ve9llllllllllllllllFFa0VorWta1ve9llllllllllllllllllFFFaK1rWta1rWiyyyyyyyyyyyyiiiiiiitFFa1rWta1oosoosssssoooosoooorRRRWta1rWta0UUUUUWUUUUUUUUUUUVoooorWta1rWtaKKKKKKmiiiiiiiiiiiiiiitd73ve61oSiiipoqaKKKKKKKKKK0UUUVrve973vREREZoSihEooooorRRRRWtd73ve9EREREREoSiiiiitFllllla73ve9ERERERESiiiiiitH0PoWWWWVrXe96IiIiMoiJRRRRRRWjwlFFllllFFd6IiIiIlCUUUUUUUUUePHjx48ePCIiIiIiIiUUUUUUUUUUUePHjx48ePHjx48ePHjx48IiUUUUUUJRRRX//xAAWEQADAAAAAAAAAAAAAAAAAAABYJD/2gAIAQIBAz8AtEV7/8QAFxEBAQEBAAAAAAAAAAAAAAAAAAECEP/aAAgBAwEBAgCtNNNNNNNNNNNNNNNNNNNNNNNNNNNNNcrTTTTTTTTTTTTTTTTTTTTTTTTTTTTTXKrTTTTTTTU000000000000000000001FVpppppqampqaaaaaaaaaaaaaaaaaaaa5Vaaaaampqampqammmmmmmmmmmlaaaaaaiq0001NTU1NTU1NTTTTTTTTTTSqqtNNNcqtNNSyzU1LNTU1NTTTTTTTTTSqqq001ytNLLLLNTU1NTU1NTbbbTTTTTSqqq001ytNLLLLLNTU1NTU3NttttNNNNNKqq001KrSyyyyyzU1NTU3Nzc02220000qqqqrSqqyyyyyzU1NTU3Nzc3NttttNNNKqqqqqqssssss1NTU3Nzc3NzbbbbTTTSqqqqqqrLLLLLNTU1Nzc3Nzc22220000qqqqqqqqssss1NTU3Nzc3NzbbbbbTTSqqqqqqqqqqzU1NTc3Nzc3Nzbc22000qqqqqqqqqqqtTU3Nzc3Nzc3NtzbTTSqqqqrKqqqqqtNNzc23Nzc3Nzc3NTU1KqqqrKqqqqqtNNNNttzc3Nzc3NzU1NLLLLLKqqqqqqqq0022223Nzc3NzU1NSyyyyyyqqqqqqqrTTbbbbc3Nzc3NTU1LLLLLLKsqqqqqqrTTTTbbbc3Nzc1NTUsssssssqqqqqqrTTTTTbbbTc3NTU1NTUsssssqqqqqqqq0000222023NTU1NTUsssssqqqqqqqq000000003NTU1NTU1LLLLLNKrTSqqqqtNNNNNNtNNTU1NSzUssss00qq0qqqqrTTTTTTTTTU1NTUs1LLLNNNKrTTTSqqq00000000001NTU1LNTU0000qtNNNKqqqtNNNNNNNNTU1NTUs1NNNNNKss1NNNK00qtK0000001NNTU0s000000qq000001NKrStNNNNK1NNNNStNNNNNKqtNNNNNNNK0000000rU0000rTTTTTSq00000rTTTTTTTTTTTTTTTTStNNNNKr/xAAUEQEAAAAAAAAAAAAAAAAAAACg/9oACAEDAQM/AAAf/9k=";
 
-/**
- * Cria o SVG definition com os filtros necessários para o estilo líquido
- */
-function createGlassSVGFilter(id, displacementScale = 70, aberrationIntensity = 2) {
+function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
   const svgNS = "http://www.w3.org/2000/svg";
   
-  // Verifica se o SVG já existe ou cria um
   let svgContainer = document.getElementById('liquid-glass-svg-container');
   if (!svgContainer) {
     svgContainer = document.createElementNS(svgNS, 'svg');
@@ -25,13 +20,10 @@ function createGlassSVGFilter(id, displacementScale = 70, aberrationIntensity = 
     document.body.appendChild(svgContainer);
   }
 
-  // Verifica se o filtro já existe
-  const existingFilter = document.getElementById(id);
-  if (existingFilter) return id;
+  if (document.getElementById(id)) return id;
 
   const defs = document.createElementNS(svgNS, 'defs');
   
-  // Literal de filtro SVG convertido de React
   const filterHTML = `
     <filter id="${id}" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
       <feImage id="feimage" x="0" y="0" width="100%" height="100%" result="DISPLACEMENT_MAP" href="${displacementMap}" preserveAspectRatio="xMidYMid slice" />
@@ -50,62 +42,30 @@ function createGlassSVGFilter(id, displacementScale = 70, aberrationIntensity = 
         <feFuncA type="discrete" tableValues="0 ${aberrationIntensity * 0.05} 1" />
       </feComponentTransfer>
 
-      <!-- Original undisplaced image for center -->
       <feOffset in="SourceGraphic" dx="0" dy="0" result="CENTER_ORIGINAL" />
 
-      <!-- Red channel displacement with slight offset -->
+      <!-- RGB Channels with intense displacement (-70) -->
       <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale}" xChannelSelector="R" yChannelSelector="B" result="RED_DISPLACED" />
-      <feColorMatrix
-        in="RED_DISPLACED"
-        type="matrix"
-        values="1 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0"
-        result="RED_CHANNEL"
-      />
+      <feColorMatrix in="RED_DISPLACED" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="RED_CHANNEL" />
 
-      <!-- Green channel displacement -->
       <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale - aberrationIntensity * 0.05}" xChannelSelector="R" yChannelSelector="B" result="GREEN_DISPLACED" />
-      <feColorMatrix
-        in="GREEN_DISPLACED"
-        type="matrix"
-        values="0 0 0 0 0
-                0 1 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0"
-        result="GREEN_CHANNEL"
-      />
+      <feColorMatrix in="GREEN_DISPLACED" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="GREEN_CHANNEL" />
 
-      <!-- Blue channel displacement with slight offset -->
       <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale - aberrationIntensity * 0.1}" xChannelSelector="R" yChannelSelector="B" result="BLUE_DISPLACED" />
-      <feColorMatrix
-        in="BLUE_DISPLACED"
-        type="matrix"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 1 0 0
-                0 0 0 1 0"
-        result="BLUE_CHANNEL"
-      />
+      <feColorMatrix in="BLUE_DISPLACED" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="BLUE_CHANNEL" />
 
-      <!-- Combine all channels with screen blend mode for chromatic aberration -->
       <feBlend in="GREEN_CHANNEL" in2="BLUE_CHANNEL" mode="screen" result="GB_COMBINED" />
       <feBlend in="RED_CHANNEL" in2="GB_COMBINED" mode="screen" result="RGB_COMBINED" />
 
-      <!-- Add slight blur to soften the aberration effect -->
       <feGaussianBlur in="RGB_COMBINED" stdDeviation="${Math.max(0.1, 0.5 - aberrationIntensity * 0.1)}" result="ABERRATED_BLURRED" />
 
-      <!-- Apply edge mask to aberration effect -->
       <feComposite in="ABERRATED_BLURRED" in2="EDGE_MASK" operator="in" result="EDGE_ABERRATION" />
 
-      <!-- Create inverted mask for center -->
       <feComponentTransfer in="EDGE_MASK" result="INVERTED_MASK">
         <feFuncA type="table" tableValues="1 0" />
       </feComponentTransfer>
       <feComposite in="CENTER_ORIGINAL" in2="INVERTED_MASK" operator="in" result="CENTER_CLEAN" />
 
-      <!-- Combine edge aberration with clean center -->
       <feComposite in="EDGE_ABERRATION" in2="CENTER_CLEAN" operator="over" />
     </filter>
   `;
@@ -116,108 +76,179 @@ function createGlassSVGFilter(id, displacementScale = 70, aberrationIntensity = 
   return id;
 }
 
-/**
- * Inicializa os elementos glassmorphism
- */
 export function initLiquidGlass() {
   const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
-  // Safari / Firefox tem limites em feDisplacement, mas criamos um fallback graceful para eles
-  
-  // Localizamos os targets
+
   const links = document.querySelectorAll('.link-item');
   const profileCard = document.querySelector('.profile-card');
   const socialIcons = document.querySelectorAll('.social-icons-grid a');
   
   const allGlassElements = [...links, profileCard, ...socialIcons].filter(Boolean);
 
-  let filterCount = 0;
-
   allGlassElements.forEach((el, idx) => {
-    // Para simplificar, usamos uma única escala de displacement por padrão
-    const filterId = `liquid-glass-filter-${idx}`;
-    
-    // Evita loop se já aplicamos (caso seja chamado mutiplas vezes)
     if(el.dataset.hasLiquidGlass) return;
     el.dataset.hasLiquidGlass = true;
 
-    // Adiciona classes estruturais
-    el.classList.add('glass-target');
+    // Valores mais intensos, como no original (scale 70, blurAmount 0.0625 ajustado)
+    const displacementScale = 70; 
+    const saturation = 160;
+    const blurPx = 24; 
+    const elasticity = 0.15;
     
-    // Rastreamento de Mouse para cada elemeto
-    let mouseOffset = { x: 0, y: 0 };
-    let globalMousePos = { x: 0, y: 0 };
-    let elasticity = 0.15;
-    let isActive = false;
-    let isHovered = false;
-    
-    // Rastreia e aplica o filtro
-    createGlassSVGFilter(filterId, 25, 2);
-    
-    // Configura o backdrop e injeção (neste vanilla form, nós envolvemos os visuais via CSS e injetamos as variaveis do mouse)
-    const blurAmount = 12;
+    const filterId = `liquid-glass-filter-${idx}`;
+    createGlassSVGFilter(filterId, displacementScale, 2);
 
+    // Estruturando o DOM para que o filtro não distorça o conteúdo em si (o texto)
+    const computedStyle = window.getComputedStyle(el);
+    const radius = computedStyle.borderRadius || '999px';
+
+    // Movemos os nós reais para manter as referências do GSAP intactas
+    const fragment = document.createDocumentFragment();
+    while(el.firstChild) {
+        fragment.appendChild(el.firstChild);
+    }
+    
+    // Configura o Wrapper Original
+    el.style.position = 'relative'; 
+    el.style.isolation = 'isolate'; 
+    el.style.zIndex = '1';
+    el.style.background = 'transparent'; // Remove o background do container principal, passa pro warp
+    el.style.backdropFilter = 'none'; 
+    el.style.border = 'none'; // borda vai ser falsa agora
+    el.style.boxShadow = 'none';
+
+    // Cria as camadas de vidro corretas!
+    // 1. Warp/Shader (Camada do vidro trêmulo com o feDisplacementMap)
+    const warpLayer = document.createElement('span');
+    warpLayer.className = 'glass-warp-layer';
+    warpLayer.style.position = 'absolute';
+    warpLayer.style.inset = '0';
+    warpLayer.style.borderRadius = radius;
+    warpLayer.style.filter = isFirefox ? 'none' : `url(#${filterId})`;
+    warpLayer.style.backdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
+    warpLayer.style.WebkitBackdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
+    warpLayer.style.background = 'transparent'; // O SVG Filter exige fundo transparente para distorcer apenas o backdrop
+    
+    // Adicionamos um layer de background base suave que não sofra com o filtro SVG
+    const baseBgLayer = document.createElement('span');
+    baseBgLayer.style.position = 'absolute';
+    baseBgLayer.style.inset = '0';
+    baseBgLayer.style.borderRadius = radius;
+    baseBgLayer.className = 'glass-base-bg';
+    // Repassa o visual de card translúcido exigido pelo tema do usuário
+    if(el.classList.contains('profile-card')) {
+        baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 100%)';
+        baseBgLayer.style.boxShadow = '0 -10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5)';
+        baseBgLayer.style.border = '1px solid rgba(255,255,255,0.2)';
+        baseBgLayer.style.borderTop = '1px solid rgba(255, 255, 255, 0.6)';
+        baseBgLayer.style.borderLeft = '1px solid rgba(255, 255, 255, 0.4)';
+    } else {
+        baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
+    }
+
+    // Camadas de Borda Brilhante Reativa do React!
+    const border1 = document.createElement('span');
+    const border2 = document.createElement('span');
+
+    [border1, border2].forEach(b => {
+        b.className = 'glass-border-layer';
+        b.style.position = 'absolute';
+        b.style.inset = '0';
+        b.style.borderRadius = radius;
+        b.style.pointerEvents = 'none';
+        b.style.padding = '1.5px';
+        b.style.WebkitMask = 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)';
+        b.style.WebkitMaskComposite = 'xor';
+        b.style.maskComposite = 'exclude';
+    });
+    
+    border1.style.mixBlendMode = 'screen';
+    border1.style.opacity = '0.2';
+    border2.style.mixBlendMode = 'overlay';
+    
+    // 4. Hover effect layers
+    const hoverHighlight = document.createElement('span');
+    hoverHighlight.style.position = 'absolute';
+    hoverHighlight.style.inset = '0';
+    hoverHighlight.style.borderRadius = radius;
+    hoverHighlight.style.pointerEvents = 'none';
+    hoverHighlight.style.opacity = '0';
+    hoverHighlight.style.transition = 'opacity 0.2s ease-out';
+    hoverHighlight.style.backgroundImage = 'radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)';
+    hoverHighlight.style.mixBlendMode = 'overlay';
+
+    // 5. Container de Texto Limpo (Sem distorção)
+    const contentContainer = document.createElement('div');
+    contentContainer.style.position = 'relative';
+    contentContainer.style.zIndex = '5';
+    // Repassa os flex layouts para o wrapper pra nao quebrar o design
+    if (computedStyle.display === 'flex') {
+        contentContainer.style.display = 'flex';
+        contentContainer.style.flexDirection = computedStyle.flexDirection;
+        contentContainer.style.alignItems = computedStyle.alignItems;
+        contentContainer.style.justifyContent = computedStyle.justifyContent;
+        contentContainer.style.gap = computedStyle.gap;
+        contentContainer.style.width = '100%';
+        contentContainer.style.height = '100%';
+    }
+    contentContainer.appendChild(fragment);
+
+    // Constrói a árvore de nós interna
+    el.appendChild(warpLayer);
+    el.appendChild(baseBgLayer);
+    el.appendChild(border1);
+    el.appendChild(border2);
+    el.appendChild(hoverHighlight);
+    el.appendChild(contentContainer);
+
+    // Eventos
     el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        mouseOffset = {
-            x: ((e.clientX - centerX) / rect.width) * 100,
-            y: ((e.clientY - centerY) / rect.height) * 100,
-        };
+        const mx = ((e.clientX - centerX) / rect.width) * 100;
+        const my = ((e.clientY - centerY) / rect.height) * 100;
 
-        globalMousePos = { x: e.clientX, y: e.clientY };
-        
-        // Passa as propriedades do offset p/ os backgrounds do CSS poderem reagir
-        el.style.setProperty('--mouse-offset-x', mouseOffset.x);
-        el.style.setProperty('--mouse-offset-y', mouseOffset.y);
-        
-        // Cacula o desvio elástico
-        const deltaX = globalMousePos.x - centerX;
-        const deltaY = globalMousePos.y - centerY;
+        // Atualiza a borda brilhante e elástica
+        const angle = 135 + mx * 1.2;
+        border1.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.12+Math.abs(mx)*0.008}) ${Math.max(10,33+my*0.3)}%, rgba(255,255,255,${0.4+Math.abs(mx)*0.012}) ${Math.min(90,66+my*0.4)}%, rgba(255,255,255,0) 100%)`;
+        border2.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.32+Math.abs(mx)*0.008}) ${Math.max(10,33+my*0.3)}%, rgba(255,255,255,${0.6+Math.abs(mx)*0.012}) ${Math.min(90,66+my*0.4)}%, rgba(255,255,255,0) 100%)`;
+
+        const deltaX = e.clientX - centerX;
+        const deltaY = e.clientY - centerY;
         const centerDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const normalizedX = centerDistance === 0 ? 0 : deltaX / centerDistance;
-        const normalizedY = centerDistance === 0 ? 0 : deltaY / centerDistance;
-
         const stretchIntensity = Math.min(centerDistance / 300, 1) * elasticity;
-        const scaleX = 1 + Math.abs(normalizedX) * stretchIntensity * 0.3 - Math.abs(normalizedY) * stretchIntensity * 0.15;
-        const scaleY = 1 + Math.abs(normalizedY) * stretchIntensity * 0.3 - Math.abs(normalizedX) * stretchIntensity * 0.15;
+        
+        const normX = centerDistance === 0 ? 0 : deltaX/centerDistance;
+        const normY = centerDistance === 0 ? 0 : deltaY/centerDistance;
+        const scaleX = 1 + Math.abs(normX) * stretchIntensity * 0.3 - Math.abs(normY) * stretchIntensity * 0.15;
+        const scaleY = 1 + Math.abs(normY) * stretchIntensity * 0.3 - Math.abs(normX) * stretchIntensity * 0.15;
 
-        el.style.setProperty('--scale-x', Math.max(0.8, scaleX));
-        el.style.setProperty('--scale-y', Math.max(0.8, scaleY));
-        el.style.setProperty('--elastic-x', `${deltaX * elasticity * 0.1}px`);
-        el.style.setProperty('--elastic-y', `${deltaY * elasticity * 0.1}px`);
+        // O transform fica no elemento pai (o card inteiro!)
+        el.style.transform = `translate(${deltaX * elasticity * 0.1}px, ${deltaY * elasticity * 0.1}px) scaleX(${Math.max(0.8, scaleX)}) scaleY(${Math.max(0.8, scaleY)})`;
     });
 
     el.addEventListener('mouseenter', () => {
-        isHovered = true;
-        el.classList.add('glass-hovered');
-        if(!isFirefox) {
-            el.style.filter = `url(#${filterId})`;
-        }
+        hoverHighlight.style.opacity = '0.4';
     });
 
     el.addEventListener('mouseleave', () => {
-        isHovered = false;
-        el.classList.remove('glass-hovered');
-        el.style.setProperty('--scale-x', 1);
-        el.style.setProperty('--scale-y', 1);
-        el.style.setProperty('--elastic-x', '0px');
-        el.style.setProperty('--elastic-y', '0px');
-        el.style.setProperty('--mouse-offset-x', 0);
-        el.style.setProperty('--mouse-offset-y', 0);
-        // Remove slightly the filter when out so it doesn't cause artifact borders when normal
-        el.style.filter = 'none';
+        hoverHighlight.style.opacity = '0';
+        el.style.transform = 'scale(1) translate(0px, 0px)';
+        border1.style.background = 'transparent';
+        border2.style.background = 'transparent';
     });
 
     el.addEventListener('mousedown', () => {
-        isActive = true;
-        el.classList.add('glass-active');
+        hoverHighlight.style.opacity = '0.8';
+        el.style.transform = `scale(0.96)`;
     });
 
     el.addEventListener('mouseup', () => {
-        isActive = false;
-        el.classList.remove('glass-active');
+        hoverHighlight.style.opacity = '0.4';
     });
+    
+    // As injeções em links que antes tinham um ícone puro precisam preservar estado original (reparar color via css no elemento filho e não no parent background)
   });
 }
