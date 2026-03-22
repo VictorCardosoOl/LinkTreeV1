@@ -1,5 +1,5 @@
 /**
- * @fileoverview Application entry point.
+ * @fileoverview Application entry point - Enterprise AppManager
  * @module App
  */
 import Lenis from 'lenis';
@@ -12,165 +12,102 @@ const PHYSICS = Object.freeze({
   STAGGER: 0.12,
 });
 
-const App = (() => {
-  const state = {
-    lenis: null,
-    isMobile: window.matchMedia('(max-width: 768px)').matches,
-    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  };
+/**
+ * @class AppManager
+ * @description Classe Sênior de Inicialização com fallback Graceful Degradation e Opcional Chaining.
+ */
+class AppManager {
+  constructor() {
+    this.state = Object.freeze({
+      isMobile: window.matchMedia('(max-width: 768px)').matches,
+      prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    });
+    this.lenisInstance = null;
+  }
 
-  const initScrollEngine = () => {
-    if (state.prefersReducedMotion || state.isMobile) {
+  bootstrap() {
+    try {
+      this.#initScrollEngine();
+      this.#playEntranceSequence();
+      
+      // Carregamento específico sob demanda (Code Splitting)
+      this.#loadPageSpecificModules();
+    } catch (error) {
+      console.warn('[App] Instalação base falhou, usando modo Fallback', error);
+      document.documentElement.style.scrollBehavior = 'smooth';
+      gsap.set('.anim-el, .hero-cover, .profile-name', { visibility: 'visible', opacity: 1, y: 0 });
+    }
+  }
+
+  #loadPageSpecificModules() {
+    const pageType = document.body.dataset.page || 'home';
+    
+    if (pageType === 'gallery') {
+      import('./modules/lightbox.js')
+        .then(({ initLightbox }) => initLightbox())
+        .catch((err) => console.error('[App] Falha ao baixar o modulo Gallery', err));
+    } else {
+      initLiquidGlass();
+    }
+  }
+
+  #initScrollEngine() {
+    if (this.state.prefersReducedMotion || this.state.isMobile) {
       document.documentElement.style.scrollBehavior = 'smooth';
       return;
     }
 
-    try {
-      state.lenis = new Lenis({
-        lerp: 0.08,
-        smoothWheel: true,
-      });
+    this.lenisInstance = new Lenis({ lerp: 0.08, smoothWheel: true });
+    
+    gsap.ticker.add((time) => this.lenisInstance?.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
 
-      gsap.ticker.add((time) => state.lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
-    } catch (error) {
-      console.error('Lenis initialization failed:', error);
-      document.documentElement.style.scrollBehavior = 'smooth';
+  #playEntranceSequence() {
+    const timeline = gsap.timeline({ delay: 0.3 });
+    const heroCover = document.querySelector('.hero-cover');
+    const profileName = document.querySelector('.profile-name');
+    const animatedElements = document.querySelectorAll('.anim-el');
+
+    if (heroCover && !this.state.prefersReducedMotion) {
+      timeline.from(heroCover, {
+        opacity: 0,
+        scale: 1.05,
+        duration: 1.5,
+        ease: PHYSICS.EASE_EXPO,
+      });
     }
-  };
 
-  const initLightbox = () => {
-    const dialog = document.getElementById('lightbox');
-    const closeBtn = document.getElementById('close-lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const galleryItems = document.querySelectorAll('.gallery-item img');
+    if (profileName) {
+      const headerElements = document.querySelectorAll('.card-header > *');
+      timeline.from(headerElements, {
+        opacity: 0,
+        y: 15,
+        stagger: 0.1,
+        duration: 1.5,
+        ease: PHYSICS.EASE_ELASTIC,
+      }, heroCover ? '-=1.2' : 0);
+    }
 
-    if (!dialog || !closeBtn || !lightboxImg) return;
+    if (animatedElements.length > 0) {
+      gsap.set(animatedElements, { visibility: 'visible' });
 
-    // Close lightbox
-    const closeDialog = () => {
-      dialog.close();
-      document.body.style.overflow = '';
-      lightboxImg.src = '';
-    };
-
-    // Open lightbox
-    galleryItems.forEach((img) => {
-      const item = img.closest('.gallery-item');
-
-      item.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || 'Imagem ampliada';
-        dialog.showModal();
-        document.body.style.overflow = 'hidden';
-      });
-
-      // Acessibilidade via teclado
-      item.setAttribute('tabindex', '0');
-      item.setAttribute('role', 'button');
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt || 'Imagem ampliada';
-          dialog.showModal();
-          document.body.style.overflow = 'hidden';
-        }
-      });
-    });
-
-    closeBtn.addEventListener('click', closeDialog);
-
-    // Close on backdrop click
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        closeDialog();
-      }
-    });
-
-    // Close on Escape key (reforço além do comportamento nativo do <dialog>)
-    dialog.addEventListener('cancel', closeDialog);
-  };
-
-  const playEntranceSequence = () => {
-    try {
-      const timeline = gsap.timeline({ delay: 0.3 });
-      const heroCover = document.querySelector('.hero-cover');
-      const profileName = document.querySelector('.profile-name');
-      const animatedElements = document.querySelectorAll('.anim-el');
-
-      if (heroCover && !state.prefersReducedMotion) {
-        timeline.from(heroCover, {
+      if (!this.state.prefersReducedMotion) {
+        timeline.from(animatedElements, {
           opacity: 0,
-          scale: 1.05,
+          y: 20,
+          stagger: PHYSICS.STAGGER,
           duration: 1.5,
-          ease: PHYSICS.EASE_EXPO,
-        });
-      }
-
-      if (profileName) {
-        const headerElements = document.querySelectorAll('.card-header > *');
-        timeline.from(
-          headerElements,
-          {
-            opacity: 0,
-            y: 15,
-            stagger: 0.1,
-            duration: 1.5,
-            ease: PHYSICS.EASE_ELASTIC,
-          },
-          heroCover ? '-=1.2' : 0
-        );
-      }
-
-      if (animatedElements.length > 0) {
-        gsap.set(animatedElements, { visibility: 'visible' });
-
-        if (!state.prefersReducedMotion) {
-          timeline.from(
-            animatedElements,
-            {
-              opacity: 0,
-              y: 20,
-              stagger: PHYSICS.STAGGER,
-              duration: 1.5,
-              ease: PHYSICS.EASE_ELASTIC,
-            },
-            '-=1.2'
-          );
-        }
-      }
-    } catch (error) {
-      console.error('Animation sequence failed:', error);
-      const fallbackElements = document.querySelectorAll('.anim-el, .hero-cover, .profile-name');
-      if (fallbackElements.length > 0) {
-        gsap.set(fallbackElements, { visibility: 'visible', opacity: 1, y: 0 });
+          ease: PHYSICS.EASE_ELASTIC,
+        }, '-=1.2');
       }
     }
-  };
+  }
+}
 
-  const init = () => {
-    try {
-      initScrollEngine();
-
-      const page = document.body.dataset.page ?? 'home';
-      if (page === 'gallery') {
-        initLightbox();
-      }
-      playEntranceSequence();
-
-      // Inicia Liquid Glass
-      initLiquidGlass();
-    } catch (error) {
-      console.error('App initialization failed:', error);
-    }
-  };
-
-  return { init };
-})();
-
+// Singleton Engine Start
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', App.init);
+  document.addEventListener('DOMContentLoaded', () => new AppManager().bootstrap());
 } else {
-  App.init();
+  new AppManager().bootstrap();
 }

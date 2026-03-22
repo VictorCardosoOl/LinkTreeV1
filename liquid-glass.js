@@ -79,6 +79,7 @@ function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
 export function initLiquidGlass() {
   const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 
+  const cleanupFunctions = [];
   const links = document.querySelectorAll('.link-item');
   const socialIcons = document.querySelectorAll('.social-icons-grid a');
   
@@ -192,16 +193,22 @@ export function initLiquidGlass() {
     el.appendChild(hoverHighlight);
     el.appendChild(contentContainer);
 
-    // Eventos
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+    // State & Throttling setup
+    let isTicking = false;
+    let targetX = 0;
+    let targetY = 0;
+    let centerX = 0;
+    let centerY = 0;
+    let rectWidth = 0;
+    let rectHeight = 0;
+    
+    const updateDOM = () => {
+        isTicking = false;
 
-        const mx = ((e.clientX - centerX) / rect.width) * 100;
-        const my = ((e.clientY - centerY) / rect.height) * 100;
+        const mx = ((targetX - centerX) / rectWidth) * 100;
+        const my = ((targetY - centerY) / rectHeight) * 100;
 
-        // Atualiza a borda brilhante e elástica: com área do gradiente muito mais ampla e brilhante
+        // Atualiza as bordas dinâmicas
         const angle = 135 + mx * 1.2;
         const colorStart = `rgba(255,255,255,${0.3 + Math.abs(mx) * 0.008})`;
         const colorMid = `rgba(255,255,255,${0.6 + Math.abs(mx) * 0.012})`;
@@ -209,8 +216,8 @@ export function initLiquidGlass() {
         border1.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, ${colorStart} ${Math.max(0, 15 + my * 0.3)}%, ${colorMid} ${Math.min(100, 85 + my * 0.4)}%, rgba(255,255,255,0) 100%)`;
         border2.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${0.5 + Math.abs(mx) * 0.01}) ${Math.max(0, 15 + my * 0.3)}%, rgba(255,255,255,${0.8 + Math.abs(mx) * 0.015}) ${Math.min(100, 85 + my * 0.4)}%, rgba(255,255,255,0) 100%)`;
 
-        const deltaX = e.clientX - centerX;
-        const deltaY = e.clientY - centerY;
+        const deltaX = targetX - centerX;
+        const deltaY = targetY - centerY;
         const centerDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         const stretchIntensity = Math.min(centerDistance / 300, 1) * elasticity;
         
@@ -219,30 +226,64 @@ export function initLiquidGlass() {
         const scaleX = 1 + Math.abs(normX) * stretchIntensity * 0.3 - Math.abs(normY) * stretchIntensity * 0.15;
         const scaleY = 1 + Math.abs(normY) * stretchIntensity * 0.3 - Math.abs(normX) * stretchIntensity * 0.15;
 
-        // O transform fica no elemento pai (o card inteiro!)
+        // Transform fica no elemento pai
         el.style.transform = `translate(${deltaX * elasticity * 0.1}px, ${deltaY * elasticity * 0.1}px) scaleX(${Math.max(0.8, scaleX)}) scaleY(${Math.max(0.8, scaleY)})`;
-    });
+    };
 
-    el.addEventListener('mouseenter', () => {
+    // Eventos Otimizados
+    const handleMouseMove = (e) => {
+        // Cache rect to avoid Forced Synchronous Layout if possible, but element size shouldn't change
+        const rect = el.getBoundingClientRect();
+        centerX = rect.left + rect.width / 2;
+        centerY = rect.top + rect.height / 2;
+        rectWidth = rect.width;
+        rectHeight = rect.height;
+        targetX = e.clientX;
+        targetY = e.clientY;
+
+        if (!isTicking) {
+            window.requestAnimationFrame(updateDOM);
+            isTicking = true;
+        }
+    };
+
+    const handleMouseEnter = () => {
         hoverHighlight.style.opacity = '0.7'; // Glow mais forte
-    });
+    };
 
-    el.addEventListener('mouseleave', () => {
+    const handleMouseLeave = () => {
         hoverHighlight.style.opacity = '0';
         el.style.transform = 'scale(1) translate(0px, 0px)';
         border1.style.background = 'transparent';
         border2.style.background = 'transparent';
-    });
+    };
 
-    el.addEventListener('mousedown', () => {
+    const handleMouseDown = () => {
         hoverHighlight.style.opacity = '1';
         el.style.transform = `scale(0.96)`;
-    });
+    };
 
-    el.addEventListener('mouseup', () => {
+    const handleMouseUp = () => {
         hoverHighlight.style.opacity = '0.7';
-    });
+    };
+
+    el.addEventListener('mousemove', handleMouseMove);
+    el.addEventListener('mouseenter', handleMouseEnter);
+    el.addEventListener('mouseleave', handleMouseLeave);
+    el.addEventListener('mousedown', handleMouseDown);
+    el.addEventListener('mouseup', handleMouseUp);
     
     // As injeções em links que antes tinham um ícone puro precisam preservar estado original (reparar color via css no elemento filho e não no parent background)
+    
+    // Feature Sênior: Retorna o Teardown Handler
+    cleanupFunctions.push(() => {
+        el.removeEventListener('mousemove', handleMouseMove);
+        el.removeEventListener('mouseenter', handleMouseEnter);
+        el.removeEventListener('mouseleave', handleMouseLeave);
+        el.removeEventListener('mousedown', handleMouseDown);
+        el.removeEventListener('mouseup', handleMouseUp);
+    });
   });
+
+  return () => cleanupFunctions.forEach(fn => fn());
 }
