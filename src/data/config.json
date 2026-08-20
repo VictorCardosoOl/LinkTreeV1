@@ -1,0 +1,78 @@
+{
+  "profile": {
+    "name": "Victor Cardoso",
+    "subtitle": "Creative Developer & Tech Enthusiast",
+    "avatar": "/src/assets/avatar.webp",
+    "avatarAlt": "Retrato de Victor Cardoso"
+  },
+  "seo": {
+    "title": "Victor Cardoso | Links",
+    "description": "Victor Cardoso — Creative Developer & Tech Enthusiast. Confira meus projetos e entre em contato.",
+    "url": "https://victorcardoso.com/"
+  },
+  "links": [
+    {
+      "url": "https://victor-cardoso-dev.vercel.app",
+      "icon": "globe-outline",
+      "text": "Portfólio"
+    },
+    {
+      "url": "https://github.com/VictorCardosoOl",
+      "icon": "logo-github",
+      "text": "Repositório"
+    },
+    {
+      "url": "https://www.linkedin.com/in/victor-card-cunha/",
+      "icon": "logo-linkedin",
+      "text": "LinkedIn"
+    }
+  ],
+  "socials": [
+    {
+      "url": "https://instagram.com/abaxu_artes",
+      "icon": "logo-instagram",
+      "label": "Instagram"
+    },
+    {
+      "url": "mailto:victorcardosovc1@gmail.com",
+      "icon": "mail-outline",
+      "label": "Email"
+    },
+    {
+      "url": "https://wa.me/5511977440146",
+      "icon": "logo-whatsapp",
+      "label": "WhatsApp"
+    }
+  ],
+  "gallery": {
+    "title": "Obras & Arte",
+    "subtitle": "Portfólio visual — fotografia e design",
+    "items": [
+      {
+        "src": "/src/assets/gallery-1.jpg",
+        "icon": "heart",
+        "alt": "Obra fotográfica 1"
+      },
+      {
+        "src": "/src/assets/gallery-2.jpg",
+        "icon": "star-outline",
+        "alt": "Obra fotográfica 2"
+      },
+      {
+        "src": "/src/assets/gallery-3.jpg",
+        "icon": "heart-outline",
+        "alt": "Obra fotográfica 3"
+      },
+      {
+        "src": "/src/assets/gallery-4.jpg",
+        "icon": "aperture-outline",
+        "alt": "Obra fotográfica 4"
+      }
+    ]
+  },
+  "footer": {
+    "year": 2026,
+    "name": "Victor Cardoso",
+    "url": "https://victor-cardoso-dev.vercel.app"
+  }
+}
