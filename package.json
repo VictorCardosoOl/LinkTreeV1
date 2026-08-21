@@ -5,13 +5,12 @@
   "description": "Victor Cardoso personal links page — physics-based animations, glassmorphism UI, PWA-ready.",
   "main": "script.js",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "compress:images": "node scripts/compress-images.mjs",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write \"**/*.{js,html,css,json,md}\"",
@@ -34,9 +33,7 @@
     "@eslint/js": "^8.57.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
-    "ionicons": "^8.0.13",
     "prettier": "^3.8.1",
-    "sharp": "^0.35.3",
     "vite": "^7.3.4",
     "vite-plugin-handlebars": "^2.0.3"
   }

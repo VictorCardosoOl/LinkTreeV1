@@ -2,9 +2,7 @@
  * Liquid Glass Effect - Vanilla JS Port
  * Baseado no liquid-glass-react
  */
-
-// A textura geradora de noise agora é um mapa físico extraído da string base64 original para prevenir ERR_INVALID_URL
-const displacementMapUrl = "./assets/displacement-map.jpg";
+import displacementMapUrl from '../assets/displacement-map.jpg';
 
 function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
   const svgNS = "http://www.w3.org/2000/svg";
@@ -21,7 +19,9 @@ function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
     document.body.appendChild(svgContainer);
   }
 
-  if (document.getElementById(id)) return id;
+  if (document.getElementById(id)) {
+    return id;
+  }
 
   const defs = document.createElementNS(svgNS, 'defs');
   
@@ -83,7 +83,6 @@ export function initLiquidGlass() {
 
   const cleanupFunctions = [];
   const links = document.querySelectorAll('.link-item');
-  const socialIcons = document.querySelectorAll('.social-icons-grid a');
   
   // Vamos focar o efeito de liquid glass apenas nos elementos iterativos principais (botões) 
   // para garantir a semântica visual e evitar o bug da sombra/caixa cinza nos ícones.
@@ -96,7 +95,9 @@ export function initLiquidGlass() {
   }
 
   allGlassElements.forEach((el, idx) => {
-    if(el.dataset.hasLiquidGlass) return;
+    if (el.dataset.hasLiquidGlass) {
+      return;
+    }
     el.dataset.hasLiquidGlass = true;
 
     // overLight mode params: (reduz a distorção pela metade, adiciona sombras ricas e fundo escurecido)

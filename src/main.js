@@ -4,7 +4,7 @@
  */
 import Lenis from 'lenis';
 import gsap from 'gsap';
-import { initLiquidGlass } from './features/liquid-glass.js';
+import { initLiquidGlass } from './components/liquid-glass.js';
 
 const ANIMATION_CONFIG = Object.freeze({
   EASE_EXPO: 'power4.out',
@@ -68,15 +68,7 @@ class AppManager {
   }
 
   #loadPageSpecificModules() {
-    const pageType = document.body.dataset.page || 'home';
-    
-    if (pageType === 'gallery') {
-      import('./features/lightbox.js')
-        .then(({ initLightbox }) => initLightbox())
-        .catch((err) => console.error('[App] Failed to load Gallery module', err));
-    } else {
-      initLiquidGlass();
-    }
+    initLiquidGlass();
   }
 
   #initScrollEngine() {
