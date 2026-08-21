@@ -85,9 +85,9 @@ export function initLiquidGlass() {
   const links = document.querySelectorAll('.link-item');
   const socialIcons = document.querySelectorAll('.social-icons-grid a');
   
-  // Vamos focar o efeito de liquid glass apenas nos elementos iterativos (botões) 
-  // para garantir a semântica visual e evitar o bug da caixa branca no profile-card.
-  const allGlassElements = [...links, ...socialIcons].filter(Boolean);
+  // Vamos focar o efeito de liquid glass apenas nos elementos iterativos principais (botões) 
+  // para garantir a semântica visual e evitar o bug da sombra/caixa cinza nos ícones.
+  const allGlassElements = [...links].filter(Boolean);
 
   allGlassElements.forEach((el, idx) => {
     if(el.dataset.hasLiquidGlass) return;
@@ -138,7 +138,7 @@ export function initLiquidGlass() {
     baseBgLayer.className = 'glass-base-bg';
     // Gradiente significativamente ampliado para preencher a cor vítrea com mais presença
     baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 65%, rgba(255,255,255,0.05) 100%)';
-    baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
+    baseBgLayer.style.border = '1px solid var(--color-border)';
 
     const border1 = document.createElement('span');
     const border2 = document.createElement('span');
