@@ -140,7 +140,6 @@ export function initLiquidGlass() {
     baseBgLayer.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 65%, rgba(255,255,255,0.05) 100%)';
     baseBgLayer.style.border = '1px solid rgba(17,17,17,0.1)';
 
-    // Camadas de Borda Brilhante Reativa do React!
     const border1 = document.createElement('span');
     const border2 = document.createElement('span');
 
@@ -210,7 +209,6 @@ export function initLiquidGlass() {
         const mx = ((targetX - centerX) / rectWidth) * 100;
         const my = ((targetY - centerY) / rectHeight) * 100;
 
-        // Atualiza as bordas dinâmicas
         const angle = 135 + mx * 1.2;
         const colorStart = `rgba(255,255,255,${0.3 + Math.abs(mx) * 0.008})`;
         const colorMid = `rgba(255,255,255,${0.6 + Math.abs(mx) * 0.012})`;
@@ -228,18 +226,10 @@ export function initLiquidGlass() {
         const scaleX = 1 + Math.abs(normX) * stretchIntensity * 0.3 - Math.abs(normY) * stretchIntensity * 0.15;
         const scaleY = 1 + Math.abs(normY) * stretchIntensity * 0.3 - Math.abs(normX) * stretchIntensity * 0.15;
 
-        // Transform fica no elemento pai
         el.style.transform = `translate(${deltaX * elasticity * 0.1}px, ${deltaY * elasticity * 0.1}px) scaleX(${Math.max(0.8, scaleX)}) scaleY(${Math.max(0.8, scaleY)})`;
     };
 
-    // Eventos Otimizados
     const handleMouseMove = (e) => {
-        // Cache rect to avoid Forced Synchronous Layout if possible, but element size shouldn't change
-        const rect = el.getBoundingClientRect();
-        centerX = rect.left + rect.width / 2;
-        centerY = rect.top + rect.height / 2;
-        rectWidth = rect.width;
-        rectHeight = rect.height;
         targetX = e.clientX;
         targetY = e.clientY;
 
@@ -250,7 +240,14 @@ export function initLiquidGlass() {
     };
 
     const handleMouseEnter = () => {
-        hoverHighlight.style.opacity = '0.7'; // Glow mais forte
+        // Cache rect on mouse enter to avoid Forced Synchronous Layout on mouse move
+        const rect = el.getBoundingClientRect();
+        centerX = rect.left + rect.width / 2;
+        centerY = rect.top + rect.height / 2;
+        rectWidth = rect.width;
+        rectHeight = rect.height;
+
+        hoverHighlight.style.opacity = '0.7';
     };
 
     const handleMouseLeave = () => {
@@ -269,21 +266,29 @@ export function initLiquidGlass() {
         hoverHighlight.style.opacity = '0.7';
     };
 
+    // Cache resize if window size changes while hovering (optional but good practice)
+    const handleResize = () => {
+        const rect = el.getBoundingClientRect();
+        centerX = rect.left + rect.width / 2;
+        centerY = rect.top + rect.height / 2;
+        rectWidth = rect.width;
+        rectHeight = rect.height;
+    };
+
     el.addEventListener('mousemove', handleMouseMove);
     el.addEventListener('mouseenter', handleMouseEnter);
     el.addEventListener('mouseleave', handleMouseLeave);
     el.addEventListener('mousedown', handleMouseDown);
     el.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('resize', handleResize);
     
-    // As injeções em links que antes tinham um ícone puro precisam preservar estado original (reparar color via css no elemento filho e não no parent background)
-    
-    // Feature Sênior: Retorna o Teardown Handler
     cleanupFunctions.push(() => {
         el.removeEventListener('mousemove', handleMouseMove);
         el.removeEventListener('mouseenter', handleMouseEnter);
         el.removeEventListener('mouseleave', handleMouseLeave);
         el.removeEventListener('mousedown', handleMouseDown);
         el.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('resize', handleResize);
     });
   });
 

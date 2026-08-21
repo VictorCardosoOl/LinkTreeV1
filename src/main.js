@@ -1,40 +1,68 @@
 /**
- * @fileoverview Application entry point - Enterprise AppManager
+ * @fileoverview Application entry point
  * @module App
  */
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { initLiquidGlass } from './features/liquid-glass.js';
 
-const PHYSICS = Object.freeze({
+const ANIMATION_CONFIG = Object.freeze({
   EASE_EXPO: 'power4.out',
   EASE_ELASTIC: 'elastic.out(1, 0.85)',
   STAGGER: 0.12,
 });
 
-/**
- * @class AppManager
- * @description Classe Sênior de Inicialização com fallback Graceful Degradation e Opcional Chaining.
- */
 class AppManager {
   constructor() {
-    this.state = Object.freeze({
-      isMobile: window.matchMedia('(max-width: 768px)').matches,
-      prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    });
+    this.mediaQueries = {
+      mobile: window.matchMedia('(max-width: 768px)'),
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
+    };
+
+    this.state = {
+      isMobile: this.mediaQueries.mobile.matches,
+      prefersReducedMotion: this.mediaQueries.reducedMotion.matches,
+    };
+
     this.lenisInstance = null;
+    this.#bindEvents();
+  }
+
+  #bindEvents() {
+    this.mediaQueries.mobile.addEventListener('change', (e) => {
+      this.state.isMobile = e.matches;
+      this.#handleMediaChange();
+    });
+
+    this.mediaQueries.reducedMotion.addEventListener('change', (e) => {
+      this.state.prefersReducedMotion = e.matches;
+      this.#handleMediaChange();
+    });
+  }
+
+  #handleMediaChange() {
+    if (this.state.isMobile || this.state.prefersReducedMotion) {
+      if (this.lenisInstance) {
+        this.lenisInstance.destroy();
+        this.lenisInstance = null;
+      }
+      document.documentElement.classList.add('fallback-scroll');
+    } else {
+      document.documentElement.classList.remove('fallback-scroll');
+      if (!this.lenisInstance) {
+        this.#initScrollEngine();
+      }
+    }
   }
 
   bootstrap() {
     try {
       this.#initScrollEngine();
       this.#playEntranceSequence();
-      
-      // Carregamento específico sob demanda (Code Splitting)
       this.#loadPageSpecificModules();
     } catch (error) {
-      console.warn('[App] Instalação base falhou, usando modo Fallback', error);
-      document.documentElement.style.scrollBehavior = 'smooth';
+      console.warn('[App] Error during initialization. Falling back to default behavior.', error);
+      document.documentElement.classList.add('fallback-scroll');
       gsap.set('.anim-el, .hero-cover, .profile-name', { visibility: 'visible', opacity: 1, y: 0 });
     }
   }
@@ -45,7 +73,7 @@ class AppManager {
     if (pageType === 'gallery') {
       import('./features/lightbox.js')
         .then(({ initLightbox }) => initLightbox())
-        .catch((err) => console.error('[App] Falha ao baixar o modulo Gallery', err));
+        .catch((err) => console.error('[App] Failed to load Gallery module', err));
     } else {
       initLiquidGlass();
     }
@@ -53,7 +81,7 @@ class AppManager {
 
   #initScrollEngine() {
     if (this.state.prefersReducedMotion || this.state.isMobile) {
-      document.documentElement.style.scrollBehavior = 'smooth';
+      document.documentElement.classList.add('fallback-scroll');
       return;
     }
 
@@ -74,19 +102,21 @@ class AppManager {
         opacity: 0,
         scale: 1.05,
         duration: 1.5,
-        ease: PHYSICS.EASE_EXPO,
+        ease: ANIMATION_CONFIG.EASE_EXPO,
       });
     }
 
     if (profileName) {
       const headerElements = document.querySelectorAll('.card-header > *');
-      timeline.from(headerElements, {
-        opacity: 0,
-        y: 15,
-        stagger: 0.1,
-        duration: 1.5,
-        ease: PHYSICS.EASE_ELASTIC,
-      }, heroCover ? '-=1.2' : 0);
+      if (headerElements.length > 0) {
+        timeline.from(headerElements, {
+          opacity: 0,
+          y: 15,
+          stagger: 0.1,
+          duration: 1.5,
+          ease: ANIMATION_CONFIG.EASE_ELASTIC,
+        }, heroCover ? '-=1.2' : 0);
+      }
     }
 
     if (animatedElements.length > 0) {
@@ -96,16 +126,16 @@ class AppManager {
         timeline.from(animatedElements, {
           opacity: 0,
           y: 20,
-          stagger: PHYSICS.STAGGER,
+          stagger: ANIMATION_CONFIG.STAGGER,
           duration: 1.5,
-          ease: PHYSICS.EASE_ELASTIC,
+          ease: ANIMATION_CONFIG.EASE_ELASTIC,
         }, '-=1.2');
       }
     }
   }
 }
 
-// Singleton Engine Start
+// App Initialization
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => new AppManager().bootstrap());
 } else {

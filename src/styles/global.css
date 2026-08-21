@@ -23,7 +23,7 @@
   /* Colors - Editorial B&W Theme */
   --color-bg-body: #eaeaeb; 
   --color-text-main: #111111;
-  --color-text-muted: #666666; /* Corrigido: 'mutted' → 'muted' | Contraste 5.7:1 (WCAG AA ✅) */
+  --color-text-muted: #666666;
   --color-border: rgba(17, 17, 17, 0.1);
 
   /* Glassmorphism Variables */
@@ -37,11 +37,12 @@
   --font-sans: 'Plein', -apple-system, sans-serif;
   --font-serif: 'Plein', -apple-system, sans-serif;
 
-  /* Layout */
-  --app-max-width: 420px;
-  --card-radius: 40px; 
-  --pill-radius: 999px;
-  --cover-height: 48vh; 
+  /* Layout Base 8 */
+  --app-max-width: 32rem; /* ~512px */
+  --app-desktop-width: 64rem; /* ~1024px */
+  --card-radius: 2.5rem; /* 40px */
+  --pill-radius: 999rem;
+  --cover-height: 40dvh; 
   
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -56,9 +57,17 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  font-size: 100%; /* 16px default */
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
+}
+
+html.fallback-scroll {
+  scroll-behavior: smooth;
 }
 
 .skip-link {
@@ -83,7 +92,7 @@ body {
   background-color: var(--color-bg-body);
   font-family: var(--font-sans);
   color: var(--color-text-main);
-  line-height: 1.6;
+  line-height: 1.5;
   min-height: 100dvh;
   display: flex;
   justify-content: center;
@@ -109,8 +118,10 @@ body::before {
   min-height: 100dvh;
   background-color: #ffffff;
   position: relative;
-  overflow: visible; /* Garante que o conteúdo não seja cortado se crescer além do viewport no mobile */
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  box-shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 /* Hero Image Top */
@@ -129,30 +140,24 @@ body::before {
   will-change: transform;
 }
 
-/* GLASSMORPHISM CARD (Overlaps the image) */
+/* GLASSMORPHISM CARD */
 .profile-card {
   position: relative;
   margin-top: -3rem;
   width: 100%;
-  /* Glassmorphism Refinado da Foto - Gradiente e Blur */
   background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  
-  /* Bordas Simples, Limpas e Reflexivas como Vidro Físico */
+  backdrop-filter: blur(1.5rem) saturate(160%);
+  -webkit-backdrop-filter: blur(1.5rem) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   border-left: 1px solid rgba(255, 255, 255, 0.4);
-  
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: clamp(1.5rem, 5vh, 3rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
+  padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 5vw, 2.5rem) clamp(2rem, 5vh, 3rem);
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  /* Sombra suave por fora, luz fina (inset shadow) por dentro = espessura de vidro */
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 -0.625rem 2.5rem rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 /* Header inside card */
@@ -160,35 +165,24 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: clamp(1rem, 3vh, 2rem);
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
   text-align: center;
-}
-
-.badge {
-  background: transparent;
-  color: var(--color-text-main);
-  font-size: 0.65rem;
-  font-weight: 500;
-  padding: 0.3rem 0.8rem;
-  border-radius: var(--pill-radius);
-  margin-bottom: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--color-border);
+  width: 100%;
 }
 
 .profile-name {
   font-family: var(--font-serif);
-  font-size: 2.4rem;
+  font-size: clamp(2rem, 8vw, 3rem);
   font-weight: 500;
   letter-spacing: 0.04em;
-  margin-bottom: 0.3rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
   color: #111;
 }
 
 .profile-subtitle {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   color: var(--color-text-muted);
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -200,7 +194,7 @@ body::before {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
 }
 
 .link-item {
@@ -209,14 +203,14 @@ body::before {
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 1.2rem;
+  padding: 1.25rem 1rem;
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--pill-radius);
   color: var(--color-text-main);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: clamp(0.875rem, 3vw, 1rem);
   font-weight: 400;
   letter-spacing: 0.03em;
   transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s, border-color 0.3s;
@@ -226,7 +220,6 @@ body::before {
 .link-item:hover,
 .link-item:focus-visible {
   outline: none;
-  /* Hover dinâmico substituído pelos glowing edges do liquid-glass.js */
   color: var(--color-text-main); 
 }
 
@@ -241,7 +234,7 @@ body::before {
 }
 
 .link-item ion-icon {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: var(--color-text-muted);
   transition: color 0.3s;
 }
@@ -251,17 +244,18 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: clamp(1rem, 3vh, 1.5rem);
+  gap: 1.25rem;
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
   padding: 0.5rem 0;
+  width: 100%;
 }
 
 .social-icons-grid a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background: transparent;
   border: 1px solid var(--color-border);
@@ -276,7 +270,7 @@ body::before {
 
 .social-icons-grid a ion-icon {
   color: var(--color-text-main);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   transition: color 0.3s;
 }
 
@@ -293,10 +287,11 @@ body::before {
 
 footer {
   text-align: center;
-  padding: 1.5rem 0 0;
+  padding: 2rem 0 0;
   font-size: 0.75rem;
   color: var(--color-text-muted);
   opacity: 0.8;
+  width: 100%;
 }
 
 footer a {
@@ -304,50 +299,35 @@ footer a {
   text-decoration: none;
 }
 
-/* DESKTOP SPLIT LAYOUT */
-@media (min-width: 1024px) {
+/* DESKTOP SPLIT LAYOUT - Content-Driven Breakpoint */
+@media (min-width: 48rem) {
   body {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
     padding: 2rem;
   }
 
   .app-container {
-    display: flex;
-    max-width: 1200px;
-    width: 100%;
-    height: auto;
-    min-height: 80vh;
-    flex-direction: row;
+    max-width: var(--app-desktop-width);
+    min-height: clamp(30rem, 80vh, 50rem);
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 1fr;
     border-radius: var(--card-radius);
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    box-shadow: 0 2rem 4rem rgba(0,0,0,0.08);
   }
 
   .hero-cover {
-    width: 45%;
-    height: auto;
-    align-self: stretch; /* Preenche toda a altura do container pai (.app-container) */
-    min-height: 80vh;
-    border-radius: 0;
-  }
-  
-  .hero-cover img {
-    height: 100%;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
+    min-height: 100%;
+    border-radius: 0;
   }
 
   .profile-card {
-    position: relative;
-    width: 55%;
-    height: auto;
+    width: 100%;
+    height: 100%;
     margin-top: 0;
     border-radius: 0;
-    padding: 4rem 10%;
+    padding: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 4rem);
     justify-content: center;
     border: none;
     border-left: 1px solid var(--glass-light-border);
@@ -360,11 +340,7 @@ footer a {
   visibility: hidden;
 }
 
-/* =========================================
-   LIQUID GLASS EFFECT
-   Integração Dinâmica via Javascript
-   ========================================= */
-
+/* LIQUID GLASS EFFECT */
 .glass-target {
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.1),
               filter 0.3s ease, 
@@ -372,10 +348,9 @@ footer a {
               color 0.3s ease, 
               border-color 0.3s ease;
   will-change: transform, filter;
-  overflow: visible; /* Necessário para a aberração não cortar */
+  overflow: visible;
 }
 
-/* O conteúdo dentro do botão deve ter mix-blend-mode ajustado e brilhar */
 .glass-target > div {
-  pointer-events: none; /* o botão em si q responde, nao os filhos */
+  pointer-events: none;
 }
