@@ -89,6 +89,12 @@ export function initLiquidGlass() {
   // para garantir a semântica visual e evitar o bug da sombra/caixa cinza nos ícones.
   const allGlassElements = [...links].filter(Boolean);
 
+  // Desativa o efeito pesado em dispositivos touch/mobile (evita bugs no Safari iOS)
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  if (isTouchDevice) {
+    return () => {}; // Aborta inicialização no mobile
+  }
+
   allGlassElements.forEach((el, idx) => {
     if(el.dataset.hasLiquidGlass) return;
     el.dataset.hasLiquidGlass = true;

@@ -110,7 +110,7 @@ body::before {
   height: 100dvh; /* Garante que não ultrapasse a tela */
   background-color: #ffffff;
   position: relative;
-  overflow: hidden; /* Corta o scroll para forçar fit perfeito */
+  overflow: hidden; /* Mantém a imagem fixa */
   box-shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -139,20 +139,26 @@ body::before {
   margin-top: -3rem;
   width: 100%;
   flex-grow: 1; /* Preenche os 50% restantes */
-  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 0.5) 100%);
   backdrop-filter: blur(1.5rem) saturate(160%);
   -webkit-backdrop-filter: blur(1.5rem) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   border-left: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 5vw, 2rem) clamp(1rem, 3vh, 2rem); /* Mais enxuto verticalmente */
+  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 5vw, 1.5rem) clamp(0.5rem, 2vh, 1rem); /* Ainda mais enxuto */
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Distribui o conteúdo nos 50% */
+  justify-content: space-between; /* Distribui o conteúdo */
   box-shadow: 0 -0.625rem 2.5rem rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5);
+  overflow-y: auto; /* Permite scroll apenas no card se a tela for extremamente pequena */
+  scrollbar-width: none; /* Esconde scrollbar no Firefox */
+}
+
+.profile-card::-webkit-scrollbar {
+  display: none; /* Esconde scrollbar no Chrome/Safari */
 }
 
 /* Header inside card */
@@ -166,17 +172,17 @@ body::before {
 
 .profile-name {
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 8vw, 3.2rem); /* Aumentado */
+  font-size: clamp(1.8rem, 7vw, 2.8rem); /* Levemente reduzido para focar no mobile */
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.1;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.15rem;
   color: #000;
 }
 
 .profile-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(0.9rem, 2.5vw, 1rem); /* Aumentado de 0.75rem para 0.9rem */
+  font-size: clamp(0.7rem, 2.2vw, 0.85rem); 
   color: var(--color-text-muted);
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -188,7 +194,8 @@ body::before {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Mais enxuto */
+  gap: 0.5rem; /* Menos gap */
+  margin: 0.5rem 0;
 }
 
 .link-item {
@@ -197,14 +204,14 @@ body::before {
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 1rem 1rem;
+  padding: 0.8rem 1rem; /* Botoes menos altos */
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--pill-radius);
   color: var(--color-text-main);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 4vw, 1.125rem); /* Aumentado */
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem); 
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s, border-color 0.3s;
@@ -238,7 +245,7 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   width: 100%;
 }
 
@@ -246,8 +253,8 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
   background: transparent;
   border: 1px solid var(--color-border);
@@ -279,8 +286,8 @@ body::before {
 
 footer {
   text-align: center;
-  padding: 2rem 0 0;
-  font-size: 0.75rem;
+  padding: 0.5rem 0 0; /* Menos padding */
+  font-size: 0.65rem;
   color: var(--color-text-muted);
   opacity: 0.8;
   width: 100%;
