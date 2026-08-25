@@ -36,33 +36,3 @@ jobs:
           name: dist
           path: dist/
           retention-days: 7
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: quality
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-          
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/
-          
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
