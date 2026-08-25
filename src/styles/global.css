@@ -327,11 +327,12 @@ body::before {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 0;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.4);
+  padding: 0.8rem 0;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--color-text-main);
+  font-size: 1.15rem; /* Aumentado para melhor legibilidade */
+  font-weight: 500;
+  color: #000;
   outline: none;
   transition: border-color 0.3s ease;
   resize: none;
@@ -339,13 +340,13 @@ body::before {
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7); /* Mais escuro para melhor contraste */
+  font-weight: 600;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.9);
 }
 
 .form-submit-container {

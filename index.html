@@ -30,6 +30,20 @@
   </head>
 
   <body data-page="home">
+    <!-- 
+    ========================================================================
+      Olá, Recrutador(a) / Dev Curioso! 👀
+
+      Que legal ver você inspecionando meu DOM. Gosta do que vê?
+      Repositório limpo, CSS enxuto, tipagem rigorosa e arquitetura sólida. 🚀
+      
+      Vamos conversar! Me chama no WhatsApp ali no formulário ou nos links.
+      
+          /\_/\  
+         ( o.o ) 
+          > ^ <  
+    ========================================================================
+    -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <!-- Container principal -->
     <main id="main-content" class="app-container">
@@ -39,31 +53,36 @@
         <div class="card-header anim-el" style="text-align: left; align-items: flex-start; padding-bottom: 2rem;">
           <h1 class="profile-name" style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;">Let's Talk</h1>
         </div>
+        
+        <!-- Links em Pílula [DESKTOP] -->
+        <nav class="links-section anim-el" aria-label="Links Sociais Desktop" style="flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 0.8rem; margin-top: -1rem; margin-bottom: 2rem;">
+          <a href="https://victorcardoso.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+            Portfólio
+          </a>
+          <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+            Repositório
+          </a>
+          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+            LinkedIn
+          </a>
+        </nav>
 
         <form id="whatsapp-form" class="contact-form anim-el">
           <div class="form-row">
             <div class="form-group">
-              <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+              <input type="text" id="firstName" name="firstName" placeholder="Nome" required />
             </div>
             <div class="form-group">
-              <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+              <input type="text" id="lastName" name="lastName" placeholder="Sobrenome" required />
             </div>
           </div>
-          
-          <div class="form-group">
-            <input type="tel" id="phone" name="phone" placeholder="Your Phone" required />
-          </div>
 
           <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Your Email" required />
-          </div>
-
-          <div class="form-group">
-            <textarea id="message" name="message" placeholder="Your Message" rows="1" required></textarea>
+            <textarea id="message" name="message" placeholder="Mensagem" rows="1" required></textarea>
           </div>
 
           <div class="form-submit-container">
-            <button type="submit" class="submit-btn">Submit</button>
+            <button type="submit" class="submit-btn">Enviar</button>
           </div>
         </form>
 
@@ -77,6 +96,19 @@
             <p>hello@sasha.com</p>
           </div>
         </footer>
+        
+        <!-- Grade de Ícones Sociais [DESKTOP] -->
+        <div class="social-icons-grid anim-el" style="margin-top: 2rem; justify-content: flex-start; gap: 1.5rem;">
+          <a href="https://instagram.com/abaxu_artes" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram">
+            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+          </a>
+          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Enviar Email">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+          </a>
+          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+            <ion-icon name="logo-whatsapp" aria-hidden="true"></ion-icon>
+          </a>
+        </div>
       </section>
 
       <!-- HERO COVER: Usado no mobile (topo) e no desktop (direita) -->
@@ -108,7 +140,7 @@
 
         <!-- Links Minimalistas -->
         <nav class="links-section anim-el" aria-label="Links Sociais">
-          <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="link-item">
+          <a href="https://victorcardoso.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-item">
             Portfólio
           </a>
           <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item">

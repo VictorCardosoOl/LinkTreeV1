@@ -56,6 +56,7 @@ class AppManager {
   }
 
   bootstrap() {
+    this.#showEasterEgg();
     try {
       this.#initScrollEngine();
       this.#playEntranceSequence();
@@ -65,6 +66,24 @@ class AppManager {
       document.documentElement.classList.add('fallback-scroll');
       gsap.set('.anim-el, .hero-cover, .profile-name', { visibility: 'visible', opacity: 1, y: 0 });
     }
+  }
+
+  #showEasterEgg() {
+    const asciiArt = `
+      /\\_/\\  
+     ( o.o ) 
+      > ^ <  
+    `;
+    console.log(
+      "%cOlá, Recrutador(a) / Dev Curioso! 👀",
+      "font-size: 24px; font-weight: bold; color: #222;"
+    );
+    console.log(
+      "%cQue legal ver você inspecionando meu código. Gosta do que vê? Vamos conversar!\n" +
+      "Repositório limpo, design minimalista e código estruturado. 🚀",
+      "font-size: 14px; color: #555; padding-top: 5px; padding-bottom: 5px;"
+    );
+    console.log(`%c${asciiArt}`, "font-weight: bold; color: #333;");
   }
 
   #loadPageSpecificModules() {
@@ -84,17 +103,12 @@ class AppManager {
       const formData = new FormData(form);
       const firstName = formData.get('firstName');
       const lastName = formData.get('lastName');
-      const phone = formData.get('phone');
-      const email = formData.get('email');
       const message = formData.get('message');
 
       // O número de destino do WhatsApp
       const targetNumber = '5511977440146'; // Puxado do LinkTree anterior
       
-      const text = `Olá! Meu nome é ${firstName} ${lastName}.\n\n` +
-                   `📧 Email: ${email}\n` +
-                   `📱 Telefone: ${phone}\n\n` +
-                   `💬 Mensagem:\n${message}`;
+      const text = `Olá! Meu nome é ${firstName} ${lastName}.\n\n${message}`;
 
       const encodedText = encodeURIComponent(text);
       const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodedText}`;
