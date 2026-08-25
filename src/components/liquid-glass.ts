@@ -11,10 +11,11 @@ export function initLiquidGlass() {
     if (el.dataset.hasLiquidGlass) {
       return;
     }
-    el.dataset.hasLiquidGlass = true;
+    el.dataset.hasLiquidGlass = "true";
 
     const computedStyle = window.getComputedStyle(el);
-    const radius = computedStyle.borderRadius || '999px';
+    // Force 999px to prevent Safari/Mobile Chrome from returning 0px on rem values
+    const radius = '999px';
     const elasticity = 0.15;
     
     const fragment = document.createDocumentFragment();
