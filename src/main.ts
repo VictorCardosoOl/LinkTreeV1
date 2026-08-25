@@ -69,6 +69,38 @@ class AppManager {
 
   #loadPageSpecificModules() {
     initLiquidGlass();
+    this.#initWhatsAppForm();
+  }
+
+  #initWhatsAppForm() {
+    const form = document.getElementById('whatsapp-form');
+    if (!form) {
+      return;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const firstName = formData.get('firstName');
+      const lastName = formData.get('lastName');
+      const phone = formData.get('phone');
+      const email = formData.get('email');
+      const message = formData.get('message');
+
+      // O número de destino do WhatsApp
+      const targetNumber = '5511977440146'; // Puxado do LinkTree anterior
+      
+      const text = `Olá! Meu nome é ${firstName} ${lastName}.\n\n` +
+                   `📧 Email: ${email}\n` +
+                   `📱 Telefone: ${phone}\n\n` +
+                   `💬 Mensagem:\n${message}`;
+
+      const encodedText = encodeURIComponent(text);
+      const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodedText}`;
+      
+      window.open(whatsappUrl, '_blank');
+    });
   }
 
   #initScrollEngine() {

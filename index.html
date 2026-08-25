@@ -33,8 +33,63 @@
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <!-- Container principal -->
     <main id="main-content" class="app-container">
-      <!-- Topo da tela: Foto em P&B -->
-      <div class="hero-cover">
+      
+      <!-- [DESKTOP ONLY] Card Esquerdo: Formulário WhatsApp -->
+      <section class="profile-card desktop-only">
+        <div class="card-header anim-el" style="text-align: left; align-items: flex-start; padding-bottom: 2rem;">
+          <h1 class="profile-name" style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;">Let's Talk</h1>
+        </div>
+
+        <form id="whatsapp-form" class="contact-form anim-el">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+            </div>
+            <div class="form-group">
+              <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone" required />
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Your Email" required />
+          </div>
+
+          <div class="form-group">
+            <textarea id="message" name="message" placeholder="Your Message" rows="1" required></textarea>
+          </div>
+
+          <div class="form-submit-container">
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        </form>
+
+        <footer class="contact-footer anim-el">
+          <div class="contact-info">
+            <span class="info-label">ADDRESS</span>
+            <p>123 Balboa Boulevard Newport<br>Beach, CA 92662</p>
+          </div>
+          <div class="contact-info">
+            <span class="info-label">EMAIL</span>
+            <p>hello@sasha.com</p>
+          </div>
+        </footer>
+      </section>
+
+      <!-- HERO COVER: Usado no mobile (topo) e no desktop (direita) -->
+      <section class="hero-cover">
+        <!-- Circular Badge [DESKTOP ONLY] -->
+        <div class="circular-badge desktop-only">
+          <svg viewBox="0 0 100 100">
+            <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
+            <text>
+              <textPath href="#circlePath" startOffset="0%" textLength="215" font-family="sans-serif" font-size="8.5" font-weight="bold" letter-spacing="0.1em">LET'S GET TO WORK • LET'S GET TO WORK • </textPath>
+            </text>
+          </svg>
+        </div>
         <img
           src="/src/assets/avatar.jpg"
           alt="Retrato de Victor Cardoso"
@@ -42,10 +97,10 @@
           width="420"
           height="480"
         />
-      </div>
+      </section>
 
-      <!-- Card de Vidro Sobreposto -->
-      <div class="profile-card">
+      <!-- [MOBILE ONLY] LinkTree Clássico -->
+      <section class="profile-card mobile-only">
         <div class="card-header anim-el">
           <h1 class="profile-name">Victor Cardoso</h1>
           <p class="profile-subtitle">Software Engineer & UI Designer</p>
@@ -53,28 +108,13 @@
 
         <!-- Links Minimalistas -->
         <nav class="links-section anim-el" aria-label="Links Sociais">
-          <a
-            href="https://victor-cardoso-dev.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-item"
-          >
+          <a href="https://victor-cardoso-dev.vercel.app" target="_blank" rel="noopener noreferrer" class="link-item">
             Portfólio
           </a>
-          <a
-            href="https://github.com/VictorCardosoOl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-item"
-          >
+          <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item">
             Repositório
           </a>
-          <a
-            href="https://www.linkedin.com/in/victor-card-cunha/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-item"
-          >
+          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item">
             LinkedIn
           </a>
         </nav>
@@ -92,12 +132,13 @@
           </a>
         </div>
 
-        <footer class="anim-el">
+        <footer class="anim-el text-center">
           <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
             &copy; 2026 Victor Cardoso
           </a>
         </footer>
-      </div>
+      </section>
+
     </main>
 
     <!-- IonIcons CDN (Resolve problema de SVGs não injetados no build do Vite) -->

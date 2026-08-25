@@ -8,7 +8,9 @@ export function initLiquidGlass() {
   const cleanupFunctions = [];
 
   elements.forEach((el) => {
-    if (el.dataset.hasLiquidGlass) return;
+    if (el.dataset.hasLiquidGlass) {
+      return;
+    }
     el.dataset.hasLiquidGlass = true;
 
     const computedStyle = window.getComputedStyle(el);
