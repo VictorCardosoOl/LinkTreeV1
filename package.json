@@ -14,7 +14,8 @@
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write \"**/*.{js,html,css,json,md}\"",
-    "check": "eslint src/ ; prettier --check \"**/*.{js,html,css,json,md}\""
+    "check": "eslint src/ ; prettier --check \"**/*.{js,html,css,json,md}\"",
+    "test": "vitest run"
   },
   "keywords": [
     "portfolio",
@@ -26,15 +27,20 @@
   "author": "Victor Cardoso <victorcardcunha@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^26.3.0",
     "gsap": "^3.14.2",
-    "lenis": "^1.3.17"
+    "lenis": "^1.3.17",
+    "typescript": "^7.0.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^8.57.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
+    "jsdom": "^30.0.1",
     "prettier": "^3.8.1",
     "vite": "^7.3.4",
-    "vite-plugin-handlebars": "^2.0.3"
+    "vite-plugin-handlebars": "^2.0.3",
+    "vitest": "^4.1.11"
   }
 }
