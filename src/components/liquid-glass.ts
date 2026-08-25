@@ -2,118 +2,21 @@
  * Liquid Glass Effect - Vanilla JS Port
  * Baseado no liquid-glass-react
  */
-import displacementMapUrl from '../assets/displacement-map.jpg';
-
-function createGlassSVGFilter(id, displacementScale, aberrationIntensity) {
-  const svgNS = "http://www.w3.org/2000/svg";
-  
-  let svgContainer = document.getElementById('liquid-glass-svg-container');
-  if (!svgContainer) {
-    svgContainer = document.createElementNS(svgNS, 'svg');
-    svgContainer.id = 'liquid-glass-svg-container';
-    svgContainer.style.position = 'absolute';
-    svgContainer.style.width = '0';
-    svgContainer.style.height = '0';
-    svgContainer.style.pointerEvents = 'none';
-    svgContainer.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(svgContainer);
-  }
-
-  if (document.getElementById(id)) {
-    return id;
-  }
-
-  const defs = document.createElementNS(svgNS, 'defs');
-  
-  const filterHTML = `
-    <filter id="${id}" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
-      <feImage id="feimage" x="0" y="0" width="100%" height="100%" result="DISPLACEMENT_MAP" href="${displacementMapUrl}" preserveAspectRatio="xMidYMid slice" />
-
-      <!-- Create edge mask using the displacement map itself -->
-      <feColorMatrix
-        in="DISPLACEMENT_MAP"
-        type="matrix"
-        values="0.3 0.3 0.3 0 0
-                0.3 0.3 0.3 0 0
-                0.3 0.3 0.3 0 0
-                0 0 0 1 0"
-        result="EDGE_INTENSITY"
-      />
-      <feComponentTransfer in="EDGE_INTENSITY" result="EDGE_MASK">
-        <feFuncA type="discrete" tableValues="0 ${aberrationIntensity * 0.05} 1" />
-      </feComponentTransfer>
-
-      <feOffset in="SourceGraphic" dx="0" dy="0" result="CENTER_ORIGINAL" />
-
-      <!-- RGB Channels with intense displacement (-70) -->
-      <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale}" xChannelSelector="R" yChannelSelector="B" result="RED_DISPLACED" />
-      <feColorMatrix in="RED_DISPLACED" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="RED_CHANNEL" />
-
-      <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale - aberrationIntensity * 0.05}" xChannelSelector="R" yChannelSelector="B" result="GREEN_DISPLACED" />
-      <feColorMatrix in="GREEN_DISPLACED" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="GREEN_CHANNEL" />
-
-      <feDisplacementMap in="SourceGraphic" in2="DISPLACEMENT_MAP" scale="${-displacementScale - aberrationIntensity * 0.1}" xChannelSelector="R" yChannelSelector="B" result="BLUE_DISPLACED" />
-      <feColorMatrix in="BLUE_DISPLACED" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="BLUE_CHANNEL" />
-
-      <feBlend in="GREEN_CHANNEL" in2="BLUE_CHANNEL" mode="screen" result="GB_COMBINED" />
-      <feBlend in="RED_CHANNEL" in2="GB_COMBINED" mode="screen" result="RGB_COMBINED" />
-
-      <feGaussianBlur in="RGB_COMBINED" stdDeviation="${Math.max(0.1, 0.5 - aberrationIntensity * 0.1)}" result="ABERRATED_BLURRED" />
-
-      <feComposite in="ABERRATED_BLURRED" in2="EDGE_MASK" operator="in" result="EDGE_ABERRATION" />
-
-      <feComponentTransfer in="EDGE_MASK" result="INVERTED_MASK">
-        <feFuncA type="table" tableValues="1 0" />
-      </feComponentTransfer>
-      <feComposite in="CENTER_ORIGINAL" in2="INVERTED_MASK" operator="in" result="CENTER_CLEAN" />
-
-      <feComposite in="EDGE_ABERRATION" in2="CENTER_CLEAN" operator="over" />
-    </filter>
-  `;
-
-  
-  defs.innerHTML = filterHTML;
-  svgContainer.appendChild(defs);
-  
-  return id;
-}
 
 export function initLiquidGlass() {
-  const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
-
+  const elements = document.querySelectorAll('.link-item');
   const cleanupFunctions = [];
-  const links = document.querySelectorAll('.link-item');
-  
-  // Vamos focar o efeito de liquid glass apenas nos elementos iterativos principais (botões) 
-  // para garantir a semântica visual e evitar o bug da sombra/caixa cinza nos ícones.
-  const allGlassElements = [...links].filter(Boolean);
 
-  // Desativa o efeito pesado em dispositivos touch/mobile (evita bugs no Safari iOS)
-  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-  if (isTouchDevice) {
-    return () => {}; // Aborta inicialização no mobile
-  }
-
-  allGlassElements.forEach((el, idx) => {
-    if (el.dataset.hasLiquidGlass) {
-      return;
-    }
+  elements.forEach((el) => {
+    if (el.dataset.hasLiquidGlass) return;
     el.dataset.hasLiquidGlass = true;
-
-    // overLight mode params: (reduz a distorção pela metade, adiciona sombras ricas e fundo escurecido)
-    const displacementScale = 35; // 70 * 0.5 for overLight
-    const saturation = 140;
-    const blurPx = 14; 
-    const elasticity = 0.15;
-    
-    const filterId = `liquid-glass-filter-${idx}`;
-    createGlassSVGFilter(filterId, displacementScale, 2);
 
     const computedStyle = window.getComputedStyle(el);
     const radius = computedStyle.borderRadius || '999px';
-
+    const elasticity = 0.15;
+    
     const fragment = document.createDocumentFragment();
-    while(el.firstChild) {
+    while (el.firstChild) {
         fragment.appendChild(el.firstChild);
     }
     
@@ -125,15 +28,15 @@ export function initLiquidGlass() {
     el.style.border = 'none';
     el.style.boxShadow = 'none';
 
-    // 2. Warp/Shader (A lente translúcida com distorção)
+    // 2. Warp/Shader (A lente translúcida)
     const warpLayer = document.createElement('span');
     warpLayer.className = 'glass-warp-layer';
     warpLayer.style.position = 'absolute';
     warpLayer.style.inset = '0';
     warpLayer.style.borderRadius = radius;
-    warpLayer.style.filter = isFirefox ? 'none' : `url(#${filterId})`;
-    warpLayer.style.backdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
-    warpLayer.style.WebkitBackdropFilter = `blur(${blurPx}px) saturate(${saturation}%)`;
+    // Removido o SVG filter problemático que causa distorções no Chromium/Arc
+    warpLayer.style.backdropFilter = `blur(12px) saturate(160%)`;
+    warpLayer.style.WebkitBackdropFilter = `blur(12px) saturate(160%)`;
     warpLayer.style.background = 'transparent';
     warpLayer.style.boxShadow = '0px 10px 40px rgba(0, 0, 0, 0.05), inset 0 1px 3px rgba(255,255,255,0.5)';
 
@@ -162,9 +65,8 @@ export function initLiquidGlass() {
         b.style.maskComposite = 'exclude';
     });
     
-    border1.style.mixBlendMode = 'screen';
-    border1.style.opacity = '0.2';
-    border2.style.mixBlendMode = 'overlay';
+    border1.style.opacity = '0.3';
+    border2.style.opacity = '0.7';
     
     // 4. Hover effect layers
     const hoverHighlight = document.createElement('span');
