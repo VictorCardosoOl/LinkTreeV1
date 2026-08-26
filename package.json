@@ -5,7 +5,7 @@
   "description": "Victor Cardoso personal links page — physics-based animations, glassmorphism UI, PWA-ready.",
   "main": "script.js",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "vite",
