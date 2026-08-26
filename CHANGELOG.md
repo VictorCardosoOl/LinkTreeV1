@@ -1,68 +1,68 @@
-# Changelog
+# Histórico de Alterações (Changelog)
 
-All notable changes to this project will be documented in this file.
+Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
+e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
 ---
 
 ## [1.3.0] - 2026-03-19
 
-### Added
+### Adicionado
 
-- Enterprise-grade infrastructure: `.gitignore`, `.nvmrc`, `vite.config.js`
-- Code quality tooling: ESLint 8 + Prettier with shared config
-- CI workflow via GitHub Actions (`build` + `lint` on every push)
-- `CHANGELOG.md` following Conventional Commits / Keep a Changelog
-- `README.md` with badges, setup guide and project structure
-- `gallery.css` — gallery styles extracted from inline HTML
-- `prefers-color-scheme: light` support in global CSS
-- `data-page` attribute pattern for page-aware JS initialization
-- JSDoc documentation on all public classes and module functions
-- Ionicons installed as local npm dependency
+- Infraestrutura de nível empresarial: `.gitignore`, `.nvmrc`, `vite.config.js`
+- Ferramentas de qualidade de código: ESLint 8 + Prettier com configuração compartilhada
+- Fluxo de trabalho de CI (Integração Contínua) via GitHub Actions (`build` + `lint` a cada push)
+- `CHANGELOG.md` seguindo Conventional Commits / Keep a Changelog
+- `README.md` com selos (badges), guia de instalação e estrutura do projeto
+- `gallery.css` — estilos da galeria extraídos do HTML embutido
+- Suporte a `prefers-color-scheme: light` no CSS global
+- Padrão de atributo `data-page` para inicialização de JS ciente da página atual
+- Documentação JSDoc em todas as classes públicas e funções de módulo
+- Ionicons instalados como dependência local do npm
 
-### Changed
+### Modificado
 
-- `script.js` refactored: `PAGE_HANDLERS` pattern replaces implicit page coupling
-- `MagneticButton`: private class fields (`#`), `AbortController` for listener cleanup
-- `TypographyAnimator`: `#animateElement` extracted as private method (SRP)
-- `manifest.json`: `purpose` entries separated per W3C spec
-- Wide-screen breakpoints (2xl/3xl/4xl) added to CSS token system
+- Refatoração do `script.js`: O padrão `PAGE_HANDLERS` substitui o acoplamento implícito de página
+- `MagneticButton`: campos de classe privados (`#`), `AbortController` para limpeza de ouvintes de eventos (listeners)
+- `TypographyAnimator`: `#animateElement` extraído como método privado (Princípio de Responsabilidade Única - SRP)
+- `manifest.json`: entradas de `purpose` separadas de acordo com as especificações da W3C
+- Pontos de quebra (breakpoints) de tela larga (2xl/3xl/4xl) adicionados ao sistema de tokens CSS
 
-### Fixed
+### Corrigido
 
-- Font `Outfit` was referenced in CSS but missing from HTML font loading
-- `gallery.html` missing `meta description`, favicon and `noscript` block
-- `manifest.json` `purpose: "any maskable"` combined (W3C antipattern)
-- Rollup CVE-2026-27606: bumped to patched version via `npm update`
+- A fonte `Outfit` era referenciada no CSS, mas faltava no carregamento de fontes do HTML
+- Faltava no `gallery.html` a `meta description`, o favicon e o bloco `noscript`
+- `purpose: "any maskable"` do `manifest.json` que estava combinado (antipattern da W3C corrigido)
+- Vulnerabilidade Rollup CVE-2026-27606: atualizado para a versão corrigida via `npm update`
 
 ---
 
 ## [1.2.0] - 2026-02-13
 
-### Added
+### Adicionado
 
-- Physics-based animations using GSAP + ScrollTrigger
-- Smooth scroll via Lenis
-- Text reveal animation via SplitType
-- `MagneticButton` class with spotlight and magnetic pull effects
-- PWA manifest (`manifest.json`)
+- Animações baseadas em física usando GSAP + ScrollTrigger
+- Rolagem suave via Lenis
+- Animação de revelação de texto via SplitType
+- Classe `MagneticButton` com efeitos de holofote (spotlight) e atração magnética
+- Manifesto de PWA (`manifest.json`)
 
-### Changed
+### Modificado
 
-- Full CSS architecture refactor: CSS Variables design token system
-- Fluid typography using `clamp()`
-- Glassmorphism card design for nav links
+- Refatoração completa da arquitetura CSS: Sistema de tokens de design com Variáveis CSS
+- Tipografia fluida usando `clamp()`
+- Design de cartão "Glassmorphism" (Efeito Vidro) para os links de navegação
 
 ---
 
 ## [1.0.0] - 2024-01-01
 
-### Added
+### Adicionado
 
-- Initial release: LinkTree-style personal page
-- Static HTML + CSS layout
-- Social links: WhatsApp, LinkedIn, GitHub, Instagram, Email
-- Portfolio feature card
-- Gallery page placeholder
+- Lançamento inicial: Página pessoal estilo LinkTree
+- Layout estático HTML + CSS
+- Links sociais: WhatsApp, LinkedIn, GitHub, Instagram, Email
+- Cartão de destaque do portfólio
+- Espaço reservado para página de Galeria

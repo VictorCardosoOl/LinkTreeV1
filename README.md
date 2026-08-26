@@ -1,14 +1,14 @@
 <h1 align="center">Victor Cardoso — Links</h1>
 
 <p align="center">
-  <strong>Personal LinkTree-style portfolio page built with modern frontend best practices.</strong>
+  <strong>Página de portfólio estilo LinkTree criada com as melhores práticas modernas de frontend.</strong>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vite-7.x-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
   <img src="https://img.shields.io/badge/GSAP-3.x-88CE02?style=for-the-badge&logo=greensock&logoColor=white" alt="GSAP">
   <img src="https://img.shields.io/badge/Lenis-Smooth_Scroll-black?style=for-the-badge" alt="Lenis">
-  <img src="https://img.shields.io/badge/Node-20_LTS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node">
+  <img src="https://img.shields.io/badge/Node-24_LTS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node">
   <img src="https://img.shields.io/badge/ESLint-8.x-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
   <img src="https://img.shields.io/badge/Prettier-3.x-F7B93E?style=for-the-badge&logo=prettier&logoColor=black" alt="Prettier">
   <img src="https://img.shields.io/github/actions/workflow/status/VictorCardosoOl/LinkTreeV1/ci.yml?style=for-the-badge&label=CI" alt="CI">
@@ -16,118 +16,118 @@
 
 ---
 
-- **Clean Architecture** — Industry-standard project structure with `src/` and `public/` isolation
-- **Glassmorphism UI** — Editorial B&W theme with refined backdrop-filter surfaces
-- **Liquid Glass Tooling** — Interactive SVG `feDisplacementMap` filters with `requestAnimationFrame` throttling
-- **AppManager Singleton** — Scalable OOP entry point with error handling and fallback support
-- **On-Demand Loading** — Code-split gallery features (`lightbox.js`) for optimized mobile performance
-- **Performance Optimized** — Physics-based animations with GSAP and 60 FPS smooth scrolling via Lenis
-- **PWA-ready** — `manifest.json` with maskable icons and theme synchronization
-- **Light / Dark mode** — respects `prefers-color-scheme` system preference
+- **Arquitetura Limpa** — Estrutura de projeto padrão da indústria com isolamento de `src/` e `public/`
+- **Interface Glassmorphism (Efeito Vidro)** — Tema editorial em preto e branco com superfícies de filtro de desfoque (backdrop-filter) refinadas
+- **Efeitos de Vidro Líquido** — Filtros SVG interativos `feDisplacementMap` com aceleração via `requestAnimationFrame`
+- **Singleton AppManager** — Ponto de entrada escalável em POO com tratamento de erros e suporte a fallback
+- **Carregamento sob Demanda (On-Demand)** — Divisão de código (code-split) de recursos da galeria (`lightbox.js`) para desempenho mobile otimizado
+- **Otimizado para Desempenho** — Animações baseadas em física com GSAP e rolagem suave a 60 FPS com Lenis
+- **Pronto para PWA** — `manifest.json` com ícones adaptáveis (maskable) e sincronização de tema
+- **Modo Claro / Escuro** — respeita a preferência do sistema `prefers-color-scheme`
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Começando
 
-### Prerequisites
+### Pré-requisitos
 
-- [Node.js 20 LTS](https://nodejs.org/) — see `.nvmrc`
+- [Node.js 24 LTS](https://nodejs.org/) — veja o `.nvmrc`
 - npm 10+
 
-> **Using nvm?** Run `nvm install` and `nvm use` in the project root.
+> **Usando nvm?** Rode `nvm install` e `nvm use` na raiz do projeto.
 
-### Installation
+### Instalação
 
 ```bash
-# 1. Clone the repository
+# 1. Clone o repositório
 git clone https://github.com/VictorCardosoOl/LinkTreeV1.git
 cd LinkTreeV1
 
-# 2. Install dependencies
+# 2. Instale as dependências
 npm install
 
-# 3. Start the development server
+# 3. Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
+O aplicativo estará disponível em `http://localhost:5173`.
 
 ---
 
 ## 📦 Scripts
 
-| Command            | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `npm run dev`      | Start Vite development server with HMR      |
-| `npm run build`    | Production build with dynamic code-splitting|
-| `npm run preview`  | Preview the production build locally        |
-| `npm run lint`     | Run ESLint across `src/` directory          |
-| `npm run format`   | Format all files with Prettier              |
-| `npm run check`    | Comprehensive CI validation (lint + format) |
+| Comando            | Descrição                                         |
+| ------------------ | ------------------------------------------------- |
+| `npm run dev`      | Inicia o servidor de desenvolvimento Vite com HMR |
+| `npm run build`    | Build de produção com divisão dinâmica de código  |
+| `npm run preview`  | Visualizar o build de produção localmente         |
+| `npm run lint`     | Roda o ESLint na pasta `src/`                     |
+| `npm run format`   | Formata todos os arquivos com o Prettier          |
+| `npm run check`    | Validação completa para CI (lint + format)        |
 
 ---
 
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 LinkTreeV1/
-├── public/                 # Static global assets (favicons, manifest)
-├── scripts/                # Utility scripts (image compression)
+├── public/                 # Assets globais estáticos (favicons, manifest)
+├── scripts/                # Scripts utilitários (compressão de imagens)
 ├── src/
-│   ├── assets/             # Dynamic assets (avatars, textures, fonts)
-│   ├── features/           # Modular project features (Liquid Glass, Lightbox)
-│   ├── styles/             # Design System (Global & Component CSS)
-│   └── main.js             # Application Entry (AppManager Singleton)
-├── index.html              # Home Page entry
-├── gallery.html            # Gallery Page entry
-├── vite.config.js          # Build & Asset configuration
-└── .eslintrc.json          # Code quality rules
+│   ├── assets/             # Assets dinâmicos (avatares, texturas, fontes)
+│   ├── features/           # Funcionalidades modulares (Vidro Líquido, Lightbox)
+│   ├── styles/             # Design System (CSS Global e de Componentes)
+│   └── main.js             # Entrada da Aplicação (Singleton AppManager)
+├── index.html              # Página Inicial
+├── gallery.html            # Página de Galeria
+├── vite.config.js          # Configuração de Build e Assets
+└── .eslintrc.json          # Regras de qualidade de código
 ```
 
 ---
 
-## 🎨 Design System
+## 🎨 Design System (Sistema de Design)
 
-All design tokens are defined as CSS Custom Properties in `style.css`:
+Todos os tokens de design são definidos como Variáveis Customizadas (Custom Properties) no `style.css`:
 
-| Category   | Variables                                                               |
+| Categoria  | Variáveis                                                               |
 | ---------- | ----------------------------------------------------------------------- |
-| Colors     | `--color-text-primary`, `--color-surface-glass`, `--color-border-glass` |
-| Typography | `--font-primary`, `--font-display`, `--text-xs` → `--text-xl`           |
-| Spacing    | `--space-xs` → `--space-xl` (4px baseline grid)                         |
+| Cores      | `--color-text-primary`, `--color-surface-glass`, `--color-border-glass` |
+| Tipografia | `--font-primary`, `--font-display`, `--text-xs` → `--text-xl`           |
+| Espaçamento| `--space-xs` → `--space-xl` (grade base de 4px)                         |
 | Layout     | `--layout-max-width`, `--layout-gutter`, `--layout-padding-top`         |
-| Animation  | `--ease-elastic`, `--ease-expo`                                         |
+| Animação   | `--ease-elastic`, `--ease-expo`                                         |
 
 ---
 
-## 🧪 Linting & Formatting
+## 🧪 Linting e Formatação
 
 ```bash
-npm run lint       # Check for errors
-npm run lint:fix   # Auto-fix errors
-npm run format     # Format all files
-npm run check      # lint + format check (CI-safe)
+npm run lint       # Verifica por erros
+npm run lint:fix   # Corrige erros automaticamente
+npm run format     # Formata todos os arquivos
+npm run check      # checagem de lint + formatação (seguro para CI)
 ```
 
 ---
 
-## 📋 Tech Stack
+## 📋 Stack de Tecnologias
 
-| Layer      | Technology                                                                                                                  |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Build tool | [Vite 7](https://vitejs.dev/)                                                                                               |
-| Visuals    | Vanilla JS + Custom SVG Filters (`feDisplacementMap`, `feColorMatrix` for Liquid Glass Lens effects)                        |
-| Animations | [GSAP 3](https://gsap.com/) + [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)                              |
-| Scroll     | [Lenis](https://github.com/darkroomengineering/lenis)                                                                       |
-| Text split | [SplitType](https://github.com/lukePeavey/SplitType)                                                                        |
-| Icons      | [Ionicons 7](https://ionic.io/ionicons)                                                                                     |
-| Fonts      | [Outfit](https://fonts.google.com/specimen/Outfit) + [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) |
-| Linting    | ESLint 8 + eslint-config-prettier                                                                                           |
-| Formatting | Prettier 3                                                                                                                  |
-| CI         | GitHub Actions                                                                                                              |
+| Camada         | Tecnologia                                                                                                                  |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Ferramenta Build| [Vite 7](https://vitejs.dev/)                                                                                               |
+| Visuais        | Vanilla JS + Filtros SVG Customizados (`feDisplacementMap`, `feColorMatrix` para efeitos de Vidro Líquido)                  |
+| Animações      | [GSAP 3](https://gsap.com/) + [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)                              |
+| Rolagem        | [Lenis](https://github.com/darkroomengineering/lenis)                                                                       |
+| Divisão Texto  | [SplitType](https://github.com/lukePeavey/SplitType)                                                                        |
+| Ícones         | [Ionicons 7](https://ionic.io/ionicons)                                                                                     |
+| Fontes         | [Outfit](https://fonts.google.com/specimen/Outfit) + [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) |
+| Linting        | ESLint 8 + eslint-config-prettier                                                                                           |
+| Formatação     | Prettier 3                                                                                                                  |
+| CI             | GitHub Actions                                                                                                              |
 
 ---
 
-## 📄 License
+## 📄 Licença
 
-© 2024 Victor Cardoso. All rights reserved.
+© 2024 Victor Cardoso. Todos os direitos reservados.
